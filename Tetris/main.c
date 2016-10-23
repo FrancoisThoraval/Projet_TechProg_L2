@@ -5,19 +5,15 @@
 #include "matrixHandler.h"
 #include "movementHandler.h"
 
-// int const X=12;
-// int const Y=14;
-// #define Y 14
-// #define X 12
-
-
-// int movementHandler(char mat[Y][X]){
-//   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
-//
-//   return noConflict;
-// }
+squareDef Sblock;
+ZDef Zblock;
+LDef Lblock;
+IDef Iblock;
+JDef Jblock;
+TDef Tblock;
 
 int main() {
+
   // char mat[X][Y];
   int gameOn =0;
   int oldNumber = -1;
@@ -31,7 +27,7 @@ int main() {
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat);
+    putBlockInMat(1/*randomNumber*/,mat);
     Affiche(mat); //on l'affiche
     if (noConflict == 0){
       noConflict = movementHandler(mat,randomNumber); //gere les mouvements du bloc par le joueur

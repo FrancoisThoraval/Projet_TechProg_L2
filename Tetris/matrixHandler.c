@@ -45,123 +45,124 @@ void Affiche(char mat[Y][X]) {
 
 // Designs des blocs
 void square(char mat[Y][X]) {
-  squareDef block;
+  extern squareDef Sblock;
   char blocChar = 'x';
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.squareLeftX = X/2 -1;
-  block.squareRightX = X/2;
 
-  mat[block.lineOneY][block.squareLeftX] = blocChar;
-  mat[block.lineOneY][block.squareRightX] = blocChar;
-  mat[block.lineTwoY][block.squareLeftX] = blocChar;
-  mat[block.lineTwoY][block.squareRightX] = blocChar;
+  Sblock.lineOneY = 0;
+  Sblock.lineTwoY = 1;
+  Sblock.squareLeftX = X/2 -1;
+  Sblock.squareRightX = X/2;
+
+  mat[Sblock.lineOneY][Sblock.squareLeftX] = blocChar;
+  mat[Sblock.lineOneY][Sblock.squareRightX] = blocChar;
+  mat[Sblock.lineTwoY][Sblock.squareLeftX] = blocChar;
+  mat[Sblock.lineTwoY][Sblock.squareRightX] = blocChar;
 }
 
 void zeee(char mat[Y][X]) {
-  ZDef block;
+  extern ZDef Zblock;
   char blocChar = 'x';
 
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
-  block.ZLeftX = X/2 -2;
-  block.ZLeftTwoX = X/2 -1;
-  block.ZMiddleX = X/2;
-  block.ZRightX = X/2 +1;
-  block.ZRightTwoX = X/2 +2;
+  Zblock.lineOneY = 0;
+  Zblock.lineTwoY = 1;
+  Zblock.lineThreeY = 2;
+  Zblock.ZLeftX = X/2 -2;
+  Zblock.ZLeftTwoX = X/2 -1;
+  Zblock.ZMiddleX = X/2;
+  Zblock.ZRightX = X/2 +1;
+  Zblock.ZRightTwoX = X/2 +2;
 
-  mat[block.lineOneY][block.ZLeftX] = blocChar;
-  mat[block.lineOneY][block.ZLeftTwoX] = blocChar;
-  mat[block.lineOneY][block.ZMiddleX] = blocChar;
-  mat[block.lineOneY][block.ZRightX] = blocChar;
-  mat[block.lineOneY][block.ZRightTwoX] = blocChar;
+  mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
+  mat[Zblock.lineOneY][Zblock.ZLeftTwoX] = blocChar;
+  mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
+  mat[Zblock.lineOneY][Zblock.ZRightX] = blocChar;
+  mat[Zblock.lineOneY][Zblock.ZRightTwoX] = blocChar;
 
-  mat[block.lineTwoY][block.ZRightX] = blocChar;
-  mat[block.lineTwoY][block.ZMiddleX] = blocChar;
+  mat[Zblock.lineTwoY][Zblock.ZRightX] = blocChar;
+  mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
 
-  mat[block.lineThreeY][block.ZLeftX] = blocChar;
-  mat[block.lineThreeY][block.ZLeftTwoX] = blocChar;
-  mat[block.lineThreeY][block.ZMiddleX] = blocChar;
-  mat[block.lineThreeY][block.ZRightX] = blocChar;
-  mat[block.lineThreeY][block.ZRightTwoX] = blocChar;
+  mat[Zblock.lineThreeY][Zblock.ZLeftX] = blocChar;
+  mat[Zblock.lineThreeY][Zblock.ZLeftTwoX] = blocChar;
+  mat[Zblock.lineThreeY][Zblock.ZMiddleX] = blocChar;
+  mat[Zblock.lineThreeY][Zblock.ZRightX] = blocChar;
+  mat[Zblock.lineThreeY][Zblock.ZRightTwoX] = blocChar;
 }
 
 void leee(char mat[Y][X]) {
-  LDef block;
+  extern LDef Lblock;
   char blocChar = 'x';
 
-  block.LLeftX = X/2 -1;
-  block.LMiddleX = X/2;
-  block.LRightX = X/2 +1;
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
+  Lblock.LLeftX = X/2 -1;
+  Lblock.LMiddleX = X/2;
+  Lblock.LRightX = X/2 +1;
+  Lblock.lineOneY = 0;
+  Lblock.lineTwoY = 1;
+  Lblock.lineThreeY = 2;
 
-  mat[block.lineOneY][block.LLeftX] = blocChar;
-  mat[block.lineTwoY][block.LLeftX] = blocChar;
-  mat[block.lineThreeY][block.LLeftX] = blocChar;
+  mat[Lblock.lineOneY][Lblock.LLeftX] = blocChar;
+  mat[Lblock.lineTwoY][Lblock.LLeftX] = blocChar;
+  mat[Lblock.lineThreeY][Lblock.LLeftX] = blocChar;
 
-  mat[block.lineThreeY][block.LMiddleX] = blocChar;
-  mat[block.lineThreeY][block.LRightX] = blocChar;
+  mat[Lblock.lineThreeY][Lblock.LMiddleX] = blocChar;
+  mat[Lblock.lineThreeY][Lblock.LRightX] = blocChar;
 }
 
 void jeee(char mat[Y][X]) {
-  JDef block;
+  extern JDef Jblock;
   char blocChar = 'x';
 
-  block.JLeftX = X/2 -1;
-  block.JMiddleX = X/2;
-  block.JRightX = X/2 +1;
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
+  Jblock.JLeftX = X/2 -1;
+  Jblock.JMiddleX = X/2;
+  Jblock.JRightX = X/2 +1;
+  Jblock.lineOneY = 0;
+  Jblock.lineTwoY = 1;
+  Jblock.lineThreeY = 2;
 
-  mat[block.lineOneY][block.JLeftX] = blocChar;
-  mat[block.lineOneY][block.JMiddleX] = blocChar;
-  mat[block.lineOneY][block.JRightX] = blocChar;
+  mat[Jblock.lineOneY][Jblock.JLeftX] = blocChar;
+  mat[Jblock.lineOneY][Jblock.JMiddleX] = blocChar;
+  mat[Jblock.lineOneY][Jblock.JRightX] = blocChar;
 
-  mat[block.lineTwoY][block.JRightX] = blocChar;
-  mat[block.lineTwoY][block.JRightX] = blocChar;
+  mat[Jblock.lineTwoY][Jblock.JRightX] = blocChar;
+  mat[Jblock.lineTwoY][Jblock.JRightX] = blocChar;
 
-  mat[block.lineThreeY][block.JRightX] = blocChar;
-  mat[block.lineThreeY][block.JMiddleX] = blocChar;
-  mat[block.lineThreeY][block.JLeftX] = blocChar;
+  mat[Jblock.lineThreeY][Jblock.JRightX] = blocChar;
+  mat[Jblock.lineThreeY][Jblock.JMiddleX] = blocChar;
+  mat[Jblock.lineThreeY][Jblock.JLeftX] = blocChar;
 }
 
 void teee(char mat[Y][X]) {
-  TDef block;
+  extern TDef Tblock;
   char blocChar = 'x';
 
-  block.TLeftX = X/2 -1;
-  block.TMiddleX = X/2;
-  block.TRightX = X/2 +1;
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
+  Tblock.TLeftX = X/2 -1;
+  Tblock.TMiddleX = X/2;
+  Tblock.TRightX = X/2 +1;
+  Tblock.lineOneY = 0;
+  Tblock.lineTwoY = 1;
+  Tblock.lineThreeY = 2;
 
-  mat[block.lineOneY][block.TLeftX] = blocChar;
-  mat[block.lineOneY][block.TMiddleX] = blocChar;
-  mat[block.lineOneY][block.TRightX] = blocChar;
+  mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
+  mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
+  mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
 
-  mat[block.lineOneY][block.TMiddleX] = blocChar;
-  mat[block.lineTwoY][block.TMiddleX] = blocChar;
-  mat[block.lineThreeY][block.TMiddleX] = blocChar;
+  mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
+  mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
+  mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
 }
 
 void iail(char mat[Y][X]) {
-  IDef block;
+  extern IDef Iblock;
   char blocChar = 'x';
 
-  block.IMiddleX = X/2;
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
+  Iblock.IMiddleX = X/2;
+  Iblock.lineOneY = 0;
+  Iblock.lineTwoY = 1;
+  Iblock.lineThreeY = 2;
 
 
-  mat[block.lineOneY][block.IMiddleX] = blocChar;
-  mat[block.lineTwoY][block.IMiddleX] = blocChar;
-  mat[block.lineThreeY][block.IMiddleX] = blocChar;
+  mat[Iblock.lineOneY][Iblock.IMiddleX] = blocChar;
+  mat[Iblock.lineTwoY][Iblock.IMiddleX] = blocChar;
+  mat[Iblock.lineThreeY][Iblock.IMiddleX] = blocChar;
 }
 
 void putBlockInMat(int randomNumber,char mat[Y][X]){
