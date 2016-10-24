@@ -13,37 +13,22 @@ JDef Jblock;
 TDef Tblock;
 
 int main() {
-  // char mat[X][Y];
   int gameOn =0;
   int oldNumber = -1;
-  // int randomNumber;
-  int noConflict =0;
-  int movement;
   initMatrix(mat); //on initialise la matrice
 
-  // while (gameOn != 1) { //On boucle tant que le jeu est lancé
+  while (gameOn != 1) { //On boucle tant que le jeu est lancé
     do {
       randomNumber = randomize();
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
     //On met le bloc dans la matrice
-    putBlockInMat(0 /*randomNumber*/,mat,1);
+    putBlockInMat(randomNumber,mat,1);
     Affiche(mat); //on l'affiche
-    //  =====================================================================
-    // TODO: A supprimer apres test
-    randomNumber = 0;
-    // =====================================================================
-    if (noConflict == 0){
-      noConflict = canMove(mat,randomNumber); //gere les mouvements du bloc par le joueur
-      while(noConflict == 0){
-        movement = getNextMovement();
-        Move(mat, movement, randomNumber);
-        Affiche(mat);
-        noConflict = canMove(mat,randomNumber);
-      }
-      blockEnd(mat);
-    }
-    Affiche(mat); //on l'affiche
-  // }
+    movementHandler(mat,randomNumber); //On gère les mouvements du bloc
+    Affiche(mat); //on réaffiche la matrice une fois que le bloc est placé
+
+    scanf("%d", &gameOn);
+  }
   return 0;
 }

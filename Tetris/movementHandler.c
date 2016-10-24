@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// TODO: Regler le canMove du Z, du L voire faire une vérification sur chaque point de chaque bloc
+
 // TODO: movementHandler:
 // - check type du bloc
 // - en fonction du type de bloc observer l'evolution des points critiques de chaque bloc
@@ -105,7 +107,7 @@ int JCanMove(char mat[Y][X]){
   int isPossibleBottomR=0;
   int isPossible;
 
-  if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '#')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY][Jblock.JRightX] = 'o')) {
+  if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '#')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')) {
     isPossibleD =1;
   }
   if ((mat[Jblock.lineThreeY][Jblock.JLeftX -1] == '#')||(mat[Jblock.lineThreeY][Jblock.JLeftX -1] == 'o')) {
@@ -227,6 +229,8 @@ int getNextMovement(){
   return nextMovement;
 }
 
+
+// Square Movements
 void squareMoveLeft(){
   extern squareDef Sblock;
 
@@ -248,9 +252,136 @@ void squareMoveRight(){
   Sblock.squareRightX ++;
 }
 
+// Z Movements
+void ZMoveRight(){
+  extern ZDef Zblock;
+
+  Zblock.ZLeftX ++;
+  Zblock.ZLeftTwoX ++;
+  Zblock.ZRightTwoX ++;
+  Zblock.ZRightX ++;
+  Zblock.ZMiddleX ++;
+}
+
+void ZMoveLeft(){
+  extern ZDef Zblock;
+
+  Zblock.ZLeftX --;
+  Zblock.ZLeftTwoX --;
+  Zblock.ZRightTwoX --;
+  Zblock.ZRightX --;
+  Zblock.ZMiddleX --;
+}
+
+void ZMoveDown(){
+  extern ZDef Zblock;
+
+  Zblock.lineOneY ++;
+  Zblock.lineTwoY ++;
+  Zblock.lineThreeY ++;
+}
+
+//L Movements
+void LMoveRight(){
+  extern LDef Lblock;
+
+  Lblock.LLeftX++;
+  Lblock.LRightX++;
+  Lblock.LMiddleX++;
+}
+
+void LMoveLeft(){
+  extern LDef Lblock;
+
+  Lblock.LLeftX--;
+  Lblock.LRightX--;
+  Lblock.LMiddleX--;
+}
+
+void LMoveDown(){
+  extern LDef Lblock;
+
+  Lblock.lineOneY ++;
+  Lblock.lineTwoY ++;
+  Lblock.lineThreeY ++;
+}
+
+// J Movements
+
+void JMoveRight(){
+  extern JDef Jblock;
+
+  Jblock.JLeftX++;
+  Jblock.JMiddleX++;
+  Jblock.JRightX++;
+}
+
+void JMoveLeft(){
+  extern JDef Jblock;
+
+  Jblock.JLeftX--;
+  Jblock.JMiddleX--;
+  Jblock.JRightX--;
+}
+
+void JMoveDown(){
+  extern JDef Jblock;
+
+  Jblock.lineOneY++;
+  Jblock.lineTwoY++;
+  Jblock.lineThreeY++;
+}
+
+// T Movements
+void TMoveRight(){
+  extern TDef Tblock;
+
+  Tblock.TLeftX++;
+  Tblock.TMiddleX++;
+  Tblock.TRightX++;
+}
+
+void TMoveLeft(){
+  extern TDef Tblock;
+
+  Tblock.TLeftX--;
+  Tblock.TMiddleX--;
+  Tblock.TRightX--;
+}
+
+void TMoveDown(){
+  extern TDef Tblock;
+
+  Tblock.lineOneY++;
+  Tblock.lineTwoY++;
+  Tblock.lineThreeY++;
+}
+
+// I Movements
+void IMoveLeft(){
+  extern IDef Iblock;
+
+  Iblock.IMiddleX --;
+}
+
+void IMoveRight(){
+  extern IDef Iblock;
+
+  Iblock.IMiddleX ++;
+}
+
+void IMoveDown(){
+  extern IDef Iblock;
+
+  Iblock.lineOneY ++;
+  Iblock.lineTwoY ++;
+  Iblock.lineThreeY ++;
+}
+
+
 void Move(char mat[Y][X], int movement, int typeOfBlock){
   switch (typeOfBlock) {
-    case 0:
+    case 0: // carré
       switch (movement) {
         case 1: squareMoveLeft();
           matrixMovement(mat,typeOfBlock);
@@ -262,12 +393,87 @@ void Move(char mat[Y][X], int movement, int typeOfBlock){
           matrixMovement(mat,typeOfBlock);
           break;
       }
-    break;
+      break;
+    case 1: // Z
+      switch (movement) {
+        case 1: ZMoveLeft();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 2: ZMoveDown();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 3: ZMoveRight();
+          matrixMovement(mat,typeOfBlock);
+          break;
+      }
+      break;
+    case 2: // L
+      switch (movement) {
+        case 1: LMoveLeft();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 2: LMoveDown();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 3: LMoveRight();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        }
+      break;
+    case 3: // J
+      switch (movement) {
+        case 1: JMoveLeft();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 2: JMoveDown();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 3: JMoveRight();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        }
+      break;
+    case 4: // T
+      switch (movement) {
+        case 1: TMoveLeft();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 2: TMoveDown();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 3: TMoveRight();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        }
+      break;
+    case 5: // I
+      switch (movement) {
+        case 1: IMoveLeft();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 2: IMoveDown();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        case 3: IMoveRight();
+          matrixMovement(mat,typeOfBlock);
+          break;
+        }
+      break;
   }
 }
 
-int movementHandler(char mat[Y][X], int randomNumber){
+void movementHandler(char mat[Y][X], int randomNumber){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
+  int movement;
 
-  return noConflict;
+  if (noConflict == 0){
+    noConflict = canMove(mat,randomNumber); //Vérifie que le joueur peut encore déplacer le bloc
+    while(noConflict == 0){
+      movement = getNextMovement();
+      Move(mat, movement, randomNumber);
+      Affiche(mat);
+      noConflict = canMove(mat,randomNumber);
+    }
+    blockEnd(mat);
+  }
 }
