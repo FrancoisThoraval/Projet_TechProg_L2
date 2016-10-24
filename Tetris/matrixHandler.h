@@ -75,13 +75,14 @@ typedef struct {
 
 void errorHandler(int errorCode);
 void Affiche(char mat[Y][X]);
-void square(char mat[Y][X]);
-void zeee(char mat[Y][X]);
-void leee(char mat[Y][X]);
-void jeee(char mat[Y][X]);
-void teee(char mat[Y][X]);
-void iail(char mat[Y][X]);
-void putBlockInMat(int randomNumber,char mat[Y][X]);
-void recopyOldMat(char mat[Y][X]);
+void square(char mat[Y][X], int isSet);
+void zeee(char mat[Y][X], int isSet);
+void leee(char mat[Y][X], int isSet);
+void jeee(char mat[Y][X], int isSet);
+void teee(char mat[Y][X], int isSet);
+void iail(char mat[Y][X], int isSet);
+void putBlockInMat(int randomNumber,char mat[Y][X], int isSet);
+void blockEnd(char mat[Y][X]);
 void initMatrix(char mat[Y][X]);
 int randomize();
+void matrixMovement(char mat[Y][X], int typeOfBlock);

@@ -35,6 +35,7 @@ void initMatrix(char mat[Y][X]){
 }
 
 void Affiche(char mat[Y][X]) {
+  printf("\n");
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       printf("%c",mat[i][j]);
@@ -44,33 +45,34 @@ void Affiche(char mat[Y][X]) {
 }
 
 // Designs des blocs
-void square(char mat[Y][X]) {
+void square(char mat[Y][X], int isSet) {
   extern squareDef Sblock;
   char blocChar = 'x';
-
-  Sblock.lineOneY = 0;
-  Sblock.lineTwoY = 1;
-  Sblock.squareLeftX = X/2 -1;
-  Sblock.squareRightX = X/2;
-
+  if (isSet == 1){
+    Sblock.lineOneY = 0;
+    Sblock.lineTwoY = 1;
+    Sblock.squareLeftX = X/2 -1;
+    Sblock.squareRightX = X/2;
+  }
   mat[Sblock.lineOneY][Sblock.squareLeftX] = blocChar;
   mat[Sblock.lineOneY][Sblock.squareRightX] = blocChar;
   mat[Sblock.lineTwoY][Sblock.squareLeftX] = blocChar;
   mat[Sblock.lineTwoY][Sblock.squareRightX] = blocChar;
 }
 
-void zeee(char mat[Y][X]) {
+void zeee(char mat[Y][X], int isSet) {
   extern ZDef Zblock;
   char blocChar = 'x';
-
-  Zblock.lineOneY = 0;
-  Zblock.lineTwoY = 1;
-  Zblock.lineThreeY = 2;
-  Zblock.ZLeftX = X/2 -2;
-  Zblock.ZLeftTwoX = X/2 -1;
-  Zblock.ZMiddleX = X/2;
-  Zblock.ZRightX = X/2 +1;
-  Zblock.ZRightTwoX = X/2 +2;
+  if (isSet == 1){
+    Zblock.lineOneY = 0;
+    Zblock.lineTwoY = 1;
+    Zblock.lineThreeY = 2;
+    Zblock.ZLeftX = X/2 -2;
+    Zblock.ZLeftTwoX = X/2 -1;
+    Zblock.ZMiddleX = X/2;
+    Zblock.ZRightX = X/2 +1;
+    Zblock.ZRightTwoX = X/2 +2;
+  }
 
   mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
   mat[Zblock.lineOneY][Zblock.ZLeftTwoX] = blocChar;
@@ -88,17 +90,17 @@ void zeee(char mat[Y][X]) {
   mat[Zblock.lineThreeY][Zblock.ZRightTwoX] = blocChar;
 }
 
-void leee(char mat[Y][X]) {
+void leee(char mat[Y][X], int isSet) {
   extern LDef Lblock;
   char blocChar = 'x';
-
-  Lblock.LLeftX = X/2 -1;
-  Lblock.LMiddleX = X/2;
-  Lblock.LRightX = X/2 +1;
-  Lblock.lineOneY = 0;
-  Lblock.lineTwoY = 1;
-  Lblock.lineThreeY = 2;
-
+  if (isSet == 1){
+    Lblock.LLeftX = X/2 -1;
+    Lblock.LMiddleX = X/2;
+    Lblock.LRightX = X/2 +1;
+    Lblock.lineOneY = 0;
+    Lblock.lineTwoY = 1;
+    Lblock.lineThreeY = 2;
+  }
   mat[Lblock.lineOneY][Lblock.LLeftX] = blocChar;
   mat[Lblock.lineTwoY][Lblock.LLeftX] = blocChar;
   mat[Lblock.lineThreeY][Lblock.LLeftX] = blocChar;
@@ -107,17 +109,17 @@ void leee(char mat[Y][X]) {
   mat[Lblock.lineThreeY][Lblock.LRightX] = blocChar;
 }
 
-void jeee(char mat[Y][X]) {
+void jeee(char mat[Y][X], int isSet) {
   extern JDef Jblock;
   char blocChar = 'x';
-
-  Jblock.JLeftX = X/2 -1;
-  Jblock.JMiddleX = X/2;
-  Jblock.JRightX = X/2 +1;
-  Jblock.lineOneY = 0;
-  Jblock.lineTwoY = 1;
-  Jblock.lineThreeY = 2;
-
+  if (isSet == 1){
+    Jblock.JLeftX = X/2 -1;
+    Jblock.JMiddleX = X/2;
+    Jblock.JRightX = X/2 +1;
+    Jblock.lineOneY = 0;
+    Jblock.lineTwoY = 1;
+    Jblock.lineThreeY = 2;
+  }
   mat[Jblock.lineOneY][Jblock.JLeftX] = blocChar;
   mat[Jblock.lineOneY][Jblock.JMiddleX] = blocChar;
   mat[Jblock.lineOneY][Jblock.JRightX] = blocChar;
@@ -130,17 +132,17 @@ void jeee(char mat[Y][X]) {
   mat[Jblock.lineThreeY][Jblock.JLeftX] = blocChar;
 }
 
-void teee(char mat[Y][X]) {
+void teee(char mat[Y][X], int isSet) {
   extern TDef Tblock;
   char blocChar = 'x';
-
-  Tblock.TLeftX = X/2 -1;
-  Tblock.TMiddleX = X/2;
-  Tblock.TRightX = X/2 +1;
-  Tblock.lineOneY = 0;
-  Tblock.lineTwoY = 1;
-  Tblock.lineThreeY = 2;
-
+  if (isSet == 1){
+    Tblock.TLeftX = X/2 -1;
+    Tblock.TMiddleX = X/2;
+    Tblock.TRightX = X/2 +1;
+    Tblock.lineOneY = 0;
+    Tblock.lineTwoY = 1;
+    Tblock.lineThreeY = 2;
+  }
   mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
   mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
   mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
@@ -150,14 +152,15 @@ void teee(char mat[Y][X]) {
   mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
 }
 
-void iail(char mat[Y][X]) {
+void iail(char mat[Y][X], int isSet) {
   extern IDef Iblock;
   char blocChar = 'x';
-
-  Iblock.IMiddleX = X/2;
-  Iblock.lineOneY = 0;
-  Iblock.lineTwoY = 1;
-  Iblock.lineThreeY = 2;
+  if (isSet == 1){
+    Iblock.IMiddleX = X/2;
+    Iblock.lineOneY = 0;
+    Iblock.lineTwoY = 1;
+    Iblock.lineThreeY = 2;
+  }
 
 
   mat[Iblock.lineOneY][Iblock.IMiddleX] = blocChar;
@@ -165,27 +168,50 @@ void iail(char mat[Y][X]) {
   mat[Iblock.lineThreeY][Iblock.IMiddleX] = blocChar;
 }
 
-void putBlockInMat(int randomNumber,char mat[Y][X]){
+void putBlockInMat(int randomNumber,char mat[Y][X], int isSet){
   switch (randomNumber) {
-    case 0: square(mat);
+    case 0: square(mat, isSet);
       break;
-    case 1: zeee(mat);
+    case 1: zeee(mat, isSet);
       break;
-    case 2: leee(mat);
+    case 2: leee(mat, isSet);
       break;
-    case 3: jeee(mat);
+    case 3: jeee(mat, isSet);
       break;
-    case 4: teee(mat);
+    case 4: teee(mat, isSet);
       break;
-    case 5: iail(mat);
+    case 5: iail(mat, isSet);
       break;
     default: errorHandler(1);
       break;
   }
 }
 
-//On recopie l'ancienne matrice
-void recopyOldMat(char mat[Y][X]){
+void matrixMovement(char mat[Y][X], int typeOfBlock){
+  char newMat[Y][X];
+  initMatrix(newMat);
+  putBlockInMat(typeOfBlock,newMat,0);
+  for (int i = 0; i < Y-1; i++) {
+    for (int j = 0; j < X-1; j++) {
+
+      switch (mat[i][j]) {
+        case 'o': newMat[i][j] = 'o';
+          break;
+        case '#': break;
+        case '_': break;
+        // default: newMat[i][j] =' ';
+      }
+    }
+  }
+  for (int i = 0; i < Y-1; i++) {
+    for (int j = 0; j < X-1; j++) {
+      mat[i][j] = newMat[i][j];
+    }
+  }
+}
+
+//Quand le bloc est placé on remplace les x par de o
+void blockEnd(char mat[Y][X]){
   for (int i = 0; i < Y-1; i++) {
     for (int j = 0; j < X-1; j++) {
       switch (mat[i][j]) {
