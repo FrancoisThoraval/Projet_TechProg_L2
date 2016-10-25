@@ -335,18 +335,22 @@ void SMoveLeft(){
   }
 }
 
-void Move(char mat[Y][X], int movement, int typeOfBlock){
+void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
   switch (typeOfBlock) {
     case 0: // carré
       switch (movement) {
         case 1: squareMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: squareMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: squareMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 5:
+          break;
+        case 6:
           break;
         // case 5: TurnRight(mat,)
       }
@@ -354,81 +358,162 @@ void Move(char mat[Y][X], int movement, int typeOfBlock){
     case 1: // Z
       switch (movement) {
         case 1: ZMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: ZMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: ZMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
-      }
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        }
       break;
     case 2: // L
       switch (movement) {
         case 1: LMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: LMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: LMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         }
       break;
     case 3: // J
       switch (movement) {
         case 1: JMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: JMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: JMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         }
       break;
     case 4: // T
       switch (movement) {
         case 1: TMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: TMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: TMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         }
       break;
     case 5: // I
       switch (movement) {
         case 1: IMoveLeft();
-          matrixMovement(mat,typeOfBlock,);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: IMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: IMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
-        case 5: position = position -1;
-          matrixMovement(mat,typeOfBlock,position);
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         }
       break;
     case 6: // S
       switch (movement) {
         case 1: SMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: SMoveDown();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: SMoveRight();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 5:
+          *position = *position -1;
+          if (*position < -2) {
+            *position = 1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 6:
+          *position = *position +1;
+          if (*position > 2) {
+            *position = -1;
+          }
+          matrixMovement(mat,typeOfBlock,*position);
           break;
         }
       break;
@@ -439,12 +524,14 @@ void movementHandler(char mat[Y][X], int randomNumber){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
+  // int *ptrPosition = &position;
 
   if (noConflict == 0){
-    noConflict = canMove(mat,randomNumber); //Vérifie que le joueur peut encore déplacer le bloc
+    noConflict = canMove(mat,randomNumber); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
       movement = getNextMovement();
-      Move(mat, movement, randomNumber);
+      Move(mat, movement, randomNumber, &position);
+      printf("position: %d\n",position);
       Affiche(mat);
       noConflict = canMove(mat,randomNumber);
     }

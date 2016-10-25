@@ -13,7 +13,7 @@ int ZCanMove(char mat[Y][X]);
 int squareCanMove(char mat[Y][X]);
 int LCanMove(char mat[Y][X]);
 int getNextMovement();
-void Move(char mat[Y][X], int movement, int typeOfBlock);
+void Move(char mat[Y][X], int movement, int typeOfBlock,int *position);
 void squareMoveLeft();
 void squareMoveRight();
 void squareMoveDown();
