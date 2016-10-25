@@ -7,8 +7,10 @@
 
 
 // TODO:
-// -Hitbox a retoucher pour les pivotements: Z,L(pb avec les o),J(pb avec les o),T (lourd bordel),I (rien qui va),S (lourd bordel)
-// -
+// - Hitbox a retoucher pour les pivotements: Z,L(pb avec les o),J(pb avec les o),T (lourd bordel),I (rien qui va),S (lourd bordel)
+// - la touche Z
+// - Trouver un moyen de remplacer les ZQSD par ←↓→
+// et après ça on aura plus à toucher à ces mouvements putain de bordel !
 
 // Fonctions qui vérifient qu'on peut encore descendre
 int squareCanMove(char mat[Y][X]){
@@ -250,35 +252,29 @@ void JMoveDown(){
 // T Movements
 void TMoveRight(){
   extern TDef Tblock;
-  extern int XCenter;
 
   if ((mat[Tblock.lineOneY][Tblock.TRightX +1] != 'o')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX +1] != 'o')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX +1] != 'o')&&(mat[Tblock.lineOneY][Tblock.TRightX +1] != '#')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX +1] != '#')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX +1] != '#')) {
     Tblock.TLeftX++;
     Tblock.TMiddleX++;
     Tblock.TRightX++;
-    XCenter++;
   }
 }
 
 void TMoveLeft(){
   extern TDef Tblock;
-  extern int XCenter;
 
   if ((mat[Tblock.lineOneY][Tblock.TLeftX -1] != 'o')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX -1] != 'o')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX -1] != 'o')&&(mat[Tblock.lineOneY][Tblock.TLeftX -1] != '#')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX -1] != '#')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX -1] != '#')) {
     Tblock.TLeftX--;
     Tblock.TMiddleX--;
     Tblock.TRightX--;
-    XCenter--;
   }
 }
 
 void TMoveDown(){
   extern TDef Tblock;
-  extern int YCenter;
   Tblock.lineOneY++;
   Tblock.lineTwoY++;
   Tblock.lineThreeY++;
-  YCenter ++;
 }
 
 // I Movements

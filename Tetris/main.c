@@ -13,8 +13,6 @@ IDef Iblock;
 JDef Jblock;
 TDef Tblock;
 SDef Sblock;
-int XCenter;
-int YCenter;
 
 int main() {
   int gameOn =0;
@@ -26,7 +24,7 @@ int main() {
       randomNumber = randomize();
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    randomNumber = 6;
+    // randomNumber = 6;
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,1,0);
     Affiche(mat); //on l'affiche
