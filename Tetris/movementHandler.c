@@ -7,7 +7,7 @@
 
 
 // TODO:
-// -Pivoter les objets ... Juste faire un truc sale dans les placements des blocs dans matrixHandler
+// -Hitbox a retoucher pour les pivotements: Z,L(pb avec les o),J(pb avec les o),T (lourd bordel),I (rien qui va),S (lourd bordel)
 // -
 
 // Fonctions qui vérifient qu'on peut encore descendre

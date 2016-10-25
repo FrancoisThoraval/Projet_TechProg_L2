@@ -26,13 +26,14 @@ int main() {
       randomNumber = randomize();
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
+    randomNumber = 6;
     //On met le bloc dans la matrice
-    putBlockInMat(4/*randomNumber*/,mat,1,0);
+    putBlockInMat(randomNumber,mat,1,0);
     Affiche(mat); //on l'affiche
-    movementHandler(mat, 4/*randomNumber*/); //On gère les mouvements du bloc
+    movementHandler(mat, randomNumber); //On gère les mouvements du bloc
     Affiche(mat); //on réaffiche la matrice une fois que le bloc est placé
 
-    // scanf("%d", &gameOn);
+    scanf("%d", &gameOn);
   }
   return 0;
 }

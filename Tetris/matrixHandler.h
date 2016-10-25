@@ -83,7 +83,7 @@ typedef struct {
 
 void errorHandler(int errorCode);
 void Affiche(char mat[Y][X]);
-void square(char mat[Y][X], int isSet, int position);
+void square(char mat[Y][X], int isSet);
 void zeee(char mat[Y][X], int isSet, int position);
 void leee(char mat[Y][X], int isSet, int position);
 void jeee(char mat[Y][X], int isSet, int position);
