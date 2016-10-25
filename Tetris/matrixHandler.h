@@ -28,14 +28,13 @@ typedef struct {
 }squareDef;
 
 typedef struct {
-  int ZLeftTwoX;
   int ZLeftX;
   int ZMiddleX;
   int ZRightX;
-  int ZRightTwoX;
   int lineOneY;
   int lineTwoY;
   int lineThreeY;
+  int lineFourY;
 }ZDef;
 
 typedef struct {
@@ -72,6 +71,15 @@ typedef struct {
   int lineThreeY;
 }IDef;
 
+typedef struct {
+  int SLeftX;
+  int SMiddleX;
+  int SRightX;
+  int lineOneY;
+  int lineTwoY;
+  int lineThreeY;
+  int lineFourY;
+}SDef;
 
 void errorHandler(int errorCode);
 void Affiche(char mat[Y][X]);
@@ -81,6 +89,7 @@ void leee(char mat[Y][X], int isSet);
 void jeee(char mat[Y][X], int isSet);
 void teee(char mat[Y][X], int isSet);
 void iail(char mat[Y][X], int isSet);
+void seee(char mat[Y][X], int isSet);
 void putBlockInMat(int randomNumber,char mat[Y][X], int isSet);
 void blockEnd(char mat[Y][X]);
 void initMatrix(char mat[Y][X]);

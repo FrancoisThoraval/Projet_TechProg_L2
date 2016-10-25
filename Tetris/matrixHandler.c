@@ -15,7 +15,7 @@ void errorHandler(int errorCode){
 int randomize(){
   //On tire au sort un nombre qui correspondra a la forme du bloc
   srand(time(NULL));
-  int randomNumber = rand() %5;
+  int randomNumber = rand() %6;
   return randomNumber;
 }
 
@@ -25,7 +25,7 @@ void initMatrix(char mat[Y][X]){
     for (int j = 0; j < X; j++) {
       mat[i][j]=' ';
       if (i==Y-1) {
-        mat[i][j]='#';
+        mat[i][j]='*';
       }
       if ((j==0)||(j==X-1)) {
         mat[i][j]='#';
@@ -46,18 +46,18 @@ void Affiche(char mat[Y][X]) {
 
 // Designs des blocs
 void square(char mat[Y][X], int isSet) {
-  extern squareDef Sblock;
+  extern squareDef Squareblock;
   char blocChar = 'x';
   if (isSet == 1){
-    Sblock.lineOneY = 0;
-    Sblock.lineTwoY = 1;
-    Sblock.squareLeftX = X/2 -1;
-    Sblock.squareRightX = X/2;
+    Squareblock.lineOneY = 0;
+    Squareblock.lineTwoY = 1;
+    Squareblock.squareLeftX = X/2 -1;
+    Squareblock.squareRightX = X/2;
   }
-  mat[Sblock.lineOneY][Sblock.squareLeftX] = blocChar;
-  mat[Sblock.lineOneY][Sblock.squareRightX] = blocChar;
-  mat[Sblock.lineTwoY][Sblock.squareLeftX] = blocChar;
-  mat[Sblock.lineTwoY][Sblock.squareRightX] = blocChar;
+  mat[Squareblock.lineOneY][Squareblock.squareLeftX] = blocChar;
+  mat[Squareblock.lineOneY][Squareblock.squareRightX] = blocChar;
+  mat[Squareblock.lineTwoY][Squareblock.squareLeftX] = blocChar;
+  mat[Squareblock.lineTwoY][Squareblock.squareRightX] = blocChar;
 }
 
 void zeee(char mat[Y][X], int isSet) {
@@ -67,27 +67,22 @@ void zeee(char mat[Y][X], int isSet) {
     Zblock.lineOneY = 0;
     Zblock.lineTwoY = 1;
     Zblock.lineThreeY = 2;
-    Zblock.ZLeftX = X/2 -2;
-    Zblock.ZLeftTwoX = X/2 -1;
+    Zblock.lineFourY =3;
+    Zblock.ZLeftX = X/2 -1;
     Zblock.ZMiddleX = X/2;
     Zblock.ZRightX = X/2 +1;
-    Zblock.ZRightTwoX = X/2 +2;
   }
 
   mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
-  mat[Zblock.lineOneY][Zblock.ZLeftTwoX] = blocChar;
   mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
   mat[Zblock.lineOneY][Zblock.ZRightX] = blocChar;
-  mat[Zblock.lineOneY][Zblock.ZRightTwoX] = blocChar;
 
-  mat[Zblock.lineTwoY][Zblock.ZRightX] = blocChar;
   mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
-
   mat[Zblock.lineThreeY][Zblock.ZLeftX] = blocChar;
-  mat[Zblock.lineThreeY][Zblock.ZLeftTwoX] = blocChar;
-  mat[Zblock.lineThreeY][Zblock.ZMiddleX] = blocChar;
-  mat[Zblock.lineThreeY][Zblock.ZRightX] = blocChar;
-  mat[Zblock.lineThreeY][Zblock.ZRightTwoX] = blocChar;
+
+  mat[Zblock.lineFourY][Zblock.ZLeftX] = blocChar;
+  mat[Zblock.lineFourY][Zblock.ZMiddleX] = blocChar;
+  mat[Zblock.lineFourY][Zblock.ZRightX] = blocChar;
 }
 
 void leee(char mat[Y][X], int isSet) {
@@ -168,6 +163,32 @@ void iail(char mat[Y][X], int isSet) {
   mat[Iblock.lineThreeY][Iblock.IMiddleX] = blocChar;
 }
 
+void seee(char mat[Y][X], int isSet) {
+  extern SDef Sblock;
+  char blocChar = 'x';
+  if (isSet == 1){
+    Sblock.SLeftX = X/2 -1;
+    Sblock.SMiddleX = X/2;
+    Sblock.SRightX = X/2 +1;
+    Sblock.lineOneY = 0;
+    Sblock.lineTwoY = 1;
+    Sblock.lineThreeY = 2;
+    Sblock.lineFourY = 3;
+  }
+
+  mat[Sblock.lineOneY][Sblock.SRightX] = blocChar;
+  mat[Sblock.lineOneY][Sblock.SMiddleX] = blocChar;
+  mat[Sblock.lineOneY][Sblock.SLeftX] = blocChar;
+
+  mat[Sblock.lineTwoY][Sblock.SLeftX] = blocChar;
+
+  mat[Sblock.lineThreeY][Sblock.SRightX] = blocChar;
+
+  mat[Sblock.lineFourY][Sblock.SRightX] = blocChar;
+  mat[Sblock.lineFourY][Sblock.SMiddleX] = blocChar;
+  mat[Sblock.lineFourY][Sblock.SLeftX] = blocChar;
+}
+
 void putBlockInMat(int randomNumber,char mat[Y][X], int isSet){
   switch (randomNumber) {
     case 0: square(mat, isSet);
@@ -181,6 +202,8 @@ void putBlockInMat(int randomNumber,char mat[Y][X], int isSet){
     case 4: teee(mat, isSet);
       break;
     case 5: iail(mat, isSet);
+      break;
+    case 6: seee(mat, isSet);
       break;
     default: errorHandler(1);
       break;
