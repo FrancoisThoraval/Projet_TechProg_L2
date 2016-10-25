@@ -5,15 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-// TODO: Regler le canMove du Z, du L voire faire une vérification sur chaque point de chaque bloc
 
-// TODO: movementHandler:
-// - check type du bloc
-// - en fonction du type de bloc observer l'evolution des points critiques de chaque bloc
-//    ex: coin bas droite du carré si on peut aller a droite ou descendre
-// - ecouter les touches de l'utilisateur pour recuperer les deplacements
-// - effectuer le deplacement
-
+// TODO:
+// -Pivoter les objets ... Juste faire un truc sale dans les placements des blocs dans matrixHandler
+// -
 
 // Fonctions qui vérifient qu'on peut encore descendre
 int squareCanMove(char mat[Y][X]){
@@ -130,6 +125,10 @@ int getNextMovement(){
       break;
     /*case 'z': printf("En haut\n\n");
       break;*/
+    case 'w': nextMovement = 5;
+      break;
+    case 'x': nextMovement = 6;
+      break;
   }
   // On repasse le terminal en mode normal
   system ("/bin/stty cooked");
@@ -251,29 +250,35 @@ void JMoveDown(){
 // T Movements
 void TMoveRight(){
   extern TDef Tblock;
+  extern int XCenter;
 
   if ((mat[Tblock.lineOneY][Tblock.TRightX +1] != 'o')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX +1] != 'o')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX +1] != 'o')&&(mat[Tblock.lineOneY][Tblock.TRightX +1] != '#')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX +1] != '#')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX +1] != '#')) {
     Tblock.TLeftX++;
     Tblock.TMiddleX++;
     Tblock.TRightX++;
+    XCenter++;
   }
 }
 
 void TMoveLeft(){
   extern TDef Tblock;
+  extern int XCenter;
+
   if ((mat[Tblock.lineOneY][Tblock.TLeftX -1] != 'o')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX -1] != 'o')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX -1] != 'o')&&(mat[Tblock.lineOneY][Tblock.TLeftX -1] != '#')&&(mat[Tblock.lineTwoY][Tblock.TMiddleX -1] != '#')&&(mat[Tblock.lineThreeY][Tblock.TMiddleX -1] != '#')) {
     Tblock.TLeftX--;
     Tblock.TMiddleX--;
     Tblock.TRightX--;
+    XCenter--;
   }
 }
 
 void TMoveDown(){
   extern TDef Tblock;
-
+  extern int YCenter;
   Tblock.lineOneY++;
   Tblock.lineTwoY++;
   Tblock.lineThreeY++;
+  YCenter ++;
 }
 
 // I Movements
@@ -343,6 +348,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock){
         case 3: squareMoveRight();
           matrixMovement(mat,typeOfBlock);
           break;
+        // case 5: TurnRight(mat,)
       }
       break;
     case 1: // Z
@@ -400,13 +406,16 @@ void Move(char mat[Y][X], int movement, int typeOfBlock){
     case 5: // I
       switch (movement) {
         case 1: IMoveLeft();
-          matrixMovement(mat,typeOfBlock);
+          matrixMovement(mat,typeOfBlock,);
           break;
         case 2: IMoveDown();
           matrixMovement(mat,typeOfBlock);
           break;
         case 3: IMoveRight();
           matrixMovement(mat,typeOfBlock);
+          break;
+        case 5: position = position -1;
+          matrixMovement(mat,typeOfBlock,position);
           break;
         }
       break;
@@ -429,6 +438,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock){
 void movementHandler(char mat[Y][X], int randomNumber){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
+  int position = 0;
 
   if (noConflict == 0){
     noConflict = canMove(mat,randomNumber); //Vérifie que le joueur peut encore déplacer le bloc

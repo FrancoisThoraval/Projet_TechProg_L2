@@ -5,6 +5,7 @@
 #include "matrixHandler.h"
 #include "movementHandler.h"
 
+// Var globales
 squareDef Squareblock;
 ZDef Zblock;
 LDef Lblock;
@@ -12,6 +13,8 @@ IDef Iblock;
 JDef Jblock;
 TDef Tblock;
 SDef Sblock;
+int XCenter;
+int YCenter;
 
 int main() {
   int gameOn =0;
@@ -24,9 +27,9 @@ int main() {
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,1);
+    putBlockInMat(4/*randomNumber*/,mat,1);
     Affiche(mat); //on l'affiche
-    movementHandler(mat, randomNumber); //On gère les mouvements du bloc
+    movementHandler(mat, 4/*randomNumber*/); //On gère les mouvements du bloc
     Affiche(mat); //on réaffiche la matrice une fois que le bloc est placé
 
     // scanf("%d", &gameOn);

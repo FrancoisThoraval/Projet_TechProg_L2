@@ -127,8 +127,11 @@ void jeee(char mat[Y][X], int isSet) {
   mat[Jblock.lineThreeY][Jblock.JLeftX] = blocChar;
 }
 
-void teee(char mat[Y][X], int isSet) {
+void teee(char mat[Y][X], int isSet, int position) {
   extern TDef Tblock;
+  extern int XCenter;
+  extern int YCenter;
+
   char blocChar = 'x';
   if (isSet == 1){
     Tblock.TLeftX = X/2 -1;
@@ -137,14 +140,41 @@ void teee(char mat[Y][X], int isSet) {
     Tblock.lineOneY = 0;
     Tblock.lineTwoY = 1;
     Tblock.lineThreeY = 2;
+    XCenter = X/2;
+    YCenter = 1;
   }
-  mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
-  mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
-  mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
+  if (position == 0) {
+    mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
 
-  mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
-  mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
-  mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+  }
+  if (position == 1) {
+    mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
+
+    mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+  }
+  if (position == -1) {
+    mat[Tblock.lineOneY][Tblock.TLeftX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineOneY][Tblock.TRightX] = blocChar;
+
+    mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+  }
+  if ((position == 2)||(position == -2)) {
+    mat[Tblock.lineThreeY][Tblock.TLeftX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TRightX] = blocChar;
+
+    mat[Tblock.lineTwoY][Tblock.TMiddleX] = blocChar;
+    mat[Tblock.lineThreeY][Tblock.TMiddleX] = blocChar;
+  }
 }
 
 void iail(char mat[Y][X], int isSet) {
@@ -210,10 +240,10 @@ void putBlockInMat(int randomNumber,char mat[Y][X], int isSet){
   }
 }
 
-void matrixMovement(char mat[Y][X], int typeOfBlock){
+void matrixMovement(char mat[Y][X], int typeOfBlock, int position){
   char newMat[Y][X];
   initMatrix(newMat);
-  putBlockInMat(typeOfBlock,newMat,0);
+  putBlockInMat(typeOfBlock,newMat,0,position);
   for (int i = 0; i < Y-1; i++) {
     for (int j = 0; j < X-1; j++) {
 
