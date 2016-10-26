@@ -24,7 +24,7 @@ int main() {
       randomNumber = randomize();
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    randomNumber = 6;
+    randomNumber = 2;
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,1,0);
     Affiche(mat); //on l'affiche

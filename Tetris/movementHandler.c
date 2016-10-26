@@ -8,6 +8,7 @@
 
 // TODO:
 // - Hitbox: A voir avec le temps si c'est bon
+// - Verifier si on peut pivoter mais bon la ca va quand meme ca s'passe plutot bien
 // - la touche Z
 // - Trouver un moyen de remplacer les ZQSD par ←↓→
 // et après ça on aura plus à toucher à ces mouvements putain de bordel !
@@ -183,8 +184,8 @@ int getNextMovement(){
     case 'd': nextMovement = 3;
       printf("A droite\n\n");
       break;
-    /*case 'z': printf("En haut\n\n");
-      break;*/
+    case 'z': nextMovement = 4;
+      break;
     case 'w': nextMovement = 5;
       break;
     case 'x': nextMovement = 6;
@@ -411,7 +412,102 @@ void SMoveLeft(int *position){
   }
 }
 
+int ZcheckTurn(char mat[Y][X]){
+  extern ZDef Zblock;
+  int isPossible = 0;
+  int yPos = Zblock.lineTwoY, xPos = Zblock.ZRightX;
+  if ((mat[yPos][xPos]== 'o')||(mat[yPos][xPos]== '#')) {
+    isPossible = 1;
+  }
+  return isPossible;
+}
+
+int ScheckTurn(char mat[Y][X]){
+  extern SDef Sblock;
+  int isPossible = 0;
+  int yPos = Sblock.lineTwoY, xPos = Sblock.SLeftX;
+  if ((mat[yPos][xPos]== 'o')||(mat[yPos][xPos]== '#')) {
+    isPossible = 1;
+  }
+  return isPossible;
+}
+
+void directDown(char mat[Y][X], int typeOfBlock, int position){
+  int i;
+  extern squareDef Squareblock;
+  extern ZDef Zblock;
+  extern LDef Lblock;
+  extern JDef Jblock;
+  extern TDef Tblock;
+  extern IDef Iblock;
+  extern SDef Sblock;
+  switch (typeOfBlock) {
+    case 0:
+      i = Squareblock.lineTwoY;
+      printf("i: %d\n", i);
+      while ((i < Y-1)&&((mat[i][Squareblock.squareRightX] != 'o')||(mat[i][Squareblock.squareLeftX] != 'o')||(mat[i][Squareblock.squareRightX] != '*')||(mat[i][Squareblock.squareLeftX] != '*'))){
+        Squareblock.lineOneY = i-1;
+        Squareblock.lineTwoY = i;
+        i++;
+        printf("i: %d\n", i);
+      }
+      break;
+    case 1:
+      if ((position == 1) ||(position == -1)) {
+        i = Zblock.lineThreeY;
+      }
+      else
+        i = Zblock.lineTwoY;
+      printf("i: %d\n", i);
+      while ((i < Y-1)&&((mat[i][Zblock.ZRightX] != 'o')||(mat[i][Zblock.ZMiddleX] != 'o')||(mat[i][Zblock.ZLeftX] != '*')||(mat[i][Zblock.ZRightX] != '*')||(mat[i][Zblock.ZMiddleX] != '*')||(mat[i][Zblock.ZLeftX] != '*'))){
+        if ((position == 1) ||(position == -1)) {
+          Zblock.lineOneY = i-2;
+          Zblock.lineTwoY = i-1;
+          Zblock.lineThreeY = i;
+        }
+        else{
+          Zblock.lineOneY = i-1;
+          Zblock.lineTwoY = i;
+        }
+        i++;
+        printf("i: %d\n", i);
+      }
+    case 2:
+      i = Lblock.lineThreeY;
+      printf("i: %d\n", i);
+      while ((i < Y-1)&&((mat[i][Lblock.LRightX] != 'o')||(mat[i][Lblock.LLeftX] != 'o')||(mat[i][Lblock.LMiddleX] != 'o')||(mat[i][Lblock.LRightX] != '*')||(mat[i][Lblock.LLeftX] != '*')||(mat[i][Lblock.LMiddleX] != '*'))){
+        Lblock.lineOneY = i-2;
+        Lblock.lineTwoY = i-1;
+        Lblock.lineTwoY = i;
+        i++;
+        printf("i: %d\n", i);
+      }
+      break;
+    case 6:
+      if ((position == 1) ||(position == -1)) {
+        i = Sblock.lineThreeY;
+      }
+      else
+        i = Sblock.lineTwoY;
+      printf("i: %d\n", i);
+      while ((i < Y-1)&&((mat[i][Sblock.SRightX] != 'o')||(mat[i][Sblock.SMiddleX] != 'o')||(mat[i][Sblock.SLeftX] != '*')||(mat[i][Sblock.SRightX] != '*')||(mat[i][Sblock.SMiddleX] != '*')||(mat[i][Sblock.SLeftX] != '*'))){
+        if ((position == 1) ||(position == -1)) {
+          Sblock.lineOneY = i-2;
+          Sblock.lineTwoY = i-1;
+          Sblock.lineThreeY = i;
+        }
+        else{
+          Sblock.lineOneY = i-1;
+          Sblock.lineTwoY = i;
+        }
+        i++;
+        printf("i: %d\n", i);
+      }
+  }
+}
+
 void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
+  int canTurn;
   switch (typeOfBlock) {
     case 0: // carré
       switch (movement) {
@@ -422,6 +518,9 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: squareMoveRight();
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 4: directDown(mat,typeOfBlock,*position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 5:
@@ -442,19 +541,28 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
         case 3: ZMoveRight(position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
+        case 4: directDown(mat,typeOfBlock,*position);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
         case 5:
           *position = *position -1;
           if (*position < -2) {
             *position = 1;
           }
-          matrixMovement(mat,typeOfBlock,*position);
+          canTurn = ZcheckTurn(mat); //Tourner a gauche
+          if(canTurn == 0){
+            matrixMovement(mat,typeOfBlock,*position);
+          }
           break;
         case 6:
           *position = *position +1;
           if (*position > 2) {
             *position = -1;
           }
-          matrixMovement(mat,typeOfBlock,*position);
+          canTurn = ZcheckTurn(mat); //Tourner a gauche
+          if(canTurn == 0){
+            matrixMovement(mat,typeOfBlock,*position);
+          }
           break;
         }
       break;
@@ -467,6 +575,9 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: LMoveRight();
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 4: directDown(mat,typeOfBlock,*position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 5:
@@ -496,6 +607,9 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
         case 3: JMoveRight();
           matrixMovement(mat,typeOfBlock,*position);
           break;
+        case 4: directDown(mat,typeOfBlock,*position);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
         case 5:
           *position = *position -1;
           if (*position < -2) {
@@ -521,6 +635,9 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 3: TMoveRight();
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
+        case 4: directDown(mat,typeOfBlock,*position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 5:
@@ -550,6 +667,9 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
         case 3: IMoveRight();
           matrixMovement(mat,typeOfBlock,*position);
           break;
+        case 4: directDown(mat,typeOfBlock,*position);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
         case 5:
           *position = *position -1;
           if (*position < -2) {
@@ -577,19 +697,28 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
         case 3: SMoveRight();
           matrixMovement(mat,typeOfBlock,*position);
           break;
+        case 4: directDown(mat,typeOfBlock,*position);
+          matrixMovement(mat,typeOfBlock,*position);
+          break;
         case 5:
           *position = *position -1;
           if (*position < -2) {
             *position = 1;
           }
-          matrixMovement(mat,typeOfBlock,*position);
+          canTurn = ScheckTurn(mat); //Tourner a gauche
+          if(canTurn == 0){
+            matrixMovement(mat,typeOfBlock,*position);
+          }
           break;
         case 6:
           *position = *position +1;
           if (*position > 2) {
             *position = -1;
           }
-          matrixMovement(mat,typeOfBlock,*position);
+          canTurn = ScheckTurn(mat); //Tourner a gauche
+          if(canTurn == 0){
+            matrixMovement(mat,typeOfBlock,*position);
+          }
           break;
         }
       break;
@@ -606,7 +735,7 @@ void movementHandler(char mat[Y][X], int randomNumber){
     while(noConflict == 0){
       movement = getNextMovement();
       Move(mat, movement, randomNumber, &position);
-      printf("position: %d\n",position);
+      // printf("position: %d\n",position);
       Affiche(mat);
       noConflict = canMove(mat,randomNumber, &position);
     }
