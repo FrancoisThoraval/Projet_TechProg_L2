@@ -34,7 +34,6 @@ typedef struct {
   int lineOneY;
   int lineTwoY;
   int lineThreeY;
-  int lineFourY;
 }ZDef;
 
 typedef struct {
@@ -78,7 +77,6 @@ typedef struct {
   int lineOneY;
   int lineTwoY;
   int lineThreeY;
-  int lineFourY;
 }SDef;
 
 void errorHandler(int errorCode);

@@ -69,7 +69,6 @@ void zeee(char mat[Y][X], int isSet, int position) {
     Zblock.lineOneY = 0;
     Zblock.lineTwoY = 1;
     Zblock.lineThreeY = 2;
-    Zblock.lineFourY =3;
     Zblock.ZLeftX = X/2 -1;
     Zblock.ZMiddleX = X/2;
     Zblock.ZRightX = X/2 +1;

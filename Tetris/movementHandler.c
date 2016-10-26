@@ -256,7 +256,6 @@ void ZMoveDown(){
   Zblock.lineOneY ++;
   Zblock.lineTwoY ++;
   Zblock.lineThreeY ++;
-  Zblock.lineFourY ++;
 }
 
 //L Movements
@@ -381,7 +380,6 @@ void SMoveDown(){
   Sblock.lineOneY ++;
   Sblock.lineTwoY ++;
   Sblock.lineThreeY ++;
-  Sblock.lineFourY ++;
 }
 
 void SMoveRight(){
@@ -404,7 +402,7 @@ void SMoveLeft(int *position){
     }
   }
   else{
-    if ((mat[Sblock.lineOneY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != '#')) {
+    if ((mat[Sblock.lineOneY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != '#')) {
       Sblock.SRightX --;
       Sblock.SMiddleX --;
       Sblock.SLeftX --;
@@ -441,11 +439,12 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
   extern TDef Tblock;
   extern IDef Iblock;
   extern SDef Sblock;
+
   switch (typeOfBlock) {
     case 0:
       i = Squareblock.lineTwoY;
       printf("i: %d\n", i);
-      while ((i < Y-1)&&((mat[i][Squareblock.squareRightX] != 'o')||(mat[i][Squareblock.squareLeftX] != 'o')||(mat[i][Squareblock.squareRightX] != '*')||(mat[i][Squareblock.squareLeftX] != '*'))){
+      while ((i < Y-1)&&((mat[i][Squareblock.squareRightX] != 'o')&&(mat[i][Squareblock.squareLeftX] != 'o')&&(mat[i][Squareblock.squareRightX] != '*')&&(mat[i][Squareblock.squareLeftX] != '*'))){
         Squareblock.lineOneY = i-1;
         Squareblock.lineTwoY = i;
         i++;
@@ -459,7 +458,7 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
       else
         i = Zblock.lineTwoY;
       printf("i: %d\n", i);
-      while ((i < Y-1)&&((mat[i][Zblock.ZRightX] != 'o')||(mat[i][Zblock.ZMiddleX] != 'o')||(mat[i][Zblock.ZLeftX] != '*')||(mat[i][Zblock.ZRightX] != '*')||(mat[i][Zblock.ZMiddleX] != '*')||(mat[i][Zblock.ZLeftX] != '*'))){
+      while ((i < Y-1)&&((mat[i][Zblock.ZRightX] != 'o')&&(mat[i][Zblock.ZMiddleX] != 'o')&&(mat[i][Zblock.ZLeftX] != '*')&&(mat[i][Zblock.ZRightX] != '*')&&(mat[i][Zblock.ZMiddleX] != '*')&&(mat[i][Zblock.ZLeftX] != '*'))){
         if ((position == 1) ||(position == -1)) {
           Zblock.lineOneY = i-2;
           Zblock.lineTwoY = i-1;
@@ -473,12 +472,48 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
         printf("i: %d\n", i);
       }
     case 2:
+  // Alors la y'a grou boudel
       i = Lblock.lineThreeY;
       printf("i: %d\n", i);
-      while ((i < Y-1)&&((mat[i][Lblock.LRightX] != 'o')||(mat[i][Lblock.LLeftX] != 'o')||(mat[i][Lblock.LMiddleX] != 'o')||(mat[i][Lblock.LRightX] != '*')||(mat[i][Lblock.LLeftX] != '*')||(mat[i][Lblock.LMiddleX] != '*'))){
+      while ((i < Y-1)&&((mat[i][Lblock.LRightX] != 'o')&&(mat[i][Lblock.LLeftX] != 'o')&&(mat[i][Lblock.LMiddleX] != 'o')&&(mat[i][Lblock.LRightX] != '*')&&(mat[i][Lblock.LLeftX] != '*')&&(mat[i][Lblock.LMiddleX] != '*'))){
         Lblock.lineOneY = i-2;
         Lblock.lineTwoY = i-1;
-        Lblock.lineTwoY = i;
+        Lblock.lineThreeY = i;
+        i++;
+        printf("i: %d\n", i);
+      }
+      break;
+    case 3:
+      i = Jblock.lineThreeY;
+      while ((i < Y-1)&&((mat[i][Jblock.JRightX] != 'o')&&(mat[i][Jblock.JMiddleX] != 'o')&&(mat[i][Jblock.JLeftX] != '*')&&(mat[i][Jblock.JRightX] != '*')&&(mat[i][Jblock.JMiddleX] != '*')&&(mat[i][Jblock.JLeftX] != '*'))){
+        Jblock.lineOneY = i-2;
+        Jblock.lineTwoY = i-1;
+        Jblock.lineThreeY = i;
+        i++;
+        printf("i: %d\n", i);
+      }
+      break;
+    case 4:
+      i = Tblock.lineThreeY;
+      while ((i < Y-1)&&((mat[i][Tblock.TRightX] != 'o')&&(mat[i][Tblock.TMiddleX] != 'o')&&(mat[i][Tblock.TLeftX] != '*')&&(mat[i][Tblock.TRightX] != '*')&&(mat[i][Tblock.TMiddleX] != '*')&&(mat[i][Tblock.TLeftX] != '*'))){
+        Tblock.lineOneY = i-2;
+        Tblock.lineTwoY = i-1;
+        Tblock.lineThreeY = i;
+        i++;
+        printf("i: %d\n", i);
+      }
+      break;
+    case 5:
+      i = Iblock.lineThreeY;
+      while ((i < Y-1)&&((mat[i][Iblock.IMiddleX] != 'o')&&(mat[i][Iblock.IMiddleX] != '*'))){
+        if ((position == 1) ||(position == -1)) {
+          Iblock.lineTwoY = i;
+        }
+        else{
+          Iblock.lineOneY = i-2;
+          Iblock.lineTwoY = i-1;
+          Iblock.lineThreeY = i;
+        }
         i++;
         printf("i: %d\n", i);
       }
@@ -490,7 +525,7 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
       else
         i = Sblock.lineTwoY;
       printf("i: %d\n", i);
-      while ((i < Y-1)&&((mat[i][Sblock.SRightX] != 'o')||(mat[i][Sblock.SMiddleX] != 'o')||(mat[i][Sblock.SLeftX] != '*')||(mat[i][Sblock.SRightX] != '*')||(mat[i][Sblock.SMiddleX] != '*')||(mat[i][Sblock.SLeftX] != '*'))){
+      while ((i < Y-1)&&((mat[i][Sblock.SRightX] != 'o')&&(mat[i][Sblock.SMiddleX] != 'o')&&(mat[i][Sblock.SLeftX] != '*')&&(mat[i][Sblock.SRightX] != '*')&&(mat[i][Sblock.SMiddleX] != '*')&&(mat[i][Sblock.SLeftX] != '*'))){
         if ((position == 1) ||(position == -1)) {
           Sblock.lineOneY = i-2;
           Sblock.lineTwoY = i-1;
