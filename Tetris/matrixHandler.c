@@ -35,10 +35,12 @@ void initMatrix(char mat[Y][X]){
 }
 
 void Affiche(char mat[Y][X]) {
-  printf("\n");
+  for (int i = 0; i < 30; i++) {
+    printf("\n");
+  }
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
-      printf("%c",mat[i][j]);
+      printf("%c ",mat[i][j]);
     }
     printf("\n");
   }
