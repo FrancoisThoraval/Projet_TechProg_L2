@@ -7,7 +7,7 @@
 
 
 // TODO:
-// - Hitbox a retoucher pour les pivotements: Z,L(pb avec les o),J(pb avec les o),T (lourd bordel),I (rien qui va),S (lourd bordel)
+// - Hitbox: A voir avec le temps si c'est bon
 // - la touche Z
 // - Trouver un moyen de remplacer les ZQSD par ←↓→
 // et après ça on aura plus à toucher à ces mouvements putain de bordel !
@@ -22,88 +22,146 @@ int squareCanMove(char mat[Y][X]){
   return isPossible;
 }
 
-int ZCanMove(char mat[Y][X]){
+int ZCanMove(char mat[Y][X],int *position){
   extern ZDef Zblock;
   int isPossible=0;
 
-  if ((mat[Zblock.lineFourY +1][Zblock.ZLeftX] =='*')||(mat[Zblock.lineFourY +1][Zblock.ZLeftX] =='o')||(mat[Zblock.lineFourY +1][Zblock.ZMiddleX] =='o')||(mat[Zblock.lineFourY +1][Zblock.ZRightX] =='o')||(mat[Zblock.lineOneY +1][Zblock.ZLeftX] =='o')||(mat[Zblock.lineOneY +1][Zblock.ZRightX] =='o')||(mat[Zblock.lineThreeY +1][Zblock.ZMiddleX] =='o')) {
-    isPossible =1;
+  if ((*position == 0)||(*position == 2)||(*position == -2)) {
+    if ((mat[Zblock.lineTwoY +1][Zblock.ZMiddleX] =='*')||(mat[Zblock.lineTwoY +1][Zblock.ZRightX] =='o')||(mat[Zblock.lineTwoY +1][Zblock.ZMiddleX] =='o')||(mat[Zblock.lineOneY+1][Zblock.ZLeftX]=='o')) {
+      isPossible =1;
+    }
+  }
+  if ((*position == 1)||(*position == -1)) {
+    if ((mat[Zblock.lineThreeY +1][Zblock.ZLeftX] =='*')||(mat[Zblock.lineTwoY +1][Zblock.ZMiddleX] =='o')||(mat[Zblock.lineThreeY +1][Zblock.ZLeftX] =='o')) {
+      isPossible =1;
+    }
   }
   return isPossible;
 }
 
-int LCanMove(char mat[Y][X]){
+int LCanMove(char mat[Y][X],int *position){
   extern LDef Lblock;
   int isPossible=0;
-
-  if ((mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='o')||(mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='*')||(mat[Lblock.lineThreeY +1][Lblock.LMiddleX]=='o')||((mat[Lblock.lineThreeY +1][Lblock.LRightX]=='o'))) {
-    isPossible =1;
+  if ((*position == 0)||(*position == -1)||(*position == 2)||(*position == -2)) {
+    if ((mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='o')||(mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='*')||(mat[Lblock.lineThreeY +1][Lblock.LMiddleX]=='o')||((mat[Lblock.lineThreeY +1][Lblock.LRightX]=='o'))) {
+      isPossible =1;
+    }
   }
-
+  if(*position == 1){
+    if ((mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='o')||(mat[Lblock.lineThreeY +1][Lblock.LLeftX]=='*')||(mat[Lblock.lineOneY +1][Lblock.LMiddleX]=='o')||((mat[Lblock.lineOneY +1][Lblock.LRightX]=='o'))) {
+      isPossible =1;
+    }
+  }
   return isPossible;
 }
 
-int JCanMove(char mat[Y][X]){
+int JCanMove(char mat[Y][X], int *position){
   extern JDef Jblock;
 
   int isPossible =0;
-
-  if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '*')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JLeftX] == 'o')) {
-    isPossible =1;
+  if (*position == 0) {
+    if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '*')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JLeftX] == 'o')) {
+      isPossible =1;
+    }
+  }
+  if (*position == 1) {
+    if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '*')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')) {
+      isPossible =1;
+    }
+  }
+  if (*position == -1) {
+    if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '*')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JMiddleX] == 'o')) {
+      isPossible =1;
+    }
+  }
+  if ((*position == 2)||(*position == -2)) {
+    if ((mat[Jblock.lineThreeY +1][Jblock.JLeftX] == '*')||(mat[Jblock.lineThreeY +1][Jblock.JLeftX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineThreeY +1][Jblock.JRightX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JMiddleX] == 'o')||(mat[Jblock.lineOneY +1][Jblock.JRightX] == 'o')) {
+      isPossible =1;
+    }
   }
   return isPossible;
 }
 
-int TCanMove(char mat[Y][X]){
+int TCanMove(char mat[Y][X], int *position){
   extern TDef Tblock;
 
   int isPossible=0;
-
-  if ((mat[Tblock.lineThreeY +1][Tblock.TMiddleX] == '*')||(mat[Tblock.lineThreeY +1][Tblock.TMiddleX] == 'o')||(mat[Tblock.lineOneY +1][Tblock.TLeftX] == '*')||(mat[Tblock.lineOneY +1][Tblock.TLeftX] == 'o')||(mat[Tblock.lineOneY +1][Tblock.TRightX] == '*')||(mat[Tblock.lineOneY +1][Tblock.TRightX] == 'o')) {
-    isPossible = 1;
+  if (*position == 0) {
+    if ((mat[Tblock.lineThreeY +1][Tblock.TMiddleX] == '*')||(mat[Tblock.lineThreeY +1][Tblock.TMiddleX] == 'o')||(mat[Tblock.lineOneY +1][Tblock.TLeftX] == 'o')||(mat[Tblock.lineOneY +1][Tblock.TRightX] == 'o')) {
+      isPossible = 1;
+    }
+  }
+  if (*position == 1) {
+    if ((mat[Tblock.lineThreeY +1][Tblock.TRightX] == '*')||(mat[Tblock.lineThreeY +1][Tblock.TRightX] == 'o')||(mat[Tblock.lineTwoY +1][Tblock.TLeftX] == 'o')||(mat[Tblock.lineTwoY +1][Tblock.TMiddleX] == 'o')) {
+      isPossible = 1;
+    }
+  }
+  if (*position == -1) {
+    if ((mat[Tblock.lineThreeY +1][Tblock.TLeftX] == '*')||(mat[Tblock.lineThreeY +1][Tblock.TLeftX] == 'o')||(mat[Tblock.lineTwoY +1][Tblock.TRightX] == 'o')||(mat[Tblock.lineTwoY +1][Tblock.TMiddleX] == 'o')) {
+      isPossible = 1;
+    }
+  }
+  if ((*position == 2)||(*position == -2)) {
+    if ((mat[Tblock.lineThreeY +1][Tblock.TLeftX] == '*')||(mat[Tblock.lineThreeY +1][Tblock.TLeftX] == 'o')||(mat[Tblock.lineThreeY +1][Tblock.TRightX] == 'o')||(mat[Tblock.lineThreeY +1][Tblock.TMiddleX] == 'o')) {
+      isPossible = 1;
+    }
   }
   return isPossible;
 }
 
-int ICanMove(char mat[Y][X]){
+int ICanMove(char mat[Y][X], int *position){
   extern IDef Iblock;
 
   int isPossible=0;
 
-  if ((mat[Iblock.lineThreeY +1][Iblock.IMiddleX] == '*')||(mat[Iblock.lineThreeY +1][Iblock.IMiddleX] == 'o')) {
-    isPossible = 1;
+  if ((*position == 0)||(*position == 2)||(*position == -2)) {
+    if ((mat[Iblock.lineThreeY +1][Iblock.IMiddleX] == '*')||(mat[Iblock.lineThreeY +1][Iblock.IMiddleX] == 'o')) {
+      isPossible = 1;
+    }
+  }
+  if ((*position == 1)||(*position == -1)) {
+    if ((mat[Iblock.lineTwoY +1][Iblock.IMiddleX-1] == '*')||(mat[Iblock.lineTwoY +1][Iblock.IMiddleX -1] == 'o')||(mat[Iblock.lineTwoY +1][Iblock.IMiddleX] == 'o')||(mat[Iblock.lineTwoY +1][Iblock.IMiddleX +1] == 'o')) {
+      isPossible = 1;
+    }
   }
   return isPossible;
 }
 
-int SCanMove(char mat[Y][X]){
+int SCanMove(char mat[Y][X], int *position){
   extern SDef Sblock;
 
   int isPossible = 0;
 
-  if ((mat[Sblock.lineFourY +1][Sblock.SLeftX] == '*')||(mat[Sblock.lineFourY +1][Sblock.SLeftX] == 'o')||(mat[Sblock.lineFourY +1][Sblock.SMiddleX] == 'o')||(mat[Sblock.lineFourY +1][Sblock.SRightX] == 'o')||(mat[Sblock.lineOneY +1][Sblock.SRightX] == 'o')||(mat[Sblock.lineTwoY +1][Sblock.SLeftX] == 'o')) {
-    isPossible = 1;
+  if ((*position == 0)||(*position == 2)||(*position == -2)) {
+    if ((mat[Sblock.lineTwoY +1][Sblock.SMiddleX] =='*')||(mat[Sblock.lineTwoY +1][Sblock.SLeftX] =='o')||(mat[Sblock.lineTwoY +1][Sblock.SMiddleX] =='o')||(mat[Sblock.lineOneY+1][Sblock.SRightX]=='o')) {
+      isPossible =1;
+    }
+  }
+  if ((*position == 1)||(*position == -1)) {
+    if ((mat[Sblock.lineThreeY +1][Sblock.SRightX] =='*')||(mat[Sblock.lineTwoY +1][Sblock.SMiddleX] =='o')||(mat[Sblock.lineThreeY +1][Sblock.SRightX] =='o')) {
+      isPossible =1;
+    }
   }
   return isPossible;
 }
 
-int canMove(char mat[Y][X], int typeOfBlock){
+int canMove(char mat[Y][X], int typeOfBlock, int *position){
   // extern IDef Iblock;
   int isPossible =0;
   switch (typeOfBlock) {
     case 0: isPossible = squareCanMove(mat);
       break;
-    case 1: isPossible = ZCanMove(mat);
+    case 1: isPossible = ZCanMove(mat, position);
       break;
-    case 2: isPossible = LCanMove(mat);
+    case 2: isPossible = LCanMove(mat, position);
       break;
-    case 3: isPossible = JCanMove(mat);
+    case 3: isPossible = JCanMove(mat, position);
       break;
-    case 4: isPossible = TCanMove(mat);
+    case 4: isPossible = TCanMove(mat, position);
       break;
-    case 5: isPossible = ICanMove(mat);
+    case 5: isPossible = ICanMove(mat, position);
       break;
-    case 6: isPossible = SCanMove(mat);
+    case 6: isPossible = SCanMove(mat, position);
       break;
   }
 
@@ -163,21 +221,28 @@ void squareMoveRight(){
 }
 
 // Z Movements
-void ZMoveRight(){
+void ZMoveRight(int *position){
   extern ZDef Zblock;
-
-  if ((mat[Zblock.lineOneY][Zblock.ZRightX +1]!='o')&&(mat[Zblock.lineOneY][Zblock.ZRightX +1]!='#')&&(mat[Zblock.lineFourY][Zblock.ZRightX +1]!='o')) {
-    Zblock.ZLeftX ++;
-    Zblock.ZRightX ++;
-    Zblock.ZMiddleX ++;
+  if ((*position == 1)||(*position == -1)){
+    if ((mat[Zblock.lineOneY][Zblock.ZMiddleX +1]!='o')&&(mat[Zblock.lineOneY][Zblock.ZMiddleX +1]!='#')&&(mat[Zblock.lineThreeY][Zblock.ZLeftX +1]!='o')) {
+      Zblock.ZLeftX ++;
+      Zblock.ZRightX ++;
+      Zblock.ZMiddleX ++;
+    }
   }
-
+  else{
+    if ((mat[Zblock.lineOneY][Zblock.ZRightX +1]!='o')&&(mat[Zblock.lineOneY][Zblock.ZRightX +1]!='#')&&(mat[Zblock.lineTwoY][Zblock.ZRightX +1]!='o')) {
+      Zblock.ZLeftX ++;
+      Zblock.ZRightX ++;
+      Zblock.ZMiddleX ++;
+    }
+  }
 }
 
 void ZMoveLeft(){
   extern ZDef Zblock;
 
-  if ((mat[Zblock.lineOneY][Zblock.ZLeftX -1]!='o')&&(mat[Zblock.lineOneY][Zblock.ZLeftX -1]!='#')&&(mat[Zblock.lineThreeY][Zblock.ZLeftX -1]!='o')&&(mat[Zblock.lineFourY][Zblock.ZLeftX -1]!='o')) {
+  if ((mat[Zblock.lineOneY][Zblock.ZLeftX -1]!='o')&&(mat[Zblock.lineOneY][Zblock.ZLeftX -1]!='#')&&(mat[Zblock.lineTwoY][Zblock.ZMiddleX -1]!='o')) {
     Zblock.ZLeftX --;
     Zblock.ZRightX --;
     Zblock.ZMiddleX --;
@@ -203,12 +268,20 @@ void LMoveRight(){
   }
 }
 
-void LMoveLeft(){
+void LMoveLeft(int *position){
   extern LDef Lblock;
-  if ((mat[Lblock.lineOneY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineTwoY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineThreeY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineThreeY][Lblock.LLeftX -1]!='#')&&(mat[Lblock.lineTwoY][Lblock.LLeftX -1]!='#')&&(mat[Lblock.lineOneY][Lblock.LLeftX -1]!='#')) {
-    Lblock.LLeftX--;
-    Lblock.LRightX--;
-    Lblock.LMiddleX--;
+  if ((*position == -2)||(*position == -2)) {
+    if ((mat[Lblock.lineThreeY][Lblock.LRightX -1]!='o')&&(mat[Lblock.lineOneY][Lblock.LRightX -1]!='o')&&(mat[Lblock.lineTwoY][Lblock.LRightX -1]!='o')) {
+      Lblock.LLeftX--;
+      Lblock.LRightX--;
+      Lblock.LMiddleX--;
+    }
+  }else{
+    if ((mat[Lblock.lineOneY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineTwoY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineThreeY][Lblock.LLeftX -1]!='o')&&(mat[Lblock.lineThreeY][Lblock.LLeftX -1]!='#')&&(mat[Lblock.lineTwoY][Lblock.LLeftX -1]!='#')&&(mat[Lblock.lineOneY][Lblock.LLeftX -1]!='#')) {
+      Lblock.LLeftX--;
+      Lblock.LRightX--;
+      Lblock.LMiddleX--;
+    }
   }
 }
 
@@ -313,21 +386,28 @@ void SMoveDown(){
 void SMoveRight(){
   extern SDef Sblock;
 
-  if ((mat[Sblock.lineOneY][Sblock.SRightX +1] != 'o')&&(mat[Sblock.lineThreeY][Sblock.SRightX +1] != 'o')&&(mat[Sblock.lineFourY][Sblock.SRightX +1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SRightX +1] != '#')&&(mat[Sblock.lineThreeY][Sblock.SRightX +1] != '#')&&(mat[Sblock.lineFourY][Sblock.SRightX +1] != '#')) {
+  if ((mat[Sblock.lineOneY][Sblock.SRightX +1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SMiddleX +1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SRightX +1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SMiddleX +1] != '#')) {
     Sblock.SRightX ++;
     Sblock.SMiddleX ++;
     Sblock.SLeftX ++;
   }
 }
 
-
-void SMoveLeft(){
+void SMoveLeft(int *position){
   extern SDef Sblock;
-
-  if ((mat[Sblock.lineOneY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != '#')) {
-    Sblock.SRightX --;
-    Sblock.SMiddleX --;
-    Sblock.SLeftX --;
+  if ((*position == 1)||(*position == -1)){
+    if ((mat[Sblock.lineOneY][Sblock.SMiddleX -1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SMiddleX -1] != 'o')&&(mat[Sblock.lineThreeY][Sblock.SRightX -1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SMiddleX -1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SMiddleX -1] != '#')&&(mat[Sblock.lineThreeY][Sblock.SRightX -1] != '#')) {
+      Sblock.SRightX --;
+      Sblock.SMiddleX --;
+      Sblock.SLeftX --;
+    }
+  }
+  else{
+    if ((mat[Sblock.lineOneY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != 'o')&&(mat[Sblock.lineOneY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineTwoY][Sblock.SLeftX -1] != '#')&&(mat[Sblock.lineFourY][Sblock.SLeftX -1] != '#')) {
+      Sblock.SRightX --;
+      Sblock.SMiddleX --;
+      Sblock.SLeftX --;
+    }
   }
 }
 
@@ -359,7 +439,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
         case 2: ZMoveDown();
           matrixMovement(mat,typeOfBlock,*position);
           break;
-        case 3: ZMoveRight();
+        case 3: ZMoveRight(position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 5:
@@ -380,7 +460,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
       break;
     case 2: // L
       switch (movement) {
-        case 1: LMoveLeft();
+        case 1: LMoveLeft(position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: LMoveDown();
@@ -488,7 +568,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
       break;
     case 6: // S
       switch (movement) {
-        case 1: SMoveLeft();
+        case 1: SMoveLeft(position);
           matrixMovement(mat,typeOfBlock,*position);
           break;
         case 2: SMoveDown();
@@ -520,16 +600,15 @@ void movementHandler(char mat[Y][X], int randomNumber){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
-  // int *ptrPosition = &position;
 
   if (noConflict == 0){
-    noConflict = canMove(mat,randomNumber); //Vérifie que le joueur peut encore descendre le bloc
+    noConflict = canMove(mat,randomNumber, &position); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
       movement = getNextMovement();
       Move(mat, movement, randomNumber, &position);
       printf("position: %d\n",position);
       Affiche(mat);
-      noConflict = canMove(mat,randomNumber);
+      noConflict = canMove(mat,randomNumber, &position);
     }
     blockEnd(mat);
   }

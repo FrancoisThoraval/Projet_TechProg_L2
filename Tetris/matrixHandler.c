@@ -15,7 +15,7 @@ void errorHandler(int errorCode){
 int randomize(){
   //On tire au sort un nombre qui correspondra a la forme du bloc
   srand(time(NULL));
-  int randomNumber = rand() %6;
+  int randomNumber = rand() %7;
   return randomNumber;
 }
 
@@ -72,54 +72,19 @@ void zeee(char mat[Y][X], int isSet, int position) {
     Zblock.ZMiddleX = X/2;
     Zblock.ZRightX = X/2 +1;
   }
-  if (position == 0) {
-      mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
-      mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
-      mat[Zblock.lineOneY][Zblock.ZRightX] = blocChar;
-
-      mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
-      mat[Zblock.lineThreeY][Zblock.ZLeftX] = blocChar;
-
-      mat[Zblock.lineFourY][Zblock.ZLeftX] = blocChar;
-      mat[Zblock.lineFourY][Zblock.ZMiddleX] = blocChar;
-      mat[Zblock.lineFourY][Zblock.ZRightX] = blocChar;
-
-  }
-  if (position == 1) {
-    mat[Zblock.lineOneY][Zblock.ZRightX+1] = blocChar;
-    mat[Zblock.lineTwoY][Zblock.ZRightX+1] = blocChar;
-    mat[Zblock.lineThreeY][Zblock.ZRightX+1] = blocChar;
-
-    mat[Zblock.lineTwoY][Zblock.ZRightX] = blocChar;
-    mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
-
+  if ((position == 0)||(position == 2)||(position == -2)) {
     mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
+    mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
+    mat[Zblock.lineTwoY][Zblock.ZRightX] = blocChar;
+
+    mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
+  }
+  if ((position == 1)||(position == -1)) {
+    mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
+    mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
+
     mat[Zblock.lineTwoY][Zblock.ZLeftX] = blocChar;
     mat[Zblock.lineThreeY][Zblock.ZLeftX] = blocChar;
-  }
-  if (position == 2 || position==-2 ) {
-    mat[Zblock.lineOneY][Zblock.ZLeftX] = blocChar;
-    mat[Zblock.lineOneY][Zblock.ZMiddleX] = blocChar;
-    mat[Zblock.lineOneY][Zblock.ZRightX] = blocChar;
-
-    mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
-    mat[Zblock.lineThreeY][Zblock.ZRightX] = blocChar;
-
-    mat[Zblock.lineFourY][Zblock.ZLeftX] = blocChar;
-    mat[Zblock.lineFourY][Zblock.ZMiddleX] = blocChar;
-    mat[Zblock.lineFourY][Zblock.ZRightX] = blocChar;
-  }
-  if (position == -1) {
-    mat[Zblock.lineOneY][Zblock.ZRightX] = blocChar;
-    mat[Zblock.lineTwoY][Zblock.ZRightX] = blocChar;
-    mat[Zblock.lineThreeY][Zblock.ZRightX] = blocChar;
-
-    mat[Zblock.lineTwoY][Zblock.ZMiddleX] = blocChar;
-    mat[Zblock.lineThreeY][Zblock.ZLeftX] = blocChar;
-
-    mat[Zblock.lineOneY][Zblock.ZLeftX -1] = blocChar;
-    mat[Zblock.lineTwoY][Zblock.ZLeftX -1] = blocChar;
-    mat[Zblock.lineThreeY][Zblock.ZLeftX -1] = blocChar;
   }
 
 
@@ -223,8 +188,6 @@ void jeee(char mat[Y][X], int isSet, int position) {
 
 void teee(char mat[Y][X], int isSet, int position) {
   extern TDef Tblock;
-  extern int XCenter;
-  extern int YCenter;
 
   char blocChar = 'x';
   if (isSet == 1){
@@ -302,61 +265,21 @@ void seee(char mat[Y][X], int isSet, int position) {
     Sblock.lineOneY = 0;
     Sblock.lineTwoY = 1;
     Sblock.lineThreeY = 2;
-    Sblock.lineFourY = 3;
   }
-  if (position == 0) {
+  if ((position == 0)||(position == 2)||(position == -2)) {
     mat[Sblock.lineOneY][Sblock.SRightX] = blocChar;
     mat[Sblock.lineOneY][Sblock.SMiddleX] = blocChar;
-    mat[Sblock.lineOneY][Sblock.SLeftX] = blocChar;
-
     mat[Sblock.lineTwoY][Sblock.SLeftX] = blocChar;
 
-    mat[Sblock.lineThreeY][Sblock.SRightX] = blocChar;
-
-    mat[Sblock.lineFourY][Sblock.SRightX] = blocChar;
-    mat[Sblock.lineFourY][Sblock.SMiddleX] = blocChar;
-    mat[Sblock.lineFourY][Sblock.SLeftX] = blocChar;
+    mat[Sblock.lineTwoY][Sblock.SMiddleX] = blocChar;
   }
-  if (position == 1) {
-    mat[Sblock.lineOneY][Sblock.SRightX] = blocChar;
+  if ((position == 1)||(position == -1)) {
+    mat[Sblock.lineOneY][Sblock.SMiddleX] = blocChar;
+    mat[Sblock.lineTwoY][Sblock.SMiddleX] = blocChar;
+
     mat[Sblock.lineTwoY][Sblock.SRightX] = blocChar;
     mat[Sblock.lineThreeY][Sblock.SRightX] = blocChar;
-
-    mat[Sblock.lineOneY][Sblock.SMiddleX] = blocChar;
-
-    mat[Sblock.lineThreeY][Sblock.SLeftX] = blocChar;
-
-    mat[Sblock.lineOneY][Sblock.SLeftX -1] = blocChar;
-    mat[Sblock.lineTwoY][Sblock.SLeftX -1] = blocChar;
-    mat[Sblock.lineThreeY][Sblock.SLeftX -1] = blocChar;
   }
-  if ((position == 2)||(position == -2)){
-    mat[Sblock.lineOneY][Sblock.SRightX] = blocChar;
-    mat[Sblock.lineOneY][Sblock.SMiddleX] = blocChar;
-    mat[Sblock.lineOneY][Sblock.SLeftX] = blocChar;
-
-    mat[Sblock.lineTwoY][Sblock.SRightX] = blocChar;
-
-    mat[Sblock.lineThreeY][Sblock.SLeftX] = blocChar;
-
-    mat[Sblock.lineFourY][Sblock.SRightX] = blocChar;
-    mat[Sblock.lineFourY][Sblock.SMiddleX] = blocChar;
-    mat[Sblock.lineFourY][Sblock.SLeftX] = blocChar;
-  }
-  if (position == -1) {
-    mat[Sblock.lineOneY][Sblock.SRightX +1] = blocChar;
-    mat[Sblock.lineTwoY][Sblock.SRightX +1] = blocChar;
-    mat[Sblock.lineThreeY][Sblock.SRightX +1] = blocChar;
-
-    mat[Sblock.lineThreeY][Sblock.SMiddleX] = blocChar;
-
-    mat[Sblock.lineOneY][Sblock.SRightX] = blocChar;
-
-    mat[Sblock.lineOneY][Sblock.SLeftX] = blocChar;
-    mat[Sblock.lineTwoY][Sblock.SLeftX] = blocChar;
-    mat[Sblock.lineThreeY][Sblock.SLeftX] = blocChar;
-  }
-
 }
 
 void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position){
