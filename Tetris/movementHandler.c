@@ -760,7 +760,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
   }
 }
 
-void movementHandler(char mat[Y][X], int randomNumber){
+void movementHandler(char mat[Y][X], int randomNumber, int score){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
@@ -771,7 +771,7 @@ void movementHandler(char mat[Y][X], int randomNumber){
       movement = getNextMovement();
       Move(mat, movement, randomNumber, &position);
       // printf("position: %d\n",position);
-      Affiche(mat);
+      Affiche(mat,score);
       noConflict = canMove(mat,randomNumber, &position);
     }
     blockEnd(mat);

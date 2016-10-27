@@ -4,7 +4,7 @@
 #include <string.h>
 #include "definition.h"
 
-void movementHandler(char mat[Y][X],int randomNumber);
+void movementHandler(char mat[Y][X],int randomNumber,int score);
 int canMove(char mat[Y][X], int typeOfBlock, int *position);
 int ICanMove(char mat[Y][X], int *position);
 int TCanMove(char mat[Y][X], int *position);
@@ -32,3 +32,6 @@ void TMoveDown();
 void IMoveLeft();
 void IMoveRight();
 void IMoveDown();
+void directDown(char mat[Y][X], int typeOfBlock, int position);
+int ZcheckTurn(char mat[Y][X]);
+int ScheckTurn(char mat[Y][X]);

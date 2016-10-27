@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "definition.h"
+#include "scoreHandler.h"
 
 /*
 Description:
@@ -80,7 +81,7 @@ typedef struct {
 }SDef;
 
 void errorHandler(int errorCode);
-void Affiche(char mat[Y][X]);
+void Affiche(char mat[Y][X], int score);
 void square(char mat[Y][X], int isSet);
 void zeee(char mat[Y][X], int isSet, int position);
 void leee(char mat[Y][X], int isSet, int position);
