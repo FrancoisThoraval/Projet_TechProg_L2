@@ -12,6 +12,11 @@ void errorHandler(int errorCode){
   }
 }
 
+int gameOver(char mat[Y][X], int score){
+  return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
+}
+
+
 int randomize(){
   //On tire au sort un nombre qui correspondra a la forme du bloc
   srand(time(NULL));

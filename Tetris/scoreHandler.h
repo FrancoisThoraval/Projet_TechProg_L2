@@ -7,3 +7,5 @@
 void deleteLine(char mat[Y][X], int line);
 void showScore(int score);
 int checkLines(char mat[Y][X], int score);
+void endGameScreen(int *score);
+void printBestScores();

@@ -32,7 +32,10 @@ int main() {
     movementHandler(mat, randomNumber,score); //On gère les mouvements du bloc
     score = checkLines(mat,score);
     Affiche(mat, score); //on réaffiche la matrice une fois que le bloc est placé
-    // scanf("%d", &gameOn);
+    gameOn = gameOver(mat, score);
+    if (gameOn == 1) {
+      endGameScreen(&score);
+    }
   }
   return 0;
 }

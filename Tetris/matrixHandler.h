@@ -94,3 +94,4 @@ void blockEnd(char mat[Y][X]);
 void initMatrix(char mat[Y][X]);
 int randomize();
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position);
+int gameOver(char mat[Y][X], int score);

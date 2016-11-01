@@ -16,4 +16,5 @@ retour=$?
 if [[ retour == 0 ]]; then
   echo "Installation réussie !"
 fi
+touch ./Tetris/score.txt
 echo "Success !!"
