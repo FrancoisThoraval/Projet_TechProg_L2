@@ -190,6 +190,8 @@ int getNextMovement(){
       break;
     case 'x': nextMovement = 6;
       break;
+    case 'p': nextMovement = 7;
+      break;
   }
   // On repasse le terminal en mode normal
   system ("/bin/stty cooked");
@@ -543,6 +545,12 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
 
 void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
   int canTurn;
+  char unpause;
+  if (movement == 7) {
+    printf("\n\n============ GAME PAUSED ============\n\n");
+    printf("type a key and press enter to unpause \n");
+    scanf("%c", &unpause);
+  }
   switch (typeOfBlock) {
     case 0: // carré
       switch (movement) {

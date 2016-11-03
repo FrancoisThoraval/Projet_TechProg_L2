@@ -13,8 +13,8 @@
 // plus propre ...
 
 typedef struct{
-  int *score;
-  int *line;
+  int score;
+  int line;
   char name[lengthName];
 }saveScore;
 
@@ -31,27 +31,64 @@ void getName(char name[lengthName]) {
   scanf("%s*c",name);
 }
 
-void fileScoreHandler(saveScore oldScores[nbOldScore], int intention){
+void readFile(saveScore oldScores[nbOldScore]){
   FILE *file;
-  file = fopen("score.txt", "r+");
-  if (intention == 0) {
-    if (file != NULL) {
-      for (int i = 0; i < nbOldScore-1; i++) {
-        fscanf(file,"%d %d %s",oldScores[i].score,oldScores[i].line,oldScores[i].name);
-      }
-      fclose(file);
+  file = fopen("score.txt", "r");
+
+  if (file != NULL) {
+    for (int i = 0; i < nbOldScore; i++) {
+      fscanf(file,"%d %d %s",&(oldScores[i]).score,&(oldScores[i]).line,oldScores[i].name);
     }
-    else
-      printf("There is no file named \"score.txt\" !\n");
-  }else{
-    if (file != NULL) {
-      for (int i = 0; i < nbOldScore-1; i++) {
-        fprintf(file,"%d %d %s",*oldScores[i].score,*oldScores[i].line,oldScores[i].name);
-      }
-      fclose(file);
+  }
+  else
+    printf("There is no file named \"score.txt\" !\n");
+  fclose(file);
+}
+
+void writeFile(saveScore oldScores[nbOldScore]){
+  FILE *file;
+  file = fopen("score.txt", "w");
+
+  if (file != NULL) {
+    for (int i = 0; i < nbOldScore; i++) {
+      fprintf(file,"%d %d %s \n",oldScores[i].score,oldScores[i].line,oldScores[i].name);
     }
-    else
-      printf("There is no file named \"score.txt\" !\n");
+  }
+  else
+    printf("There is no file named \"score.txt\" !\n");
+  fclose(file);
+
+}
+
+void fileScoreHandler(saveScore oldScores[nbOldScore], int intention){
+  switch (intention) {
+    case 0: readFile(oldScores);
+      break;
+    case 1: writeFile(oldScores);
+      break;
+  }
+
+}
+
+void ramScores(saveScore *oldScores, saveScore *save){
+  int aux;
+  char auxString;
+  // Permutation scores
+  aux = save->score;
+  save->score = oldScores->score;
+  oldScores->score = aux;
+
+  // Permutation nb lignes
+  aux = save->line;
+  save->line = oldScores->line;
+  oldScores->line = aux;
+
+  // Permutation noms
+  for (int i = 0; i < lengthName; i++) {
+    auxString = save->name[i];
+    save->name[i] = oldScores->name[i];
+    oldScores->name[i] = auxString;
+
   }
 }
 
@@ -61,22 +98,28 @@ void endGameScreen(int *score){
   printf("=======================================================================");
   printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
   printf("======================================================================= \n");
+
+// On récupère les infos de la partie
   getName(save.name);
-  save.score = score;
-  save.line = score; // temporairement
+  save.score = *score;
+  save.line = *score; // temporairement
   printf("name: %s\n",save.name );
-  printf("On lit une premiere fois le fichier\n");
+
+  printf("On lit le fichier\n");
   fileScoreHandler(oldScores,0);
-  printf("premier test\n");
-  for (int i = 0; i < nbOldScore -1; i++) {
-    oldScores[i]=save;
+
+  printf("On regarde les scores dans le tableau\n");
+  for (int i = 0; i < nbOldScore; i++) {
+    if(oldScores[i].score<save.score){
+      ramScores(&(oldScores[i]),&save);
+    }
   }
   printf("On ecrit dans le fichier\n");
   fileScoreHandler(oldScores,1);
-  printf("On relit une seconde fois le fichier\n");
-  fileScoreHandler(oldScores,0);
+
+  printf("On affiche le tableau\n");
   for (int i = 0; i < nbOldScore; i++) {
-    printf("save n°%d :\n    score: %d    lignes: %d   name: %s\n========\n",i,*oldScores[i].score,*oldScores[i].line,oldScores[i].name);
+    printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",i,oldScores[i].score,oldScores[i].line,oldScores[i].name);
   }
   //Lire les vieux scores
   //Classer le nouveau score dans le vieux
