@@ -7,10 +7,7 @@
 #define lengthName 20
 #define nbOldScore 10
 
-// TODO: regler pb avec la lecture du fichier quand le fichier a déjà été édité par le programme
-//       faire le tri des scores
-// Et apres version minimale terminée plus qu'à se retaper la création des blocs et la gestion des mouvements pour que ce soit
-// plus propre ...
+// TODO: retour au menu une fois les scores enregistrés ou lorsque l'utilisateur répond "non"
 
 typedef struct{
   int score;
@@ -22,8 +19,14 @@ void showScore(int score){
   printf("Score: %d \n\n", score);
 }
 
-void printBestScores() {
-  /* code */
+void printBestScores(saveScore oldScores[nbOldScore]) {
+  for (int i = 0; i < 30; i++) {
+    printf("\n");
+  }
+  printf("On affiche le tableau\n");
+  for (int i = nbOldScore -1; i >= 0; i--) {
+    printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",nbOldScore-i,oldScores[i].score,oldScores[i].line,oldScores[i].name);
+  }
 }
 
 void getName(char name[lengthName]) {
@@ -36,7 +39,7 @@ void readFile(saveScore oldScores[nbOldScore]){
   file = fopen("score.txt", "r");
 
   if (file != NULL) {
-    for (int i = 0; i < nbOldScore; i++) {
+    for (int i = nbOldScore -1; i >= 0; i--) {
       fscanf(file,"%d %d %s",&(oldScores[i]).score,&(oldScores[i]).line,oldScores[i].name);
     }
   }
@@ -50,7 +53,7 @@ void writeFile(saveScore oldScores[nbOldScore]){
   file = fopen("score.txt", "w");
 
   if (file != NULL) {
-    for (int i = 0; i < nbOldScore; i++) {
+    for (int i = nbOldScore -1; i >= 0; i--) {
       fprintf(file,"%d %d %s \n",oldScores[i].score,oldScores[i].line,oldScores[i].name);
     }
   }
@@ -92,40 +95,56 @@ void ramScores(saveScore *oldScores, saveScore *save){
   }
 }
 
-void endGameScreen(int *score){
+void sortScores(saveScore oldScores[nbOldScore], saveScore save){
+  for (int i = nbOldScore -1; i >= 0; i--) {
+    if(oldScores[i].score < save.score){
+      ramScores(&(oldScores[i]),&save);
+      if (i < 1) {
+        ramScores(&save,&(oldScores[i-1]));
+      }
+    }
+  }
+}
+
+void Score(int *score){
   saveScore save;
   saveScore oldScores[nbOldScore];
-  printf("=======================================================================");
-  printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
-  printf("======================================================================= \n");
 
-// On récupère les infos de la partie
+  // On récupère les infos de la partie
   getName(save.name);
   save.score = *score;
   save.line = *score; // temporairement
   printf("name: %s\n",save.name );
 
-  printf("On lit le fichier\n");
+  // On lit le fichier score.txt et on met les valeur dans un tableau de scores
   fileScoreHandler(oldScores,0);
 
-  printf("On regarde les scores dans le tableau\n");
-  for (int i = 0; i < nbOldScore; i++) {
-    if(oldScores[i].score<save.score){
-      ramScores(&(oldScores[i]),&save);
-    }
-  }
-  printf("On ecrit dans le fichier\n");
+  // On trie le tableau de scores
+  sortScores(oldScores,save);
+
+  // On écrit le nouveau fichier
   fileScoreHandler(oldScores,1);
 
-  printf("On affiche le tableau\n");
-  for (int i = 0; i < nbOldScore; i++) {
-    printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",i,oldScores[i].score,oldScores[i].line,oldScores[i].name);
+  // On affiche les scores
+  printBestScores(oldScores);
+}
+
+void endGameScreen(int *score){
+  char answer;
+  printf("=======================================================================");
+  printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
+  printf("======================================================================= \n");
+  printf("Do you to save your score ? (y/n) \n");
+  scanf("%c",&answer);
+  switch (answer) {
+    case 'y': ;
+    case 'Y':Score(score);
+      break;
+    case 'n': ;
+    case 'N':exit(0); //Retour au menu à prévoir
+      break;
+    default: endGameScreen(score);
   }
-  //Lire les vieux scores
-  //Classer le nouveau score dans le vieux
-  //Afficher le nouveau tableau des scores
-  //Ecrire le nouveau fichier score
-  printBestScores();
 }
 
 void deleteLine(char mat[Y][X], int line){
