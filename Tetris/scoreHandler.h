@@ -5,7 +5,7 @@
 #include <string.h>
 
 void deleteLine(char mat[Y][X], int line);
-void showScore(int score);
-int checkLines(char mat[Y][X], int score);
-void endGameScreen(int *score);
+void showScore(int score, int line);
+void checkLines(char mat[Y][X], int *score, int *line);
+void endGameScreen(int *score, int *line);
 void printBestScores();

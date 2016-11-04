@@ -4,7 +4,7 @@
 #include <string.h>
 #include "definition.h"
 
-void movementHandler(char mat[Y][X],int randomNumber,int score);
+void movementHandler(char mat[Y][X],int randomNumber,int score, int line);
 int canMove(char mat[Y][X], int typeOfBlock, int *position);
 int ICanMove(char mat[Y][X], int *position);
 int TCanMove(char mat[Y][X], int *position);

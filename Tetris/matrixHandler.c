@@ -12,7 +12,7 @@ void errorHandler(int errorCode){
   }
 }
 
-int gameOver(char mat[Y][X], int score){
+int gameOver(char mat[Y][X]){
   return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
 }
 
@@ -39,11 +39,11 @@ void initMatrix(char mat[Y][X]){
   }
 }
 
-void Affiche(char mat[Y][X],int score) {
+void Affiche(char mat[Y][X],int score, int line) {
   for (int i = 0; i < 30; i++) {
     printf("\n");
   }
-  showScore(score);
+  showScore(score, line);
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       printf("%c ",mat[i][j]);

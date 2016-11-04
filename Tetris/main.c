@@ -18,6 +18,7 @@ int main() {
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
+  int line = 0;
   initMatrix(mat); //on initialise la matrice
 
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
@@ -28,13 +29,13 @@ int main() {
     // randomNumber = 0;
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,1,0);
-    Affiche(mat, score); //on l'affiche
-    movementHandler(mat, randomNumber,score); //On gère les mouvements du bloc
-    score = checkLines(mat,score);
-    Affiche(mat, score); //on réaffiche la matrice une fois que le bloc est placé
-    gameOn = gameOver(mat, score);
+    Affiche(mat, score, line); //on l'affiche
+    movementHandler(mat, randomNumber, score, line); //On gère les mouvements du bloc
+    checkLines(mat,&score, &line);
+    Affiche(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
+    gameOn = gameOver(mat);
     if (gameOn == 1) {
-      endGameScreen(&score);
+      endGameScreen(&score, &line);
     }
   }
   return 0;

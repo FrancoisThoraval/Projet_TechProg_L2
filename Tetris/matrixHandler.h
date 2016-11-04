@@ -81,7 +81,7 @@ typedef struct {
 }SDef;
 
 void errorHandler(int errorCode);
-void Affiche(char mat[Y][X], int score);
+void Affiche(char mat[Y][X], int score, int line);
 void square(char mat[Y][X], int isSet);
 void zeee(char mat[Y][X], int isSet, int position);
 void leee(char mat[Y][X], int isSet, int position);
@@ -94,4 +94,4 @@ void blockEnd(char mat[Y][X]);
 void initMatrix(char mat[Y][X]);
 int randomize();
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position);
-int gameOver(char mat[Y][X], int score);
+int gameOver(char mat[Y][X]);

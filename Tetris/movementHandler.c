@@ -175,21 +175,28 @@ int getNextMovement(){
   int nextMovement= 0;
   int c = getchar();
   switch (c) {
+    case 'Q':;
     case 'q': nextMovement = 1;
       printf("A gauche \n\n");
       break;
+    case 'S': ;
     case 's': nextMovement = 2;
       printf("En bas\n\n");
       break;
+    case 'D':;
     case 'd': nextMovement = 3;
       printf("A droite\n\n");
       break;
+    case 'Z':;
     case 'z': nextMovement = 4;
       break;
+    case 'W':;
     case 'w': nextMovement = 5;
       break;
+    case 'X':;
     case 'x': nextMovement = 6;
       break;
+    case 'P':;
     case 'p': nextMovement = 7;
       break;
   }
@@ -768,7 +775,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
   }
 }
 
-void movementHandler(char mat[Y][X], int randomNumber, int score){
+void movementHandler(char mat[Y][X], int randomNumber, int score, int line){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
@@ -779,7 +786,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int score){
       movement = getNextMovement();
       Move(mat, movement, randomNumber, &position);
       // printf("position: %d\n",position);
-      Affiche(mat,score);
+      Affiche(mat,score,line);
       noConflict = canMove(mat,randomNumber, &position);
     }
     blockEnd(mat);

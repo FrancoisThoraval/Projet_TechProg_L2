@@ -15,15 +15,15 @@ typedef struct{
   char name[lengthName];
 }saveScore;
 
-void showScore(int score){
-  printf("Score: %d \n\n", score);
+void showScore(int score, int line){
+  printf("Score: %d Lines deleted: %d\n\n", score, line);
 }
 
 void printBestScores(saveScore oldScores[nbOldScore]) {
   for (int i = 0; i < 30; i++) {
     printf("\n");
   }
-  printf("On affiche le tableau\n");
+  printf("=============================================  TOP 10 SCORES  ================================================\n\n");
   for (int i = nbOldScore -1; i >= 0; i--) {
     printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",nbOldScore-i,oldScores[i].score,oldScores[i].line,oldScores[i].name);
   }
@@ -106,14 +106,14 @@ void sortScores(saveScore oldScores[nbOldScore], saveScore save){
   }
 }
 
-void Score(int *score){
+void Score(int *score, int *line){
   saveScore save;
   saveScore oldScores[nbOldScore];
 
   // On récupère les infos de la partie
   getName(save.name);
   save.score = *score;
-  save.line = *score; // temporairement
+  save.line = *line;
   printf("name: %s\n",save.name );
 
   // On lit le fichier score.txt et on met les valeur dans un tableau de scores
@@ -129,7 +129,7 @@ void Score(int *score){
   printBestScores(oldScores);
 }
 
-void endGameScreen(int *score){
+void endGameScreen(int *score, int *line){
   char answer;
   printf("=======================================================================");
   printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
@@ -138,12 +138,12 @@ void endGameScreen(int *score){
   scanf("%c",&answer);
   switch (answer) {
     case 'y': ;
-    case 'Y':Score(score);
+    case 'Y':Score(score,line);
       break;
     case 'n': ;
     case 'N':exit(0); //Retour au menu à prévoir
       break;
-    default: endGameScreen(score);
+    default: endGameScreen(score,line);
   }
 }
 
@@ -155,7 +155,7 @@ void deleteLine(char mat[Y][X], int line){
   }
 }
 
-int checkLines(char mat[Y][X], int score){
+void checkLines(char mat[Y][X], int *score, int *line){
   int j;
   int isEmpty;
   for (int i = 0; i < Y-1; i++) {
@@ -173,7 +173,7 @@ int checkLines(char mat[Y][X], int score){
     if (isEmpty == 1) {
       deleteLine(mat,i);
       score += 10;
+      line ++;
     }
   }
-  return score;
 }
