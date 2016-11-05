@@ -6,13 +6,14 @@
 #include "movementHandler.h"
 #include "scoreHandler.h"
 // Var globales
-squareDef Squareblock;
-ZDef Zblock;
-LDef Lblock;
-IDef Iblock;
-JDef Jblock;
-TDef Tblock;
-SDef Sblock;
+coordBlock block;
+// squareDef Squareblock;
+// ZDef Zblock;
+// LDef Lblock;
+// IDef Iblock;
+// JDef Jblock;
+// TDef Tblock;
+// SDef Sblock;
 
 int main() {
   int gameOn =0;
@@ -21,14 +22,16 @@ int main() {
   int line = 0;
   initMatrix(mat); //on initialise la matrice
 
+
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
-    do {
-      randomNumber = randomize();
-    } while(randomNumber == oldNumber);
-    oldNumber = randomNumber;
-    // randomNumber = 0;
+    initCoordStruct();
+    // do {
+    //   randomNumber = randomize();
+    // } while(randomNumber == oldNumber);
+    // oldNumber = randomNumber;
+    randomNumber = 5;
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,1,0);
+    putBlockInMat(randomNumber,mat,2,0);
     Affiche(mat, score, line); //on l'affiche
     movementHandler(mat, randomNumber, score, line); //On gère les mouvements du bloc
     checkLines(mat,&score, &line);

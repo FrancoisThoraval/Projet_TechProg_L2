@@ -21,67 +21,20 @@ Description:
 char mat[Y][X];
 int randomNumber;
 
-typedef struct {
-  int lineOneY;
-  int lineTwoY;
-  int squareLeftX;
-  int squareRightX;
-}squareDef;
-
-typedef struct {
-  int ZLeftX;
-  int ZMiddleX;
-  int ZRightX;
+typedef struct{
+  int leftX;
+  int middleX;
+  int rightX;
   int lineOneY;
   int lineTwoY;
   int lineThreeY;
-}ZDef;
-
-typedef struct {
-  int LLeftX;
-  int LMiddleX;
-  int LRightX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-}LDef;
-
-typedef struct {
-  int JLeftX;
-  int JMiddleX;
-  int JRightX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-}JDef;
-
-typedef struct {
-  int TLeftX;
-  int TMiddleX;
-  int TRightX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-}TDef;
-
-typedef struct {
-  int IMiddleX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-}IDef;
-
-typedef struct {
-  int SLeftX;
-  int SMiddleX;
-  int SRightX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-}SDef;
+  int lineFourY;
+}coordBlock;
 
 void errorHandler(int errorCode);
 void Affiche(char mat[Y][X], int score, int line);
+
+// Design blocs
 void square(char mat[Y][X], int isSet);
 void zeee(char mat[Y][X], int isSet, int position);
 void leee(char mat[Y][X], int isSet, int position);
@@ -89,9 +42,11 @@ void jeee(char mat[Y][X], int isSet, int position);
 void teee(char mat[Y][X], int isSet, int position);
 void iail(char mat[Y][X], int isSet, int position);
 void seee(char mat[Y][X], int isSet, int position);
+
 void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position);
 void blockEnd(char mat[Y][X]);
 void initMatrix(char mat[Y][X]);
 int randomize();
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position);
 int gameOver(char mat[Y][X]);
+void initCoordStruct();
