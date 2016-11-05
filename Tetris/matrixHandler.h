@@ -6,7 +6,7 @@
 #include "scoreHandler.h"
 
 /*
-Description:
+Description: (pas à jour)
 
 - PROCEDURE errorHandler (errorCode: entier) -> gère les erreurs potentielles
 - PROCEDURE Affiche (mat[Y,X]: matrice de caractères) -> Affiche la matrice avec les bordures
@@ -32,7 +32,11 @@ typedef struct{
 }coordBlock;
 
 void errorHandler(int errorCode);
+int gameOver(char mat[Y][X]);
+int randomize();
+void initMatrix(char mat[Y][X]);
 void Affiche(char mat[Y][X], int score, int line);
+void initCoordStruct();
 
 // Design blocs
 void square(char mat[Y][X], int isSet);
@@ -45,8 +49,4 @@ void seee(char mat[Y][X], int isSet, int position);
 
 void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position);
 void blockEnd(char mat[Y][X]);
-void initMatrix(char mat[Y][X]);
-int randomize();
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position);
-int gameOver(char mat[Y][X]);
-void initCoordStruct();

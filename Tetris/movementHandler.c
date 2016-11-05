@@ -294,7 +294,6 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
 }
 
 void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
-  int canTurn;
   char unpause;
   switch (movement) {
     case 1: moveLeft(mat);
@@ -309,7 +308,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
     case 4: directDown(mat,typeOfBlock,*position);
       matrixMovement(mat,typeOfBlock,*position);
       break;
-    case 5: //gauche
+    case 5: //Gauche
       *position = *position +1;
       if (*position > 2) {
         *position = -1;
@@ -321,7 +320,6 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
       if (*position < -2) {
         *position = 1;
       }
-      printf("positionAAAA: %d\n", *position);
       matrixMovement(mat,typeOfBlock,*position);
       break;
     case 7: printf("\n\n============ GAME PAUSED ============\n\n");
@@ -330,7 +328,6 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
       break;
   }
 }
-
 
 void movementHandler(char mat[Y][X], int randomNumber, int score, int line){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas

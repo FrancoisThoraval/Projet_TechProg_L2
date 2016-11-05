@@ -16,7 +16,6 @@ int gameOver(char mat[Y][X]){
   return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
 }
 
-
 int randomize(){
   //On tire au sort un nombre qui correspondra a la forme du bloc
   srand(time(NULL));
@@ -164,7 +163,7 @@ void jeee(char mat[Y][X], int isSet, int position) {
     mat[block.lineOneY][block.rightX] = blocChar;
   }
 }
-//
+
 void teee(char mat[Y][X], int isSet, int position) {
   extern coordBlock block;
 
