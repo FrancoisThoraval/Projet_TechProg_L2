@@ -168,12 +168,14 @@ void checkLines(char mat[Y][X], int *score, int *line){
         }
       }
     }
-    if (isEmpty == 0) {
-    }
+    // if (isEmpty == 0) {
+    // }
     if (isEmpty == 1) {
+      printf("score avant: %d\n", *score);
       deleteLine(mat,i);
-      score += 10;
-      line ++;
+      *score += 10;
+      *line = *line +1;
+      printf("score apres: %d\n", *score);
     }
   }
 }

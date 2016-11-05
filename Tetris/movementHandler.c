@@ -330,17 +330,14 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
 }
 
 void movementHandler(char mat[Y][X], int randomNumber, int score, int line){
+  extern coordBlock block;
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
-  //Tests
-  extern coordBlock block;
   if (noConflict == 0){
     noConflict = canMoveV(mat); //Vérifie que le joueur peut encore descendre le bloc
-    printf("noConflict: %d\n",noConflict );
     while(noConflict == 0){
       movement = getNextMovement();
-      printf("movement: %d\n",movement );
       Move(mat, movement, randomNumber, &position);
       Affiche(mat,score,line);
       noConflict = canMoveV(mat);

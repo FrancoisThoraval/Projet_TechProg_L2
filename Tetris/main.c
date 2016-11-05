@@ -37,7 +37,7 @@ int main() {
     putBlockInMat(randomNumber,mat,2,0);
     Affiche(mat, score, line); //on l'affiche
     movementHandler(mat, randomNumber, score, line); //On gère les mouvements du bloc
-    checkLines(mat,&score, &line);
+    checkLines(mat,&score, &line);    
     Affiche(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer
     if (gameOn == 1) {

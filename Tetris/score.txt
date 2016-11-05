@@ -4,7 +4,7 @@
 1000 1000 randomName4 
 666 666 randomName5 
 500 500 randomName6 
+210 21 francois 
 200 200 randomName7 
 100 100 randomName8 
 60 60 nicetry 
-50 50 John 
