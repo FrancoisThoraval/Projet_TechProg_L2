@@ -28,26 +28,36 @@ void initMatrix(char mat[Y][X]){
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       mat[i][j]=' ';
-      if (i==Y-1) {
-        mat[i][j]='*';
-      }
-      if ((j==0)||(j==X-1)) {
-        mat[i][j]='#';
-      }
+      // if (i==Y-1) {
+      //   mat[i][j]='*';
+      // }
+      // if ((j==0)||(j==X-1)) {
+      //   mat[i][j]='#';
+      // }
     }
   }
 }
 
-void Affiche(char mat[Y][X],int score, int line) {
+void show(char mat[Y][X],int score, int line) {
+  // system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
   for (int i = 0; i < 30; i++) {
     printf("\n");
   }
   showScore(score, line);
   for (int i = 0; i < Y; i++) {
-    for (int j = 0; j < X; j++) {
-      printf("%c ",mat[i][j]);
+    for (int j = -1; j < X; j++) {
+      if ((j==-1 )||(j==X-1)) {
+        printf("#");
+      }
+      if ((i==Y-1) && (j!=X-1) && (j!=-1)) {
+        printf("* ");
+      }
+      if ((i!= Y-1) && (i!= -1) && (j!=X)&& (j!=-1)) {
+        printf("%c ",mat[i][j]);
+      }
     }
     printf("\n");
+    // printf("test %d: \"%c\"\n",i,test );
   }
 }
 
@@ -262,15 +272,10 @@ void matrixMovement(char mat[Y][X], int typeOfBlock, int position){
   char newMat[Y][X];
   initMatrix(newMat);
   putBlockInMat(typeOfBlock,newMat,0,position);
-  for (int i = 0; i < Y-1; i++) {
-    for (int j = 0; j < X-1; j++) {
-
-      switch (mat[i][j]) {
-        case 'o': newMat[i][j] = 'o';
-          break;
-        case '#': break;
-        case '_': break;
-        // default: newMat[i][j] =' ';
+  for (int i = 0; i < Y; i++) {
+    for (int j = 0; j < X; j++) {
+      if (mat[i][j] == 'o') {
+        newMat[i][j] = 'o';
       }
     }
   }
@@ -287,10 +292,8 @@ void blockEnd(char mat[Y][X]){
     for (int j = 0; j < X-1; j++) {
       switch (mat[i][j]) {
         case 'x': mat[i][j] = 'o';
-        break;
+          break;
         case 'o': break;
-        case '#': break;
-        case '_': break;
         default: mat[i][j] =' ';
       }
     }

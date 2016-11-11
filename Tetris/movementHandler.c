@@ -4,6 +4,8 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+// #include <unistd.h>
+
 
 void testPrintInfo(int *position){
   extern coordBlock block;
@@ -39,94 +41,105 @@ int canMoveH(char mat[Y][X], int side){
   switch (side) {
     case 0:
       if ((mat[block.lineOneY][block.leftX]=='x')) {
-        if ((mat[block.lineOneY][block.leftX -1] == '#')||(mat[block.lineOneY][block.leftX -1] == 'o')) {
+        if ((block.leftX -1 == -1)||(mat[block.lineOneY][block.leftX -1] == 'o')) {
           isPossibleOL = 1;
         }
       }
       if ((mat[block.lineOneY][block.middleX]=='x')) {
-        if ((mat[block.lineOneY][block.middleX -1] == '#')||(mat[block.lineOneY][block.middleX -1] == 'o')) {
+        if ((block.middleX -1 == -1)||(mat[block.lineOneY][block.middleX -1] == 'o')) {
           isPossibleOM = 1;
         }
       }
 
       if ((mat[block.lineTwoY][block.leftX]=='x')) {
-        if ((mat[block.lineTwoY][block.leftX -1] == '#')||(mat[block.lineTwoY][block.leftX -1] == 'o')) {
+        if (((block.leftX -1 == -1))||(mat[block.lineTwoY][block.leftX -1] == 'o')) {
           isPossibleTL = 1;
         }
       }
       if ((mat[block.lineTwoY][block.middleX]=='x')) {
-        if ((mat[block.lineTwoY][block.middleX -1] == '#')||(mat[block.lineTwoY][block.middleX -1] == 'o')) {
+        if ((block.middleX -1 == -1)||(mat[block.lineTwoY][block.middleX -1] == 'o')) {
           isPossibleTM = 1;
         }
       }
 
       if ((mat[block.lineThreeY][block.leftX]=='x')) {
-        if ((mat[block.lineThreeY][block.leftX -1] == '#')||(mat[block.lineThreeY][block.leftX -1] == 'o')) {
+        if ((block.leftX -1 == -1)||(mat[block.lineThreeY][block.leftX -1] == 'o')) {
           isPossibleThL = 1;
         }
       }
       if ((mat[block.lineThreeY][block.middleX]=='x')) {
-        if ((mat[block.lineThreeY][block.middleX -1] == '#')||(mat[block.lineThreeY][block.middleX -1] == 'o')) {
+        if ((block.middleX -1 == -1)||(mat[block.lineThreeY][block.middleX -1] == 'o')) {
           isPossibleThM = 1;
         }
       }
-      if ((mat[block.lineFourY][block.middleX]=='x')) {
-        if ((mat[block.lineFourY][block.leftX] == '#')||(mat[block.lineFourY][block.leftX] == 'o')) {
+      if ((mat[block.lineFourY][block.leftX]=='x')) {
+        if ((block.leftX -1 == -1)||(mat[block.lineFourY][block.leftX] == 'o')) {
           isPossibleFL = 1;
         }
       }
       break;
     case 1:
+      printf("X: %d\n",X);
       if ((mat[block.lineOneY][block.middleX]=='x')) {
-        if ((mat[block.lineOneY][block.middleX +1] == '#')||(mat[block.lineOneY][block.middleX +1] == 'o')) {
+        if ((block.middleX +1 == X-1)||(mat[block.lineOneY][block.middleX +1] == 'o')) {
           isPossibleOM = 1;
+          printf("i\' touching ! \n");
         }
       }
       if ((mat[block.lineOneY][block.rightX]=='x')) {
-        if ((mat[block.lineOneY][block.rightX +1] == '#')||(mat[block.lineOneY][block.rightX +1] == 'o')) {
+        if ((block.rightX +1 == X-1)||(mat[block.lineOneY][block.rightX +1] == 'o')) {
           isPossibleOR = 1;
+          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block.lineTwoY][block.middleX]=='x')) {
-        if ((mat[block.lineTwoY][block.middleX +1] == '#')||(mat[block.lineTwoY][block.middleX +1] == 'o')) {
+        if ((block.middleX +1 == X-1)||(mat[block.lineTwoY][block.middleX +1] == 'o')) {
           isPossibleTM = 1;
+          printf("i\' touching ! \n");
         }
       }
       if ((mat[block.lineTwoY][block.rightX]=='x')) {
-        if ((mat[block.lineTwoY][block.rightX +1] == '#')||(mat[block.lineTwoY][block.rightX +1] == 'o')) {
+        if ((block.rightX +1 == X-1)||(mat[block.lineTwoY][block.rightX +1] == 'o')) {
           isPossibleTR = 1;
+          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block.lineThreeY][block.middleX]=='x')) {
-        if ((mat[block.lineThreeY][block.middleX +1] == '#')||(mat[block.lineThreeY][block.middleX +1] == 'o')) {
+        if ((block.middleX +1 == X-1)||(mat[block.lineThreeY][block.middleX +1] == 'o')) {
           isPossibleThM = 1;
+          printf("i\' touching ! \n");
         }
       }
       if ((mat[block.lineThreeY][block.rightX]=='x')) {
-        if ((mat[block.lineThreeY][block.rightX +1] == '#')||(mat[block.lineThreeY][block.rightX +1] == 'o')) {
+        if ((block.rightX +1 == X-1)||(mat[block.lineThreeY][block.rightX +1] == 'o')) {
           isPossibleThR = 1;
+          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block.lineFourY][block.middleX]=='x')) {
-        if ((mat[block.lineFourY][block.rightX] == '#')||(mat[block.lineFourY][block.rightX] == 'o')) {
+        if ((block.rightX == X-1)||(mat[block.lineFourY][block.rightX] == 'o')) {
           isPossibleFR = 1;
+          printf("i\' touching ! \n");
         }
       }
       // Cas où le I est renversé
       if ((mat[block.lineTwoY][block.rightX+1]=='x')) {
-        if ((mat[block.lineFourY][block.rightX+2] == '#')||(mat[block.lineFourY][block.rightX+2] == 'o')) {
+        if ((block.rightX +2 == X-1)||(mat[block.lineFourY][block.rightX+2] == 'o')) {
           isPossibleFR = 1;
+          printf("i\' touching ! \n");
         }
       }
       break;
   }
   isPossible = isPossibleThR + isPossibleThM + isPossibleThL + isPossibleTR + isPossibleTM + isPossibleTL + isPossibleOR + isPossibleOL + isPossibleOM + isPossibleFR + isPossibleFL;
+
   return isPossible;
 }
 
+// Verification verticale que l'on peut encore descendre
 int canMoveV(char mat[Y][X]){
   extern coordBlock block;
   int isPossible=0;
@@ -145,73 +158,93 @@ int canMoveV(char mat[Y][X]){
   int isPossibleFL = 0;
 
   if ((mat[block.lineOneY][block.leftX]=='x')) {
-    if ((mat[block.lineOneY +1][block.leftX] == '*')||(mat[block.lineOneY +1][block.leftX] == 'o')) {
+    if ((block.lineOneY == Y-2)||(mat[block.lineOneY +1][block.leftX] == 'o')) {
       isPossibleOL = 1;
     }
   }
   if ((mat[block.lineOneY][block.middleX]=='x')) {
-    if ((mat[block.lineOneY +1][block.middleX] == '*')||(mat[block.lineOneY +1][block.middleX] == 'o')) {
+    if ((block.lineOneY == Y-2)||(mat[block.lineOneY +1][block.middleX] == 'o')) {
       isPossibleOM = 1;
     }
   }
   if ((mat[block.lineOneY][block.rightX]=='x')) {
-    if ((mat[block.lineOneY +1][block.rightX] == '*')||(mat[block.lineOneY +1][block.rightX] == 'o')) {
+    if ((block.lineOneY == Y-2)||(mat[block.lineOneY +1][block.rightX] == 'o')) {
       isPossibleOR = 1;
     }
   }
 
   // Verification sur deuxième ligne
   if ((mat[block.lineTwoY][block.leftX]=='x')) {
-    if ((mat[block.lineTwoY +1][block.leftX] == '*')||(mat[block.lineTwoY +1][block.leftX] == 'o')) {
+    if ((block.lineTwoY == Y-2)||(mat[block.lineTwoY +1][block.leftX] == 'o')) {
       isPossibleTL = 1;
     }
   }
   if ((mat[block.lineTwoY][block.middleX]=='x')) {
-    if ((mat[block.lineTwoY +1][block.middleX] == '*')||(mat[block.lineTwoY +1][block.middleX] == 'o')) {
+    if ((block.lineTwoY == Y-2)||(mat[block.lineTwoY +1][block.middleX] == 'o')) {
       isPossibleTM = 1;
     }
   }
   if ((mat[block.lineTwoY][block.rightX]=='x')) {
-    if ((mat[block.lineTwoY +1][block.rightX] == '*')||(mat[block.lineTwoY +1][block.rightX] == 'o')) {
+    if ((block.lineTwoY == Y-2)||(mat[block.lineTwoY +1][block.rightX] == 'o')) {
       isPossibleTR = 1;
     }
   }
 
   // Verification sur troisieme ligne
   if ((mat[block.lineThreeY][block.leftX]=='x')) {
-    if ((mat[block.lineThreeY +1][block.leftX] == '*')||(mat[block.lineThreeY +1][block.leftX] == 'o')) {
+    if ((block.lineThreeY == Y-2)||(mat[block.lineThreeY +1][block.leftX] == 'o')) {
       isPossibleThL = 1;
     }
   }
   if ((mat[block.lineThreeY][block.middleX]=='x')) {
-    if ((mat[block.lineThreeY +1][block.middleX] == '*')||(mat[block.lineThreeY +1][block.middleX] == 'o')) {
+    if ((block.lineThreeY == Y-2)||(mat[block.lineThreeY +1][block.middleX] == 'o')) {
       isPossibleThM = 1;
     }
   }
   if ((mat[block.lineThreeY][block.rightX]=='x')) {
-    if ((mat[block.lineThreeY +1][block.rightX] == '*')||(mat[block.lineThreeY +1][block.rightX] == 'o')) {
+    if ((block.lineThreeY == Y-2)||(mat[block.lineThreeY +1][block.rightX] == 'o')) {
       isPossibleThR = 1;
     }
   }
 
   // Verification sur quatrieme ligne (cas du I)
   if ((mat[block.lineFourY][block.leftX]=='x')) {
-    if ((mat[block.lineFourY +1][block.leftX] == '*')||(mat[block.lineFourY +1][block.leftX] == 'o')) {
+    if ((block.lineFourY == Y-2)||(mat[block.lineFourY +1][block.leftX] == 'o')) {
       isPossibleFL = 1;
     }
   }
   if ((mat[block.lineFourY][block.middleX]=='x')) {
-    if ((mat[block.lineFourY +1][block.middleX] == '*')||(mat[block.lineFourY +1][block.middleX] == 'o')) {
+    if ((block.lineFourY == Y-2)||(mat[block.lineFourY +1][block.middleX] == 'o')) {
       isPossibleFM = 1;
     }
   }
   if ((mat[block.lineFourY][block.rightX]=='x')) {
-    if ((mat[block.lineFourY +1][block.rightX] == '*')||(mat[block.lineFourY +1][block.rightX] == 'o')) {
+    if ((block.lineFourY == Y-2)||(mat[block.lineFourY +1][block.rightX] == 'o')) {
       isPossibleFR = 1;
     }
   }
+  if ((block.lineFourY == Y-1)||(block.lineThreeY == Y-1)||(block.lineTwoY == Y-1)||(block.lineOneY == Y-1)) {
+    if (block.lineFourY == Y-1) {
+      printf("linefour touche le fond\n");
+    }
+    if (block.lineThreeY == Y-1) {
+      printf("linethree touche le fond\n");
+    }
+    if (block.lineTwoY == Y-1) {
+      printf("linetwo touche le fond\n");
+    }
+    if (block.lineOneY == Y-1) {
+      printf("lineone touche le fond\n");
+    }
+    printf("Normalement on devrait s\'arreter test2\n");
+  }
   isPossible = isPossibleThR + isPossibleThM + isPossibleThL + isPossibleTR + isPossibleTM + isPossibleTL + isPossibleOR + isPossibleOL + isPossibleOM + isPossibleFR + isPossibleFL + isPossibleFM;
   return isPossible;
+}
+
+void moveDownEvery(int seconds){
+  moveDown();
+  sleep(seconds);
 }
 
 int getNextMovement(){
@@ -270,12 +303,15 @@ void moveRight(char mat[Y][X]){
   }
 }
 
-void moveDown(char mat[Y][X]){
+void moveDown(){
   extern coordBlock block;
   block.lineOneY ++;
   block.lineTwoY ++;
   block.lineThreeY ++;
   block.lineFourY ++;
+  if ((block.lineFourY == Y-1)||(block.lineThreeY == Y-1)||(block.lineTwoY == Y-1)||(block.lineOneY == Y-1)) {
+    printf("Normalement on devrait s\'arreter test 1\n");
+  }
 }
 
 void directDown(char mat[Y][X], int typeOfBlock, int position){
@@ -293,19 +329,21 @@ void directDown(char mat[Y][X], int typeOfBlock, int position){
   }
 }
 
-void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
+void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *score){
   char unpause;
   switch (movement) {
     case 1: moveLeft(mat);
       matrixMovement(mat,typeOfBlock,*position);
       break;
     case 2: moveDown(mat);
+      *score = *score +1;
       matrixMovement(mat,typeOfBlock,*position);
       break;
     case 3: moveRight(mat);
       matrixMovement(mat,typeOfBlock,*position);
       break;
     case 4: directDown(mat,typeOfBlock,*position);
+      *score = *score +5;
       matrixMovement(mat,typeOfBlock,*position);
       break;
     case 5: //Gauche
@@ -329,19 +367,25 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position){
   }
 }
 
-void movementHandler(char mat[Y][X], int randomNumber, int score, int line){
+void movementHandler(char mat[Y][X], int randomNumber, int *score, int line){
   extern coordBlock block;
+  // struct timeval tv;
+
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
+  // int seconds = 1;
   if (noConflict == 0){
     noConflict = canMoveV(mat); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
-      movement = getNextMovement();
-      Move(mat, movement, randomNumber, &position);
-      Affiche(mat,score,line);
+      movement = getNextMovement(); //Voir kb_hit et getch()
+      Move(mat, movement, randomNumber, &position, score);
+      show(mat,*score,line);
+      testPrintInfo(&position);
       noConflict = canMoveV(mat);
     }
     blockEnd(mat);
   }
+  else
+    printf("touching\n");
 }

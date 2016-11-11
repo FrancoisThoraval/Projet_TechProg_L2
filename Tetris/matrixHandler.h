@@ -35,7 +35,7 @@ void errorHandler(int errorCode);
 int gameOver(char mat[Y][X]);
 int randomize();
 void initMatrix(char mat[Y][X]);
-void Affiche(char mat[Y][X], int score, int line);
+void show(char mat[Y][X], int score, int line);
 void initCoordStruct();
 
 // Design blocs

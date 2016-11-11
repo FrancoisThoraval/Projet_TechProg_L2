@@ -5,21 +5,17 @@
 #include "matrixHandler.h"
 #include "movementHandler.h"
 #include "scoreHandler.h"
+#include <unistd.h>
+
 // Var globales
 coordBlock block;
-// squareDef Squareblock;
-// ZDef Zblock;
-// LDef Lblock;
-// IDef Iblock;
-// JDef Jblock;
-// TDef Tblock;
-// SDef Sblock;
 
 int main() {
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
   int line = 0;
+  int nbLines;
   initMatrix(mat); //on initialise la matrice
 
 
@@ -31,18 +27,29 @@ int main() {
       randomNumber = randomize();
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 5;
+    // randomNumber = 0;
 
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0);
-    Affiche(mat, score, line); //on l'affiche
-    movementHandler(mat, randomNumber, score, line); //On gère les mouvements du bloc
-    checkLines(mat,&score, &line);    
-    Affiche(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
+    show(mat, score, line); //on l'affiche
+    movementHandler(mat, randomNumber, &score, line); //On gère les mouvements du bloc
+    nbLines = line;
+    checkLines(mat,&score, &line);
+    switch (line - nbLines) {
+      case 1: break;
+      case 2: score +=5;
+        break;
+      case 3: score +=10;
+        break;
+      case 4: score +=50;
+    }
+    show(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
+    printf("line - nbLines: %d",line - nbLines);
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer
     if (gameOn == 1) {
       endGameScreen(&score, &line); //Affiche un message et passa à la saisie des scores etc...
     }
+
   }
   return 0;
 }

@@ -158,24 +158,28 @@ void deleteLine(char mat[Y][X], int line){
 void checkLines(char mat[Y][X], int *score, int *line){
   int j;
   int isEmpty;
-  for (int i = 0; i < Y-1; i++) {
+
+  for (int i = 0; i < Y; i++) {
     isEmpty = 0;
     if (mat[i][j] == 'o') {
-      isEmpty = 1;
-      for (j = 1; j < X-2; j++) {
-        if (mat[i][j] == ' ') {
-          isEmpty = 0;
-        }
+      j=0;
+      while ((j<X) && (mat[i][j]=='o')) {
+        printf("Je continue de regarder la ligne %d, je suis à %d\n",i,j);
+        j++;
+      }
+      if (mat[i][j] == ' ') {
+        printf("j'ai trouvé un blanc à (%d,%d)\n",i,j);
+        isEmpty = 0;
+      }
+      if (j==10) {
+        isEmpty = 1;
       }
     }
-    // if (isEmpty == 0) {
-    // }
+    printf("isEmpty: %d\n",isEmpty);
     if (isEmpty == 1) {
-      printf("score avant: %d\n", *score);
       deleteLine(mat,i);
       *score += 10;
       *line = *line +1;
-      printf("score apres: %d\n", *score);
     }
   }
 }

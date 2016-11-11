@@ -1,2 +1,2 @@
-#define X 12
-#define Y 14
+#define X 11
+#define Y 13
