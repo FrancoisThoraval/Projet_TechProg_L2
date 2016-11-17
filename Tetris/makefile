@@ -1,5 +1,5 @@
-all : matrixHandler.o movementHandler.o scoreHandler.o main.o
-	gcc matrixHandler.o movementHandler.o scoreHandler.o main.o -o Tetris
+all : matrixHandler.o movementHandler.o scoreHandler.o kbhit.o main.o
+	gcc matrixHandler.o movementHandler.o scoreHandler.o kbhit.o main.o -o Tetris -lncurses
 	rm *.o
 
 main.o: main.c
@@ -14,6 +14,8 @@ scoreHandler.o : scoreHandler.c
 movementHandler.o : movementHandler.c
 	gcc -Wall -c movementHandler.c
 
+kbhit.o : kbhit.c
+	gcc -Wall -c kbhit.c
 # clean ne s'execute pas tout seul ...
 clean:
 	rm *.o

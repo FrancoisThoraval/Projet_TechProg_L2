@@ -62,216 +62,208 @@ void show(char mat[Y][X],int score, int line) {
 }
 
 // Initialisation des coordonnées de la structure
-void initCoordStruct(){
-  extern coordBlock block;
+void initCoordStruct(coordBlock *block){
 
-  block.lineOneY = 0;
-  block.lineTwoY = 1;
-  block.lineThreeY = 2;
-  block.lineFourY = 3;
+  block->lineOneY = 0;
+  block->lineTwoY = 1;
+  block->lineThreeY = 2;
+  block->lineFourY = 3;
 
-  block.leftX = X/2 -1;
-  block.middleX = X/2;
-  block.rightX = X/2 +1;
+  block->leftX = X/2 -1;
+  block->middleX = X/2;
+  block->rightX = X/2 +1;
 }
 
 // Designs des blocs
-void square(char mat[Y][X], int isSet) {
-  extern coordBlock block;
+void square(char mat[Y][X], int isSet, coordBlock *block) {
   char blocChar = 'x';
 
-  mat[block.lineOneY][block.leftX] = blocChar;
-  mat[block.lineOneY][block.middleX] = blocChar;
-  mat[block.lineTwoY][block.leftX] = blocChar;
-  mat[block.lineTwoY][block.middleX] = blocChar;
+  mat[block->lineOneY][block->leftX] = blocChar;
+  mat[block->lineOneY][block->middleX] = blocChar;
+  mat[block->lineTwoY][block->leftX] = blocChar;
+  mat[block->lineTwoY][block->middleX] = blocChar;
 }
 
-void zeee(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
-  char blocChar = 'x';
-
-  if ((position == 0)||(position == 2)||(position == -2)) {
-    mat[block.lineTwoY][block.leftX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.rightX] = blocChar;
-
-    mat[block.lineThreeY][block.middleX] = blocChar;
-  }
-  if ((position == 1)||(position == -1)) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-
-    mat[block.lineTwoY][block.leftX] = blocChar;
-    mat[block.lineThreeY][block.leftX] = blocChar;
-  }
-}
-
-void leee(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
-  char blocChar = 'x';
-
-  if (position == 0) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-
-    mat[block.lineThreeY][block.rightX] = blocChar;
-  }
-  if (position == 1) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.leftX] = blocChar;
-
-    mat[block.lineThreeY][block.leftX] = blocChar;
-  }
-  if (position == -1) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.leftX] = blocChar;
-
-    mat[block.lineOneY][block.rightX] = blocChar;
-  }
-  if ((position == 2)||(position == -2)){
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-
-    mat[block.lineOneY][block.leftX] = blocChar;
-  }
-}
-
-void jeee(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
-  char blocChar = 'x';
-
-  if (position == 0) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-
-    mat[block.lineThreeY][block.leftX] = blocChar;
-  }
-  if (position == -1) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.leftX] = blocChar;
-
-    mat[block.lineThreeY][block.rightX] = blocChar;
-  }
-  if (position == 1) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.leftX] = blocChar;
-
-    mat[block.lineOneY][block.leftX] = blocChar;
-  }
-  if ((position == 2)||(position == -2)){
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-
-    mat[block.lineOneY][block.rightX] = blocChar;
-  }
-}
-
-void teee(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
-
-  char blocChar = 'x';
-
-  if (position == 0) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-
-    mat[block.lineOneY][block.leftX] = blocChar;
-    mat[block.lineOneY][block.rightX] = blocChar;
-  }
-  if (position == 1) {
-    mat[block.lineTwoY][block.leftX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-
-    mat[block.lineOneY][block.leftX] = blocChar;
-    mat[block.lineThreeY][block.leftX] = blocChar;
-  }
-  if (position == -1) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-
-    mat[block.lineOneY][block.rightX] = blocChar;
-    mat[block.lineThreeY][block.rightX] = blocChar;
-  }
-  if ((position == 2)||(position == -2)){
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-
-    mat[block.lineTwoY][block.leftX] = blocChar;
-    mat[block.lineTwoY][block.rightX] = blocChar;
-  }
-}
-
-void iail(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
+void zeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   char blocChar = 'x';
 
   if ((position == 0)||(position == 2)||(position == -2)) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-    mat[block.lineFourY][block.middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->rightX] = blocChar;
+
+    mat[block->lineThreeY][block->middleX] = blocChar;
   }
   if ((position == 1)||(position == -1)) {
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineTwoY][block.rightX+1] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.leftX] = blocChar;
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+
+    mat[block->lineTwoY][block->leftX] = blocChar;
+    mat[block->lineThreeY][block->leftX] = blocChar;
+  }
+}
+
+void leee(char mat[Y][X], int isSet, int position, coordBlock *block) {
+  char blocChar = 'x';
+
+  if (position == 0) {
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+
+    mat[block->lineThreeY][block->rightX] = blocChar;
+  }
+  if (position == 1) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
+
+    mat[block->lineThreeY][block->leftX] = blocChar;
+  }
+  if (position == -1) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
+
+    mat[block->lineOneY][block->rightX] = blocChar;
+  }
+  if ((position == 2)||(position == -2)){
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+
+    mat[block->lineOneY][block->leftX] = blocChar;
+  }
+}
+
+void jeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
+  char blocChar = 'x';
+
+  if (position == 0) {
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+
+    mat[block->lineThreeY][block->leftX] = blocChar;
+  }
+  if (position == -1) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
+
+    mat[block->lineThreeY][block->rightX] = blocChar;
+  }
+  if (position == 1) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
+
+    mat[block->lineOneY][block->leftX] = blocChar;
+  }
+  if ((position == 2)||(position == -2)){
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+
+    mat[block->lineOneY][block->rightX] = blocChar;
+  }
+}
+
+void teee(char mat[Y][X], int isSet, int position, coordBlock *block) {
+
+  char blocChar = 'x';
+
+  if (position == 0) {
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+
+    mat[block->lineOneY][block->leftX] = blocChar;
+    mat[block->lineOneY][block->rightX] = blocChar;
+  }
+  if (position == 1) {
+    mat[block->lineTwoY][block->leftX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+
+    mat[block->lineOneY][block->leftX] = blocChar;
+    mat[block->lineThreeY][block->leftX] = blocChar;
+  }
+  if (position == -1) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+
+    mat[block->lineOneY][block->rightX] = blocChar;
+    mat[block->lineThreeY][block->rightX] = blocChar;
+  }
+  if ((position == 2)||(position == -2)){
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+
+    mat[block->lineTwoY][block->leftX] = blocChar;
+    mat[block->lineTwoY][block->rightX] = blocChar;
+  }
+}
+
+void iail(char mat[Y][X], int isSet, int position, coordBlock *block) {
+  char blocChar = 'x';
+
+  if ((position == 0)||(position == 2)||(position == -2)) {
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+    mat[block->lineFourY][block->middleX] = blocChar;
+  }
+  if ((position == 1)||(position == -1)) {
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineTwoY][block->rightX+1] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->leftX] = blocChar;
   }
 
 }
 
-void seee(char mat[Y][X], int isSet, int position) {
-  extern coordBlock block;
+void seee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   char blocChar = 'x';
     if ((position == 0)||(position == 2)||(position == -2)) {
-    mat[block.lineThreeY][block.leftX] = blocChar;
-    mat[block.lineThreeY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.rightX] = blocChar;
+    mat[block->lineThreeY][block->leftX] = blocChar;
+    mat[block->lineThreeY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->rightX] = blocChar;
 
-    mat[block.lineTwoY][block.middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
   }
   if ((position == 1)||(position == -1)) {
-    mat[block.lineOneY][block.middleX] = blocChar;
-    mat[block.lineTwoY][block.middleX] = blocChar;
+    mat[block->lineOneY][block->middleX] = blocChar;
+    mat[block->lineTwoY][block->middleX] = blocChar;
 
-    mat[block.lineTwoY][block.rightX] = blocChar;
-    mat[block.lineThreeY][block.rightX] = blocChar;
+    mat[block->lineTwoY][block->rightX] = blocChar;
+    mat[block->lineThreeY][block->rightX] = blocChar;
   }
 }
 
-void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position){
+void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position, coordBlock *block){
   switch (randomNumber) {
-    case 0: square(mat, isSet);
+    case 0: square(mat, isSet, block);
       break;
-    case 1: zeee(mat, isSet, position);
+    case 1: zeee(mat, isSet, position, block);
       break;
-    case 2: leee(mat, isSet, position);
+    case 2: leee(mat, isSet, position, block);
       break;
-    case 3: jeee(mat, isSet, position);
+    case 3: jeee(mat, isSet, position, block);
       break;
-    case 4: teee(mat, isSet,position);
+    case 4: teee(mat, isSet,position, block);
       break;
-    case 5: iail(mat, isSet, position);
+    case 5: iail(mat, isSet, position, block);
       break;
-    case 6: seee(mat, isSet, position);
+    case 6: seee(mat, isSet, position, block);
       break;
     default: errorHandler(1);
       break;
   }
 }
 
-void matrixMovement(char mat[Y][X], int typeOfBlock, int position){
+void matrixMovement(char mat[Y][X], int typeOfBlock, int position, coordBlock *block){
   char newMat[Y][X];
   initMatrix(newMat);
-  putBlockInMat(typeOfBlock,newMat,0,position);
+  putBlockInMat(typeOfBlock,newMat,0,position, block);
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       if (mat[i][j] == 'o') {

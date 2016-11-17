@@ -21,16 +21,6 @@ Description: (pas à jour)
 char mat[Y][X];
 int randomNumber;
 
-typedef struct{
-  int leftX;
-  int middleX;
-  int rightX;
-  int lineOneY;
-  int lineTwoY;
-  int lineThreeY;
-  int lineFourY;
-}coordBlock;
-
 void errorHandler(int errorCode);
 int gameOver(char mat[Y][X]);
 int randomize();
@@ -39,14 +29,14 @@ void show(char mat[Y][X], int score, int line);
 void initCoordStruct();
 
 // Design blocs
-void square(char mat[Y][X], int isSet);
-void zeee(char mat[Y][X], int isSet, int position);
-void leee(char mat[Y][X], int isSet, int position);
-void jeee(char mat[Y][X], int isSet, int position);
-void teee(char mat[Y][X], int isSet, int position);
-void iail(char mat[Y][X], int isSet, int position);
-void seee(char mat[Y][X], int isSet, int position);
+void square(char mat[Y][X], int isSet, coordBlock *block);
+void zeee(char mat[Y][X], int isSet, int position, coordBlock *block);
+void leee(char mat[Y][X], int isSet, int position, coordBlock *block);
+void jeee(char mat[Y][X], int isSet, int position, coordBlock *block);
+void teee(char mat[Y][X], int isSet, int position, coordBlock *block);
+void iail(char mat[Y][X], int isSet, int position, coordBlock *block);
+void seee(char mat[Y][X], int isSet, int position, coordBlock *block);
 
-void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position);
+void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position, coordBlock *block);
 void blockEnd(char mat[Y][X]);
-void matrixMovement(char mat[Y][X], int typeOfBlock, int position);
+void matrixMovement(char mat[Y][X], int typeOfBlock, int position, coordBlock *block);

@@ -6,14 +6,14 @@
 #include <unistd.h>
 
 
-void movementHandler(char mat[Y][X],int randomNumber,int *score, int line);
-void testPrintInfo(int *position);
-int canMoveV(char mat[Y][X]);
-int canMoveH(char mat[Y][X], int side);
-int getNextMovement();
-void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *score);
-void moveDown();
-void moveDownEvery(int seconds);
-void moveRight(char mat[Y][X]);
-void moveLeft(char mat[Y][X]);
-void directDown(char mat[Y][X], int typeOfBlock, int position);
+void movementHandler(char mat[Y][X],int randomNumber,int *score, int line, coordBlock *block);
+void testPrintInfo(int *position, coordBlock *block);
+int canMoveV(char mat[Y][X], coordBlock *block);
+int canMoveH(char mat[Y][X], int side, coordBlock *block);
+int getNextMovement(char mat[Y][X],int score, int line);
+void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *score, coordBlock *block);
+void moveDown(coordBlock *block);
+void moveDownEvery(int seconds, coordBlock *block);
+void moveRight(char mat[Y][X], coordBlock *block);
+void moveLeft(char mat[Y][X], coordBlock *block);
+void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block);

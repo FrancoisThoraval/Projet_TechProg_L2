@@ -5,12 +5,11 @@
 #include "matrixHandler.h"
 #include "movementHandler.h"
 #include "scoreHandler.h"
-#include <unistd.h>
-
-// Var globales
-coordBlock block;
+#include "definition.h"
+// #include <unistd.h>
 
 int main() {
+  coordBlock block;
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
@@ -18,9 +17,9 @@ int main() {
   int nbLines;
   initMatrix(mat); //on initialise la matrice
 
-
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
-    initCoordStruct();
+    initCoordStruct(&block);
+    // testPrintInfo(0,block);
 
     // Génération nombre aléatoire qui détermine le bloc
     do {
@@ -30,9 +29,9 @@ int main() {
     // randomNumber = 0;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2,0);
+    putBlockInMat(randomNumber,mat,2,0, &block);
     show(mat, score, line); //on l'affiche
-    movementHandler(mat, randomNumber, &score, line); //On gère les mouvements du bloc
+    movementHandler(mat, randomNumber, &score, line, &block); //On gère les mouvements du bloc
     nbLines = line;
     checkLines(mat,&score, &line);
     switch (line - nbLines) {
