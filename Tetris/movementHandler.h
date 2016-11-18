@@ -13,7 +13,7 @@ int canMoveH(char mat[Y][X], int side, coordBlock *block);
 int getNextMovement(char mat[Y][X],int score, int line);
 void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *score, coordBlock *block);
 void moveDown(coordBlock *block);
-void moveDownEvery(int seconds, coordBlock *block);
+void moveDownEvery(int seconds, coordBlock *block, int score, int line, int randomNumber, int position);
 void moveRight(char mat[Y][X], coordBlock *block);
 void moveLeft(char mat[Y][X], coordBlock *block);
 void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block);

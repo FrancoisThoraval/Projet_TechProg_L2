@@ -19,7 +19,6 @@ int main() {
 
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
     initCoordStruct(&block);
-    // testPrintInfo(0,block);
 
     // Génération nombre aléatoire qui détermine le bloc
     do {

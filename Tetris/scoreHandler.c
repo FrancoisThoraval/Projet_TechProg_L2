@@ -134,7 +134,7 @@ void endGameScreen(int *score, int *line){
   printf("=======================================================================");
   printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
   printf("======================================================================= \n");
-  printf("Do you to save your score ? (y/n) \n");
+  printf("Do you want to save your score ? (y/n) \n");
   scanf("%c",&answer);
   switch (answer) {
     case 'y': ;

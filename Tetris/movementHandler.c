@@ -241,32 +241,17 @@ int canMoveV(char mat[Y][X], coordBlock *block){
   return isPossible;
 }
 
-void moveDownEvery(int seconds,coordBlock *block){
-  moveDown(block);
-  sleep(seconds);
-}
-
 int getNextMovement(char mat[Y][X],int score, int line){
-  // On passe le terminal en mode raw pour ne pas avoir a appuyer sur entrée a chaque fois
-  // system ("/bin/stty raw");
+
   int nextMovement= 0;
-  // int c = getchar();
   char input;
 
-  initscr(); // entering ncurses mode
-  // raw();     // CTRL-C and others do not generate signals
+  raw();     // CTRL-C and others do not generate signals
   noecho();  // pressed symbols wont be printed to screen
-  // cbreak();  // disable line buffering
-
-  // while (1) {
-      // mvprintw(1,0, "Enter symbol, please");
+  cbreak();  // disable line buffering
   input = getch();
-  // endwin();
-  printf("Got %c \n",input);
-      // mvprintw(2,0, "You have entered %c", input);
-      // getch(); // press any key to continue
-  // }
-
+  nocbreak();
+  endwin();
   switch (input) {
     case 'Q':;
     case 'q': nextMovement = 1;
@@ -293,10 +278,6 @@ int getNextMovement(char mat[Y][X],int score, int line){
     case 'p': nextMovement = 7;
       break;
   }
-  // erase();
-  // On repasse le terminal en mode normal
-  // system ("/bin/stty cooked");
-  // changemode(0);
   return nextMovement;
 }
 
@@ -323,6 +304,13 @@ void moveDown(coordBlock *block){
   block->lineTwoY ++;
   block->lineThreeY ++;
   block->lineFourY ++;
+}
+
+void moveDownEvery(int seconds, coordBlock *block, int score, int line, int randomNumber, int position){
+  seconds = seconds * 1000;
+  Move(mat, 2, randomNumber, &position, &score, block);
+  show(mat,score,line);
+  timeout(seconds);
 }
 
 void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block){
@@ -378,23 +366,18 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
 }
 
 void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coordBlock *block){
-  // struct timeval tv;
-
+  initscr(); // entering ncurses mode
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
-  // int seconds = 1;
+  int seconds = 1;
   if (noConflict == 0){
     noConflict = canMoveV(mat, block); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
-      // changemode(1);
-      // if(!kbhit()){
-      //   moveDown(block);
-      //   show(mat,*score,line);
-      // }
-      // changemode(0);
-      movement = getNextMovement(mat,*score,line); //Voir kb_hit et getch()
+      nodelay(stdscr,TRUE);
+      moveDownEvery(seconds,block,*score,line,randomNumber, position);
       endwin();
+      movement = getNextMovement(mat,*score,line); //Voir kb_hit et getch()
       Move(mat, movement, randomNumber, &position, score, block);
       show(mat,*score,line);
       testPrintInfo(&position, block);

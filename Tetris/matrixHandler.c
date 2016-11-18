@@ -28,21 +28,15 @@ void initMatrix(char mat[Y][X]){
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       mat[i][j]=' ';
-      // if (i==Y-1) {
-      //   mat[i][j]='*';
-      // }
-      // if ((j==0)||(j==X-1)) {
-      //   mat[i][j]='#';
-      // }
     }
   }
 }
 
 void show(char mat[Y][X],int score, int line) {
-  // system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
-  for (int i = 0; i < 30; i++) {
-    printf("\n");
-  }
+  system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
+  // for (int i = 0; i < 30; i++) {
+  //   printf("\n");
+  // }
   showScore(score, line);
   for (int i = 0; i < Y; i++) {
     for (int j = -1; j < X; j++) {
