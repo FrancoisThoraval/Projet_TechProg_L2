@@ -6,7 +6,7 @@
 #include "movementHandler.h"
 #include "scoreHandler.h"
 #include "definition.h"
-#include <ncurses.h>
+#include <ncurses.h> //Equivalent à conio.h pour kbhit et getch
 // #include <unistd.h>
 
 int main() {
@@ -16,6 +16,8 @@ int main() {
   int score = 0;
   int line = 0;
   int nbLines;
+  int saveLines = line;
+  float seconds = 1.5;
   initMatrix(mat); //on initialise la matrice
   initscr(); // entering ncurses mode
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
@@ -26,11 +28,10 @@ int main() {
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
     // randomNumber = 0;
-
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0, &block);
     show(mat, score, line); //on l'affiche
-    movementHandler(mat, randomNumber, &score, line, &block); //On gère les mouvements du bloc
+    movementHandler(mat, randomNumber, &score, line, &block, seconds); //On gère les mouvements du bloc
     nbLines = line;
     checkLines(mat,&score, &line);
     switch (line - nbLines) {
@@ -40,6 +41,10 @@ int main() {
       case 3: score +=10;
         break;
       case 4: score +=50;
+    }
+    if (line - saveLines == 5) {
+      saveLines = line;
+      seconds = seconds/2;
     }
     show(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer

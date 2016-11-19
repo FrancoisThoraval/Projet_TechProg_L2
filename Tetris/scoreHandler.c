@@ -20,9 +20,7 @@ void showScore(int score, int line){
 }
 
 void printBestScores(saveScore oldScores[nbOldScore]) {
-  for (int i = 0; i < 30; i++) {
-    printf("\n");
-  }
+  system("clear");
   printf("=============================================  TOP 10 SCORES  ================================================\n\n");
   for (int i = nbOldScore -1; i >= 0; i--) {
     printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",nbOldScore-i,oldScores[i].score,oldScores[i].line,oldScores[i].name);

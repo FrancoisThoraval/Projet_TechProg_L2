@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 
-void movementHandler(char mat[Y][X],int randomNumber,int *score, int line, coordBlock *block);
+void movementHandler(char mat[Y][X],int randomNumber,int *score, int line, coordBlock *block, float seconds);
 void testPrintInfo(int *position, coordBlock *block);
 int canMoveV(char mat[Y][X], coordBlock *block);
 int canMoveH(char mat[Y][X], int side, coordBlock *block);

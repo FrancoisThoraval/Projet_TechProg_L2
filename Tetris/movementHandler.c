@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
+#include <sys/time.h>
 // #include "kbhit.h"
 // #include <unistd.h>
 
@@ -349,38 +350,44 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       }
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
-    case 7: printf("\n\n============ GAME PAUSED ============\n\n");
+    case 7: system("clear");
+      printf("\n\n============ GAME PAUSED ============\n\n");
       printf("type a key and press enter to unpause \n");
       scanf("%c", &unpause);
       break;
   }
 }
 
-void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coordBlock *block){
+void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coordBlock *block, float seconds){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
-  int seconds = 2;
-  time_t start;
-  // seconds = seconds/10;
-  // show(mat,*score,line);
+  struct timeval start,step;
+  int timeElapsed;
+  // time_t start;
+
+  show(mat,*score,line);
   if (noConflict == 0){
 
     nodelay(stdscr,TRUE);
     noConflict = canMoveV(mat, block); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
-      start = time(NULL);
-
-      do{
+      // start = time(NULL);
+      gettimeofday(&start,NULL);
+      gettimeofday(&step,NULL);
+      timeElapsed = (((step.tv_sec - start.tv_sec)*1000000L+step.tv_usec) - start.tv_usec); //Convertit le temps mesuré en microsecondes
+      while((timeElapsed< seconds*1000*1000)){ //On convertit les secondes en microsecondes
         movement = getNextMovement(mat,*score,line); // Recupère la touche
         noConflict = canMoveV(mat, block);
         if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
           Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
-          if ((movement > 0) && (movement < 8)) {
+          if ((movement > 0) && (movement < 8)) { //Pour eviter le scintillement de l'écran
             show(mat,*score,line);
           }
         }
-      }while(((time(NULL)-start)< seconds));
+        gettimeofday(&step,NULL);
+        timeElapsed = (((step.tv_sec - start.tv_sec)*1000000L+step.tv_usec) - start.tv_usec);
+      }
       noConflict = canMoveV(mat,block);
       if (noConflict == 0) {
         Move(mat, 2, randomNumber, &position, score, block);

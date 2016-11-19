@@ -108,18 +108,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void mesure(int *temps) {
-  time_t start = time(NULL);
-  
-  while ((time(NULL)-start)< 6) {
-    if ((time(NULL)-start)==1) {
-      printf("waiting...\n");
-    }
-  }
-  printf(" waited 6 seconds\n");
-}
+int main (int argc, char** argv) {
+    struct timeval tvalBefore, tvalAfter;  // removed comma
 
-int main() {
-  int temps = 0;
-  mesure(&temps);
+    gettimeofday (&tvalBefore, NULL);
+    int i =0;
+    while ( i < 10000) {
+      printf("test: %f\n",tvalBefore.tv_usec );
+      i ++;
+    }
+    //
+    // gettimeofday (&tvalAfter, NULL);
+    //
+    // // Changed format to long int (%ld), changed time calculation
+    //
+    // printf("Time in microseconds: %ld microseconds\n",
+    //         ((tvalAfter.tv_sec - tvalBefore.tv_sec)*1000000L
+    //        +tvalAfter.tv_usec) - tvalBefore.tv_usec
+    //       ); // Added semicolon
+    return 0;
 }
