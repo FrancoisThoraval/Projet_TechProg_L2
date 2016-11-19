@@ -107,19 +107,19 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
-int main() {
+
+void mesure(int *temps) {
   time_t start = time(NULL);
-  for (int i = 0; i < 100000; i++) {
-    for (int j = 0; j < 100000; j++) {
-      printf("%.2f\n", (double)(time(NULL) - start));
-    }
-    if ((double)(time(NULL)-start) == 1) {
-      break;
+  
+  while ((time(NULL)-start)< 6) {
+    if ((time(NULL)-start)==1) {
+      printf("waiting...\n");
     }
   }
-  if ((double)(time(NULL)-start) == 1) {
-    printf("1 second elapsed\n");
-  }
-  printf("%.2f\n", (double)(time(NULL) - start));
-  return 0;
+  printf(" waited 6 seconds\n");
+}
+
+int main() {
+  int temps = 0;
+  mesure(&temps);
 }

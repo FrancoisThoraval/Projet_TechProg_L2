@@ -362,16 +362,16 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coo
   int position = 0;
   int seconds = 2;
   time_t start;
-  float duree;
-
-  show(mat,*score,line);
+  // seconds = seconds/10;
+  // show(mat,*score,line);
   if (noConflict == 0){
 
     nodelay(stdscr,TRUE);
     noConflict = canMoveV(mat, block); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
       start = time(NULL);
-      while(((time(NULL)-start)<0.2)&&(noConflict == 0)){
+
+      do{
         movement = getNextMovement(mat,*score,line); // Recupère la touche
         noConflict = canMoveV(mat, block);
         if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
@@ -380,22 +380,12 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coo
             show(mat,*score,line);
           }
         }
-      }
-      // show(mat,*score,line);
-      if ((time(NULL)-start)>0.1) {
-        // moveDownEvery(seconds,block,*score,line,randomNumber, position); //Fais descendre le bloc automatiquement
+      }while(((time(NULL)-start)< seconds));
+      noConflict = canMoveV(mat,block);
+      if (noConflict == 0) {
         Move(mat, 2, randomNumber, &position, score, block);
         show(mat,*score,line);
       }
-        // moveDown(block);
-      noConflict = canMoveV(mat, block);
-      if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
-        Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
-        show(mat,*score,line);
-      }
-      printf("%.2f\n", (double)(time(NULL) - start));
-      // testPrintInfo(&position, block);
-      noConflict = canMoveV(mat, block);
     }
     blockEnd(mat);
   }
