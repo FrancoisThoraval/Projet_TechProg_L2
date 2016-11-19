@@ -6,6 +6,7 @@
 #include "movementHandler.h"
 #include "scoreHandler.h"
 #include "definition.h"
+#include <ncurses.h>
 // #include <unistd.h>
 
 int main() {
@@ -16,10 +17,9 @@ int main() {
   int line = 0;
   int nbLines;
   initMatrix(mat); //on initialise la matrice
-
+  initscr(); // entering ncurses mode
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
     initCoordStruct(&block);
-
     // Génération nombre aléatoire qui détermine le bloc
     do {
       randomNumber = randomize();
@@ -42,12 +42,11 @@ int main() {
       case 4: score +=50;
     }
     show(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
-    printf("line - nbLines: %d",line - nbLines);
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer
     if (gameOn == 1) {
       endGameScreen(&score, &line); //Affiche un message et passa à la saisie des scores etc...
     }
-
   }
+  endwin(); //end ncurses mode
   return 0;
 }

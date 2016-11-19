@@ -141,7 +141,8 @@ void endGameScreen(int *score, int *line){
     case 'Y':Score(score,line);
       break;
     case 'n': ;
-    case 'N':exit(0); //Retour au menu à prévoir
+    case 'N': system("clear");
+      exit(0); //Retour au menu à prévoir
       break;
     default: endGameScreen(score,line);
   }
@@ -164,18 +165,15 @@ void checkLines(char mat[Y][X], int *score, int *line){
     if (mat[i][j] == 'o') {
       j=0;
       while ((j<X) && (mat[i][j]=='o')) {
-        printf("Je continue de regarder la ligne %d, je suis à %d\n",i,j);
         j++;
       }
       if (mat[i][j] == ' ') {
-        printf("j'ai trouvé un blanc à (%d,%d)\n",i,j);
         isEmpty = 0;
       }
       if (j==10) {
         isEmpty = 1;
       }
     }
-    printf("isEmpty: %d\n",isEmpty);
     if (isEmpty == 1) {
       deleteLine(mat,i);
       *score += 10;

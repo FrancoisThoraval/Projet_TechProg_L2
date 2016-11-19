@@ -34,7 +34,7 @@ void initMatrix(char mat[Y][X]){
 
 void show(char mat[Y][X],int score, int line) {
   system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
-  // for (int i = 0; i < 30; i++) {
+  // for (int i = 0; i < 10; i++) {
   //   printf("\n");
   // }
   showScore(score, line);

@@ -83,53 +83,45 @@ int canMoveH(char mat[Y][X], int side, coordBlock *block){
       if ((mat[block->lineOneY][block->middleX]=='x')) {
         if ((block->middleX +1 == X-1)||(mat[block->lineOneY][block->middleX +1] == 'o')) {
           isPossibleOM = 1;
-          printf("i\' touching ! \n");
         }
       }
       if ((mat[block->lineOneY][block->rightX]=='x')) {
         if ((block->rightX +1 == X-1)||(mat[block->lineOneY][block->rightX +1] == 'o')) {
           isPossibleOR = 1;
-          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block->lineTwoY][block->middleX]=='x')) {
         if ((block->middleX +1 == X-1)||(mat[block->lineTwoY][block->middleX +1] == 'o')) {
           isPossibleTM = 1;
-          printf("i\' touching ! \n");
         }
       }
       if ((mat[block->lineTwoY][block->rightX]=='x')) {
         if ((block->rightX +1 == X-1)||(mat[block->lineTwoY][block->rightX +1] == 'o')) {
           isPossibleTR = 1;
-          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block->lineThreeY][block->middleX]=='x')) {
         if ((block->middleX +1 == X-1)||(mat[block->lineThreeY][block->middleX +1] == 'o')) {
           isPossibleThM = 1;
-          printf("i\' touching ! \n");
         }
       }
       if ((mat[block->lineThreeY][block->rightX]=='x')) {
         if ((block->rightX +1 == X-1)||(mat[block->lineThreeY][block->rightX +1] == 'o')) {
           isPossibleThR = 1;
-          printf("i\' touching ! \n");
         }
       }
 
       if ((mat[block->lineFourY][block->middleX]=='x')) {
         if ((block->rightX == X-1)||(mat[block->lineFourY][block->rightX] == 'o')) {
           isPossibleFR = 1;
-          printf("i\' touching ! \n");
         }
       }
       // Cas où le I est renversé
       if ((mat[block->lineTwoY][block->rightX+1]=='x')) {
         if ((block->rightX +2 == X-1)||(mat[block->lineFourY][block->rightX+2] == 'o')) {
           isPossibleFR = 1;
-          printf("i\' touching ! \n");
         }
       }
       break;
@@ -224,18 +216,13 @@ int canMoveV(char mat[Y][X], coordBlock *block){
   }
   if ((block->lineFourY == Y-1)||(block->lineThreeY == Y-1)||(block->lineTwoY == Y-1)||(block->lineOneY == Y-1)) {
     if (block->lineFourY == Y-1) {
-      printf("linefour touche le fond\n");
     }
     if (block->lineThreeY == Y-1) {
-      printf("linethree touche le fond\n");
     }
     if (block->lineTwoY == Y-1) {
-      printf("linetwo touche le fond\n");
     }
     if (block->lineOneY == Y-1) {
-      printf("lineone touche le fond\n");
     }
-    printf("Normalement on devrait s\'arreter test2\n");
   }
   isPossible = isPossibleThR + isPossibleThM + isPossibleThL + isPossibleTR + isPossibleTM + isPossibleTL + isPossibleOR + isPossibleOL + isPossibleOM + isPossibleFR + isPossibleFL + isPossibleFM;
   return isPossible;
@@ -244,8 +231,8 @@ int canMoveV(char mat[Y][X], coordBlock *block){
 int getNextMovement(char mat[Y][X],int score, int line){
 
   int nextMovement= 0;
-  char input;
-
+  int input;
+  keypad(stdscr, TRUE);
   raw();     // CTRL-C and others do not generate signals
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
@@ -253,20 +240,16 @@ int getNextMovement(char mat[Y][X],int score, int line){
   nocbreak();
   endwin();
   switch (input) {
-    case 'Q':;
-    case 'q': nextMovement = 1;
+    case KEY_LEFT: nextMovement = 1;
       printf("A gauche \n\n");
       break;
-    case 'S': ;
-    case 's': nextMovement = 2;
+    case KEY_DOWN: nextMovement = 2;
       printf("En bas\n\n");
       break;
-    case 'D':;
-    case 'd': nextMovement = 3;
+    case KEY_RIGHT: nextMovement = 3;
       printf("A droite\n\n");
       break;
-    case 'Z':;
-    case 'z': nextMovement = 4;
+    case KEY_UP: nextMovement = 4;
       break;
     case 'W':;
     case 'w': nextMovement = 5;
@@ -277,6 +260,11 @@ int getNextMovement(char mat[Y][X],int score, int line){
     case 'P':;
     case 'p': nextMovement = 7;
       break;
+    case -1:; //retour de getch quand on a rien tapé
+      break;
+
+    default: printf("touche non définie\n");
+      nextMovement = getNextMovement(mat,score,line);
   }
   return nextMovement;
 }
@@ -307,10 +295,13 @@ void moveDown(coordBlock *block){
 }
 
 void moveDownEvery(int seconds, coordBlock *block, int score, int line, int randomNumber, int position){
-  seconds = seconds * 1000;
-  Move(mat, 2, randomNumber, &position, &score, block);
-  show(mat,score,line);
-  timeout(seconds);
+  int noConflict;
+  // seconds = seconds * 1000;
+  noConflict = canMoveV(mat, block);
+  if (noConflict ==0) {
+    // timeout(seconds);
+    Move(mat, 2, randomNumber, &position, &score, block);
+  }
 }
 
 void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block){
@@ -366,21 +357,44 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
 }
 
 void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coordBlock *block){
-  initscr(); // entering ncurses mode
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
-  int seconds = 1;
+  int seconds = 2;
+  time_t start;
+  float duree;
+
+  show(mat,*score,line);
   if (noConflict == 0){
+
+    nodelay(stdscr,TRUE);
     noConflict = canMoveV(mat, block); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
-      nodelay(stdscr,TRUE);
-      moveDownEvery(seconds,block,*score,line,randomNumber, position);
-      endwin();
-      movement = getNextMovement(mat,*score,line); //Voir kb_hit et getch()
-      Move(mat, movement, randomNumber, &position, score, block);
-      show(mat,*score,line);
-      testPrintInfo(&position, block);
+      start = time(NULL);
+      while(((time(NULL)-start)<0.2)&&(noConflict == 0)){
+        movement = getNextMovement(mat,*score,line); // Recupère la touche
+        noConflict = canMoveV(mat, block);
+        if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
+          Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
+          if ((movement > 0) && (movement < 8)) {
+            show(mat,*score,line);
+          }
+        }
+      }
+      // show(mat,*score,line);
+      if ((time(NULL)-start)>0.1) {
+        // moveDownEvery(seconds,block,*score,line,randomNumber, position); //Fais descendre le bloc automatiquement
+        Move(mat, 2, randomNumber, &position, score, block);
+        show(mat,*score,line);
+      }
+        // moveDown(block);
+      noConflict = canMoveV(mat, block);
+      if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
+        Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
+        show(mat,*score,line);
+      }
+      printf("%.2f\n", (double)(time(NULL) - start));
+      // testPrintInfo(&position, block);
       noConflict = canMoveV(mat, block);
     }
     blockEnd(mat);
