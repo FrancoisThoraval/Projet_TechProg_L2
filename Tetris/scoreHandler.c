@@ -147,6 +147,7 @@ void endGameScreen(int *score, int *line){
 }
 
 void deleteLine(char mat[Y][X], int line){
+
   for (int i = line; i > 0; i--) {
     for (int j = 0; j < X; j++) {
       mat[i][j] = mat[i-1][j];
@@ -154,7 +155,7 @@ void deleteLine(char mat[Y][X], int line){
   }
 }
 
-void checkLines(char mat[Y][X], int *score, int *line){
+void checkLines(char mat[Y][X], int *score, int *line, int level){
   int j;
   int isEmpty;
 
@@ -168,14 +169,16 @@ void checkLines(char mat[Y][X], int *score, int *line){
       if (mat[i][j] == ' ') {
         isEmpty = 0;
       }
-      if (j==10) {
+      if (j==X-1) {
         isEmpty = 1;
       }
     }
     if (isEmpty == 1) {
+      printf("(on supprime la ligne n° %d\n",i );
       deleteLine(mat,i);
-      *score += 10;
+      *score += (10*level);
       *line = *line +1;
+      j=0;
     }
   }
 }

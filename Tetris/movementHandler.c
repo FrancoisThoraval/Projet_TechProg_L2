@@ -234,7 +234,7 @@ int getNextMovement(char mat[Y][X],int score, int line){
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
-  raw();     // CTRL-C and others do not generate signals
+  // raw();     // CTRL-C and others do not generate signals
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
   input = getch();
@@ -358,7 +358,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
   }
 }
 
-void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coordBlock *block, float seconds){
+void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, coordBlock *block, float seconds, int level){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
@@ -366,7 +366,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coo
   int timeElapsed;
   // time_t start;
 
-  show(mat,*score,line);
+  show(mat,*score,*line);
   if (noConflict == 0){
 
     nodelay(stdscr,TRUE);
@@ -375,14 +375,15 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coo
       // start = time(NULL);
       gettimeofday(&start,NULL);
       gettimeofday(&step,NULL);
+      // on mesure le temps
       timeElapsed = (((step.tv_sec - start.tv_sec)*1000000L+step.tv_usec) - start.tv_usec); //Convertit le temps mesuré en microsecondes
       while((timeElapsed< seconds*1000*1000)){ //On convertit les secondes en microsecondes
-        movement = getNextMovement(mat,*score,line); // Recupère la touche
+        movement = getNextMovement(mat,*score,*line); // Recupère la touche
         noConflict = canMoveV(mat, block);
         if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
           Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
           if ((movement > 0) && (movement < 8)) { //Pour eviter le scintillement de l'écran
-            show(mat,*score,line);
+            show(mat,*score,*line);
           }
         }
         gettimeofday(&step,NULL);
@@ -391,9 +392,10 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int line, coo
       noConflict = canMoveV(mat,block);
       if (noConflict == 0) {
         Move(mat, 2, randomNumber, &position, score, block);
-        show(mat,*score,line);
+        show(mat,*score,*line);
       }
     }
     blockEnd(mat);
+    checkLines(mat, score, line, level);
   }
 }
