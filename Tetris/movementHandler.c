@@ -1,12 +1,5 @@
 #include "movementHandler.h"
-#include "matrixHandler.h"
-#include "definition.h"
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ncurses.h>
-#include <sys/time.h>
+
 // #include "kbhit.h"
 // #include <unistd.h>
 

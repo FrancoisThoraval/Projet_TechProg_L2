@@ -1,9 +1,11 @@
+#include "matrixHandler.h"
+#include "definition.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include "definition.h"
-#include <unistd.h>
+#include <ncurses.h>
+#include <sys/time.h>
 
 
 void movementHandler(char mat[Y][X],int randomNumber,int *score, int *line, coordBlock *block, float seconds, int level);
