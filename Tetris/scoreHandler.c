@@ -1,8 +1,11 @@
 #include "scoreHandler.h"
+#include "menu.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <ncurses.h>
 
 #define lengthName 20
 #define nbOldScore 10
@@ -125,6 +128,10 @@ void Score(int *score, int *line){
 
   // On affiche les scores
   printBestScores(oldScores);
+  printf("Back to menu in 3 seconds");
+  sleep(3000);
+  endwin();
+  menu();
 }
 
 void endGameScreen(int *score, int *line){
@@ -140,7 +147,7 @@ void endGameScreen(int *score, int *line){
       break;
     case 'n': ;
     case 'N': system("clear");
-      exit(0); //Retour au menu à prévoir
+      menu();
       break;
     default: endGameScreen(score,line);
   }
