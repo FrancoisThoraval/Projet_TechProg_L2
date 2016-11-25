@@ -1,15 +1,6 @@
-  struct joueur {
-    char pseudo;
-    int joue;
-    int victoire;
-  }joueur;
-
-struct joueur Initialiserjoueur(struct joueur joueur)
+void Initialiserjoueur(int numJoueur, char* joueur)
 {
-  char pseudo;
-  printf("Veuillez entrer votre pseudonyme : " );
-  scanf("%c\n",pseudo);
-  joueur.pseudo=pseudo;
-  joueur.joue=0;
-  joueur.victoire=0;
+  printf("Joueur %d veuillez entrer votre pseudonyme : \n",numJoueur);
+  scanf("%s*c", &joueur);
+  printf("Joueur %s \n",&joueur);
 }
