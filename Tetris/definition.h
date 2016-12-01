@@ -6,6 +6,13 @@
 #define lengthName 20
 #define nbOldScore 10
 
+// DIFFICULTY
+#define CHILL 1
+#define EASY 1
+#define MEDIUM 1
+#define HARD 1
+#define PROGAMER 1
+#define UNBEARABLE 1
 
 typedef struct{
   int leftX;

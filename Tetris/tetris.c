@@ -11,7 +11,7 @@
 // #include <unistd.h>
 
 
-int play() {
+int play(int difficulty_O_Meter) {
   coordBlock block;
   int gameOn =0;
   int oldNumber = -1;
@@ -53,7 +53,7 @@ int play() {
     }
     if (line - saveLines == 5) {
       saveLines = line;
-      seconds = seconds/2;
+      seconds = seconds/difficulty_O_Meter;
       level++;
     }
     // erase();
