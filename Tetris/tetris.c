@@ -6,6 +6,7 @@
 #include "movementHandler.h"
 #include "scoreHandler.h"
 #include "definition.h"
+#include "menu.h"
 #include <ncurses.h> //Equivalent à conio.h pour kbhit et getch
 // #include <unistd.h>
 
@@ -33,8 +34,11 @@ int play() {
     // randomNumber = 0;
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0, &block);
-    initscr(); // entering ncurses mode                 //Je ne sais pas trop pourquoi, mais s'il on ne quitte pas le mode initscr immédiatement après l'avoir démarré, on a un premier affichage cassé
-    endwin(); //end ncurses mode                        //le problème étant que sans ce initscr, on ne peut pas prendre les flèches du clavier. A voir si on trouve une documentation permettant de trouver une solution plus élégante.
+    // initscr(); // entering ncurses mode                 //Je ne sais pas trop pourquoi, mais s'il on ne quitte pas le mode initscr immédiatement après l'avoir démarré, on a un premier affichage cassé
+    // endwin(); //end ncurses mode
+               //le problème étant que sans ce initscr, on ne peut pas prendre les flèches du clavier. A voir si on trouve une documentation permettant de trouver une solution plus élégante.
+    // erase();
+    refresh();
     show(mat, score, line); //on l'affiche
     movementHandler(mat, randomNumber, &score, &line, &block, seconds, level); //On gère les mouvements du bloc
     nbLines = line;
@@ -52,10 +56,13 @@ int play() {
       seconds = seconds/2;
       level++;
     }
+    // erase();
+    refresh();
     show(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer
     if (gameOn == 1) {
-      endGameScreen(&score, &line); //Affiche un message et passa à la saisie des scores etc...
+      menuGameOver(&score, &line); //Affiche un message et passa à la saisie des scores etc...
+      menu();
     }
   }
   return 0;

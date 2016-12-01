@@ -1,30 +1,22 @@
 #include "scoreHandler.h"
-#include "menu.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <ncurses.h>
-
-#define lengthName 20
-#define nbOldScore 10
-
-// TODO: retour au menu une fois les scores enregistrés ou lorsque l'utilisateur répond "non"
-
-typedef struct{
-  int score;
-  int line;
-  char name[lengthName];
-}saveScore;
+#include "definition.h"
+#include "menu.h"
 
 void showScore(int score, int line){
-  printf("Score: %d Lines deleted: %d\n\n", score, line);
+  printw("Score: %d Lines deleted: %d\n\n", score, line);
 }
 
 void printBestScores(saveScore oldScores[nbOldScore]) {
+  // erase();
+  // refresh();
   system("clear");
-  printf("=============================================  TOP 10 SCORES  ================================================\n\n");
+  printf("\n=============================================  TOP 10 SCORES  ================================================\n\n");
   for (int i = nbOldScore -1; i >= 0; i--) {
     printf("save n°%d :\n    score: %d    lignes: %d   name: %s \n========\n",nbOldScore-i,oldScores[i].score,oldScores[i].line,oldScores[i].name);
   }
@@ -32,7 +24,7 @@ void printBestScores(saveScore oldScores[nbOldScore]) {
 
 void getName(char name[lengthName]) {
   printf("Nom du joueur (20 lettres max) : ");
-  scanf("%s*c",name);
+  scanf("%s",name);
 }
 
 void readFile(saveScore oldScores[nbOldScore]){
@@ -110,7 +102,7 @@ void sortScores(saveScore oldScores[nbOldScore], saveScore save){
 void Score(int *score, int *line){
   saveScore save;
   saveScore oldScores[nbOldScore];
-
+  system("clear");
   // On récupère les infos de la partie
   getName(save.name);
   save.score = *score;
@@ -128,29 +120,10 @@ void Score(int *score, int *line){
 
   // On affiche les scores
   printBestScores(oldScores);
-  printf("Back to menu in 3 seconds");
-  sleep(3000);
-  endwin();
+  printf("\n -------- Back to menu in 3 seconds --------\n");
+  sleep(3);
   menu();
-}
-
-void endGameScreen(int *score, int *line){
-  char answer;
-  printf("=======================================================================");
-  printf(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
-  printf("======================================================================= \n");
-  printf("Do you want to save your score ? (y/n) \n");
-  scanf("%c",&answer);
-  switch (answer) {
-    case 'y': ;
-    case 'Y':Score(score,line);
-      break;
-    case 'n': ;
-    case 'N': system("clear");
-      menu();
-      break;
-    default: endGameScreen(score,line);
-  }
+  // endwin();
 }
 
 void deleteLine(char mat[Y][X], int line){
@@ -181,7 +154,7 @@ void checkLines(char mat[Y][X], int *score, int *line, int level){
       }
     }
     if (isEmpty == 1) {
-      printf("(on supprime la ligne n° %d\n",i );
+      // printf("(on supprime la ligne n° %d\n",i );
       deleteLine(mat,i);
       *score += (10*level);
       *line = *line +1;

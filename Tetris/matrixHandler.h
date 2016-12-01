@@ -4,6 +4,7 @@
 #include <string.h>
 #include "definition.h"
 #include "scoreHandler.h"
+#include <ncurses.h>
 
 /*
 Description: (pas à jour)

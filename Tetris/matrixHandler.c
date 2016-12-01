@@ -33,24 +33,26 @@ void initMatrix(char mat[Y][X]){
 }
 
 void show(char mat[Y][X],int score, int line) {
-  system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
+  // system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
   // for (int i = 0; i < 10; i++) {
   //   printf("\n");
   // }
+  erase();
+  refresh();
   showScore(score, line);
   for (int i = 0; i < Y; i++) {
     for (int j = -1; j < X; j++) {
       if ((j==-1 )||(j==X-1)) {
-        printf("#");
+        printw("#");
       }
       if ((i==Y-1) && (j!=X-1) && (j!=-1)) {
-        printf("* ");
+        printw("* ");
       }
       if ((i!= Y-1) && (i!= -1) && (j!=X)&& (j!=-1)) {
-        printf("%c ",mat[i][j]);
+        printw("%c ",mat[i][j]);
       }
     }
-    printf("\n");
+    printw("\n");
     // printf("test %d: \"%c\"\n",i,test );
   }
 }

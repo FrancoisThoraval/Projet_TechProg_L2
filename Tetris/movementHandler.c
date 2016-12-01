@@ -1,16 +1,15 @@
 #include "movementHandler.h"
 
-// #include "kbhit.h"
-// #include <unistd.h>
+//// #);include "kbhit.refresh(// #include <unistd.h>
 
 void testPrintInfo(int *position, coordBlock *block){
-  printf("coordonnées coordBlock:\n");
+  // printf("coordonnées coordBlock:\n");
   printf("lineOneY: %d\n", block->lineOneY);
   printf("lineTwoY: %d\n", block->lineTwoY);
-  printf("lineThreeY: %d\n", block->lineThreeY);
+  // printf("lineThreeY: %d\n", block->lineThreeY);
   printf("leftX: %d\n", block->leftX);
   printf("middleX: %d\n", block->middleX);
-  printf("rightX: %d\n", block->rightX);
+  // printf("rightX: %d\n", block->rightX);
   printf("position: %d\n",*position );
 
 }
@@ -232,16 +231,16 @@ int getNextMovement(char mat[Y][X],int score, int line){
   cbreak();  // disable line buffering
   input = getch();
   nocbreak();
-  endwin();
+  //refresh();
   switch (input) {
     case KEY_LEFT: nextMovement = 1;
-      printf("A gauche \n\n");
+      // printf("A gauche \n\n");
       break;
     case KEY_DOWN: nextMovement = 2;
-      printf("En bas\n\n");
+      // printf("En bas\n\n");
       break;
     case KEY_RIGHT: nextMovement = 3;
-      printf("A droite\n\n");
+      // printf("A droite\n\n");
       break;
     case KEY_UP: nextMovement = 4;
       break;
@@ -343,7 +342,8 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       }
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
-    case 7: system("clear");
+    case 7:
+      // system("clear");
       printf("\n\n============ GAME PAUSED ============\n\n");
       printf("type a key and press enter to unpause \n");
       scanf("%c", &unpause);
@@ -358,7 +358,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
   struct timeval start,step;
   int timeElapsed;
   // time_t start;
-
+  refresh();
   show(mat,*score,*line);
   if (noConflict == 0){
 
@@ -385,6 +385,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
       noConflict = canMoveV(mat,block);
       if (noConflict == 0) {
         Move(mat, 2, randomNumber, &position, score, block);
+        refresh();
         show(mat,*score,*line);
       }
     }
