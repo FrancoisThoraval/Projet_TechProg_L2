@@ -5,5 +5,6 @@
 #include <string.h>
 #include "matrixHandler.h"
 
-void playSound(char type, int event, Mix_Music *music);
+void playSound(Mix_Music *music);
 void stopSound(Mix_Music *music, int stop);
+void playSample(int event, Mix_Chunk *sample);

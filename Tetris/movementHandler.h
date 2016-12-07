@@ -6,6 +6,7 @@
 #include <string.h>
 #include <ncurses.h>
 #include <sys/time.h>
+#include "musicHandler.h"
 
 
 void movementHandler(char mat[Y][X],int randomNumber,int *score, int *line, coordBlock *block, float seconds, int level);

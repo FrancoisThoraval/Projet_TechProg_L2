@@ -217,7 +217,7 @@ void displayMenuOptions(int i){
 }
 
 int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
-
+  Mix_Chunk *sample = NULL;
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
@@ -244,36 +244,42 @@ int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic)
           *difficulty_O_Meter = CHILL;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 2:
           *difficulty_O_Meter = EASY;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 3:
           *difficulty_O_Meter = MEDIUM;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 4:
           *difficulty_O_Meter = HARD;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 5:
           *difficulty_O_Meter = PROGAMER;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 6:
           *difficulty_O_Meter = UNBEARABLE;
           printw("diff: %f\n", *difficulty_O_Meter);
           refresh();
+          playSample(2,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
       }
@@ -282,15 +288,15 @@ int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic)
     case -1:; //retour de getch quand on a rien tapé
       break;
 
-    default: printw("touche non définie\n");
+    default: playSample(10,sample);
       nextMovement = optionsMovement(pitem, difficulty_O_Meter, menuMusic);
   }
+  free(sample);
   return nextMovement;
 }
 
-
 int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
-
+  Mix_Chunk *sample = NULL;
   saveScore oldScores[nbOldScore];
   int nextMovement= 0;
   int input;
@@ -324,6 +330,7 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
           break;
         case 2: /*options();*/
           printw("Options !\n");
+          playSample(2,sample);
           menuOptions(difficulty_O_Meter, menuMusic);
           break;
         case 3: /*bestScores()*/
@@ -331,6 +338,7 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
           endwin();
           // system("clear");
           fileScoreHandler(oldScores,0);
+          playSample(3,sample);
           printBestScores(oldScores);
           printf("\n -------- type something to go back to menu --------\n");
           scanf("%d\n",&somethingNice );
@@ -338,6 +346,10 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
           break;
         case 4:
           printw("Leaving !\n");
+          refresh();
+          playSample(7,sample);
+          stopSound(menuMusic,0);
+          usleep(3900*1000);
           stopSound(menuMusic,1);
           endwin();
           system("clear");
@@ -349,13 +361,15 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
     case -1:; //retour de getch quand on a rien tapé
       break;
 
-    default: printw("touche non définie\n");
+    default: playSample(10,sample);
       nextMovement = menuMovement(pitem, difficulty_O_Meter, menuMusic);
   }
+  free(sample);
   return nextMovement;
 }
 
 int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_Meter){
+  Mix_Chunk *sample = NULL;
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
@@ -381,12 +395,18 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
         case 1:
           erase();
           endwin();
+          playSample(3,sample);
           Score(score,line,difficulty_O_Meter);
           break;
         case 2:
+          playSample(2,sample);
           callMenuWithMusic(difficulty_O_Meter);
           break;
         case 3:
+          printw("Leaving !\n");
+          refresh();
+          playSample(7,sample);
+          usleep(3900*1000);
           SDL_Quit();
           printw("Leaving !\n");
           endwin();
@@ -399,9 +419,10 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
     case -1:; //retour de getch quand on a rien tapé
       break;
 
-    default: printw("touche non définie\n");
+    default: playSample(10,sample);
       nextMovement = menuGameOverMovement(pitem, score, line, difficulty_O_Meter);
   }
+  free(sample);
   return nextMovement;
 }
 
@@ -456,7 +477,7 @@ void menu(float *difficulty_O_Meter, Mix_Music *menuMusic){
 void callMenuWithMusic(float *difficulty_O_Meter){
   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-  Mix_Music *menuMusic = Mix_LoadMUS(" ");
-  playSound('r',0,menuMusic);
+  Mix_Music *menuMusic = NULL;
+  playSound(menuMusic);
   menu(difficulty_O_Meter,menuMusic);
 }

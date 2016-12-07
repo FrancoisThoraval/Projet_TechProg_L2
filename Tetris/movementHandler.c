@@ -17,84 +17,84 @@ int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, 
   switch (direction) {
     case 0: //Pivot gauche
       if ((mat[block->lineOneY][block->rightX]=='x')) {
-        if ((block->leftX -1 == 0)||(mat[block->lineOneY][block->leftX -1] == 'o')) {
+        if ((block->leftX == -1)||(mat[block->lineOneY][block->leftX] == 'o')) {
           isPossibleA = 1;
         }
       }
       if ((mat[block->lineOneY][block->middleX]=='x')) {
-        if ((block->leftX -1 == 0)||(mat[block->lineTwoY][block->leftX -1] == 'o')) {
+        if ((block->leftX == -1)||(mat[block->lineTwoY][block->leftX] == 'o')) {
           isPossibleB = 1;
         }
       }
       if ((mat[block->lineOneY][block->leftX]=='x')) {
-        if ((block->leftX -1 == 0)||(mat[block->lineThreeY][block->leftX -1] == 'o')) {
+        if ((block->leftX == -1)||(mat[block->lineThreeY][block->leftX] == 'o')) {
           isPossibleC = 1;
         }
       }
       if ((mat[block->lineTwoY][block->leftX]=='x')) {
-        if ((block->middleX -1 == 0)||(mat[block->lineThreeY][block->middleX -1] == 'o')) {
+        if ((block->middleX == -1)||(mat[block->lineThreeY][block->middleX] == 'o')) {
           isPossibleD = 1;
         }
       }
       if ((mat[block->lineOneY][block->rightX]=='x')) {
-        if ((block->middleX -1 == 0)||(mat[block->lineOneY][block->rightX -1] == 'o')) {
+        if ((block->middleX == -1)||(mat[block->lineOneY][block->rightX] == 'o')) {
           isPossibleE = 1;
         }
       }
       if ((mat[block->lineThreeY][block->leftX]=='x')) {
-        if ((block->rightX -1 == 0)||(mat[block->lineThreeY][block->rightX -1] == 'o')) {
+        if ((block->rightX == -1)||(mat[block->lineThreeY][block->rightX] == 'o')) {
           isPossibleF = 1;
         }
       }
       if ((mat[block->lineThreeY][block->middleX]=='x')) {
-        if ((block->rightX -1 == 0)||(mat[block->lineTwoY][block->rightX -1] == 'o')) {
+        if ((block->rightX == -1)||(mat[block->lineTwoY][block->rightX] == 'o')) {
           isPossibleG = 1;
         }
       }
       if ((mat[block->lineThreeY][block->rightX]=='x')) {
-        if ((block->rightX -1 == 0)||(mat[block->lineOneY][block->rightX -1] == 'o')) {
+        if ((block->rightX == -1)||(mat[block->lineOneY][block->rightX] == 'o')) {
           isPossibleH = 1;
         }
       }
       break;
     case 1:
       if ((mat[block->lineOneY][block->leftX]=='x')) {
-        if ((block->rightX +1 == X-1)||(mat[block->lineOneY][block->rightX +1] == 'o')) {
+        if ((block->rightX == X-1)||(mat[block->lineOneY][block->rightX] == 'o')) {
           isPossibleA = 1;
         }
       }
       if ((mat[block->lineOneY][block->middleX]=='x')) {
-        if ((block->rightX +1 == X-1)||(mat[block->lineTwoY][block->rightX +1] == 'o')) {
+        if ((block->rightX == X-1)||(mat[block->lineTwoY][block->rightX] == 'o')) {
           isPossibleB = 1;
         }
       }
       if ((mat[block->lineOneY][block->rightX]=='x')) {
-        if ((block->rightX +1 == X-1)||(mat[block->lineThreeY][block->rightX +1] == 'o')) {
+        if ((block->rightX == X-1)||(mat[block->lineThreeY][block->rightX] == 'o')) {
           isPossibleC = 1;
         }
       }
       if ((mat[block->lineTwoY][block->leftX]=='x')) {
-        if ((block->middleX +1 == X-1)||(mat[block->lineOneY][block->middleX +1] == 'o')) {
+        if ((block->middleX == X-1)||(mat[block->lineOneY][block->middleX] == 'o')) {
           isPossibleD = 1;
         }
       }
       if ((mat[block->lineOneY][block->rightX]=='x')) {
-        if ((block->middleX +1 == X-1)||(mat[block->lineThreeY][block->middleX +1] == 'o')) {
+        if ((block->middleX == X-1)||(mat[block->lineThreeY][block->middleX] == 'o')) {
           isPossibleE = 1;
         }
       }
       if ((mat[block->lineThreeY][block->leftX]=='x')) {
-        if ((block->leftX +1 == X-1)||(mat[block->lineOneY][block->leftX +1] == 'o')) {
+        if ((block->leftX == X-1)||(mat[block->lineOneY][block->leftX] == 'o')) {
           isPossibleF = 1;
         }
       }
       if ((mat[block->lineThreeY][block->middleX]=='x')) {
-        if ((block->leftX +1 == X-1)||(mat[block->lineTwoY][block->leftX +1] == 'o')) {
+        if ((block->leftX == X-1)||(mat[block->lineTwoY][block->leftX] == 'o')) {
           isPossibleG = 1;
         }
       }
       if ((mat[block->lineThreeY][block->rightX]=='x')) {
-        if ((block->leftX +1 == X-1)||(mat[block->lineThreeY][block->leftX +1] == 'o')) {
+        if ((block->leftX == X-1)||(mat[block->lineThreeY][block->leftX] == 'o')) {
           isPossibleH = 1;
         }
       }
@@ -304,7 +304,7 @@ int canMoveV(char mat[Y][X], coordBlock *block){
 }
 
 int getNextMovement(char mat[Y][X],int score, int line){
-
+  Mix_Chunk *sample = NULL;
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
@@ -338,9 +338,10 @@ int getNextMovement(char mat[Y][X],int score, int line){
     case -1:; //retour de getch quand on a rien tapé
       break;
 
-    default: printf("touche non définie\n");
+    default: playSample(10,sample);
       nextMovement = getNextMovement(mat,score,line);
   }
+  free(sample);
   return nextMovement;
 }
 
@@ -384,8 +385,10 @@ void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block
 
 void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *score, coordBlock *block){
   char unpause;
+  Mix_Chunk *sample = NULL;
   switch (movement) {
     case 1: moveLeft(mat, block);
+      playSample(1,sample);
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
       case 2: moveDown(block);
@@ -393,14 +396,16 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 3: moveRight(mat, block);
+      playSample(1,sample);
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 4: directDown(mat,typeOfBlock,*position, block);
+      playSample(6,sample);
       *score = *score +5;
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 5: //Gauche
-      if (canRotate(0, block, typeOfBlock, position, mat)==0) {
+      if ((canRotate(0, block, typeOfBlock, position, mat)==0)&&(canRotate(1, block, typeOfBlock, position, mat)==0)) {
         *position = *position +1;
         if (*position > 2) {
           *position = -1;
@@ -409,7 +414,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       }
       break;
     case 6: //Droite
-      if (canRotate(1, block, typeOfBlock, position, mat)==0) {
+      if ((canRotate(1, block, typeOfBlock, position, mat)==0)&&(canRotate(0, block, typeOfBlock, position, mat)==0)) {
         *position = *position -1;
         if (*position < -2) {
           *position = 1;
@@ -428,6 +433,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       } while(unpause == ERR);
       break;
   }
+  free(sample);
 }
 
 void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, coordBlock *block, float seconds, int level){

@@ -18,16 +18,16 @@ int play(float difficulty_O_Meter) {
   int oldNumber = -1;
   int score = 0;
   int line = 0;
-  int nbLines;
+  int nbLines = 0;
   int saveLines = line;
   float seconds = 2;
   int level = 1;
 
   SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
-  Mix_Music *gameMusic = Mix_LoadMUS(" ");
-  Mix_Music *sample = Mix_LoadMUS(" ");
-  playSound('m',0,gameMusic);
+  Mix_Music *gameMusic = NULL;
+  Mix_Chunk *sample = NULL;
+  playSound(gameMusic);
 
   seconds = seconds/difficulty_O_Meter;
   erase();
@@ -39,25 +39,30 @@ int play(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 5;
+    randomNumber = 5;
 
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0, &block);
     refresh();
     show(mat, score, line); //on l'affiche
-    movementHandler(mat, randomNumber, &score, &line, &block, seconds, level); //On gère les mouvements du bloc
     nbLines = line;
+    movementHandler(mat, randomNumber, &score, &line, &block, seconds, level); //On gère les mouvements du bloc
     switch (line - nbLines) {
       case 1:
-        playSound('s',1,sample);
-      break;
-      case 2: score +=25;
+        playSample(4, sample);
         break;
-      case 3: score +=100;
+      case 2: score +=100;
+        playSample(11,sample);
         break;
-      case 4: score +=400;
+      case 3: score +=200;
+        playSample(5, sample);
+        break;
+      case 4: score +=500;
+        playSample(8, sample);
+        refresh();
     }
     if (line - saveLines == NEWLEVEL) {
+      playSample(9,sample);
       saveLines = line;
       seconds = seconds/difficulty_O_Meter;
       level++;
@@ -71,6 +76,7 @@ int play(float difficulty_O_Meter) {
       menuGameOver(&difficulty_O_Meter,&score, &line); //Affiche un message et passe à la saisie des scores etc...
     }
   }
+  free(sample);
   return 0;
 }
 

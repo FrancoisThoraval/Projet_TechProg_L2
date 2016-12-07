@@ -1,66 +1,100 @@
 #include "musicHandler.h"
 
-void playSound(char type, int event, Mix_Music *music){
-  int song;
+void playSample(int event, Mix_Chunk *sample){
+  Mix_Volume(-1,MIX_MAX_VOLUME);
+  switch (event) {
+    case 1:
+      sample = Mix_LoadWAV("Music&Sounds/HitmarkerSoundEffect.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 2:
+      sample = Mix_LoadWAV("Music&Sounds/batman.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 3:
+      sample = Mix_LoadWAV("Music&Sounds/cameraShutter.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 4:
+      sample = Mix_LoadWAV("Music&Sounds/DamnSon.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 5:
+      sample = Mix_LoadWAV("Music&Sounds/Fatality.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 6:
+      sample = Mix_LoadWAV("Music&Sounds/awp.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 7:
+      sample = Mix_LoadWAV("Music&Sounds/Sparta.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 8:
+      sample = Mix_LoadWAV("Music&Sounds/SmokeWeedEveryday.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 9:
+      sample = Mix_LoadWAV("Music&Sounds/allahUakbar.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 10:
+      sample = Mix_LoadWAV("Music&Sounds/nope.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 11:
+      sample = Mix_LoadWAV("Music&Sounds/Wow.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+  }
+}
 
-  if (type == 'm') {
-    song = randomize(4)+1;
-    switch (song) {
-      case 1:
-        music = Mix_LoadMUS("Music&Sounds/DoctorP-FlyingSpaghettiMonster.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 2:
-        music = Mix_LoadMUS("Music&Sounds/DoctorP-Tetris.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 3:
-        music = Mix_LoadMUS("Music&Sounds/DoctorP-Gorillas.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 4:
-        music = Mix_LoadMUS("Music&Sounds/DoctorP-Shishkabob.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-    }
-  }
-  if (type =='s') {
-    // En fonction de l'event on joue un son approprié
-    switch (event) {
-      case 1:
-        music = Mix_LoadMUS("Music&Sounds/HitmarkerSoundEffect.mp3");
-        Mix_PlayMusic(music,1);
-        break;
-    }
-  }
-  if (type == 'r') {
-    song = randomize(6)+1;
-    switch (song) {
-      case 1:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop05(90BPM).mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 2:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop06(130BPM).mp3)");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 3:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop10_130BPM.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 4:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop20_130BPM.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 5:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop27_130BPM.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-      case 6:
-        music = Mix_LoadMUS("Music&Sounds/CM139_Loop36_130BPM.mp3");
-        Mix_FadeInMusic(music, -1, 2000);
-        break;
-    }
+void playSound(Mix_Music *music){
+  int song;
+  Mix_VolumeMusic(105);
+  song = randomize(10)+1;
+  switch (song) {
+    case 1:
+      music = Mix_LoadMUS("Music&Sounds/DoctorP-FlyingSpaghettiMonster.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 2:
+      music = Mix_LoadMUS("Music&Sounds/DoctorP-Tetris.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 3:
+      music = Mix_LoadMUS("Music&Sounds/DoctorP-Gorillas.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 4:
+      music = Mix_LoadMUS("Music&Sounds/DoctorP-Shishkabob.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 5:
+      music = Mix_LoadMUS("Music&Sounds/DoctorP-BigBoss.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 6:
+      music = Mix_LoadMUS("Music&Sounds/FluxPavilion-Got2Know.mp3)");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 7:
+      music = Mix_LoadMUS("Music&Sounds/FluxPavilion-ICantStop.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 8:
+      music = Mix_LoadMUS("Music&Sounds/SlumDogz-IntheHood.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 9:
+      music = Mix_LoadMUS("Music&Sounds/FluxPavilion-BassCannon.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
+    case 10:
+      music = Mix_LoadMUS("Music&Sounds/CookieMonsta-MoshPit.mp3");
+      Mix_FadeInMusic(music, -1, 2000);
+      break;
   }
 }
 
