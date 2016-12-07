@@ -2,12 +2,15 @@
 #include "definition.h"
 #include "scoreHandler.h"
 
-void menuOptions(int *difficulty_O_Meter);
+void menuOptions(float *difficulty_O_Meter, Mix_Music *menuMusic);
 
-void displayMenu(int i){
+void displayMenu(int i, float *difficulty_O_Meter){
   switch (i) {
     case 1:
       erase();
+      printw("=====================================================");
+      printw(" \n\n\n                        TETRIS      \n\n difficulty: %.2f\n", *difficulty_O_Meter);
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("-->   PLAY\n");
       printw("     OPTIONS\n");
@@ -19,6 +22,9 @@ void displayMenu(int i){
       break;
     case 2:
       erase();
+      printw("=====================================================");
+      printw(" \n\n\n                        TETRIS      \n\n difficulty: %.2f\n", *difficulty_O_Meter);
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     PLAY\n");
       printw("-->   OPTIONS\n");
@@ -30,6 +36,9 @@ void displayMenu(int i){
       break;
     case 3:
       erase();
+      printw("=====================================================");
+      printw(" \n\n\n                        TETRIS      \n\n difficulty: %.2f\n", *difficulty_O_Meter);
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     PLAY\n");
       printw("     OPTIONS\n");
@@ -41,6 +50,9 @@ void displayMenu(int i){
       break;
     case 4:
       erase();
+      printw("=====================================================");
+      printw(" \n\n\n                        TETRIS      \n\n difficulty: %.2f\n", *difficulty_O_Meter);
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     PLAY\n");
       printw("     OPTIONS\n");
@@ -204,7 +216,7 @@ void displayMenuOptions(int i){
   }
 }
 
-int optionsMovement(int *pitem, int *difficulty_O_Meter){
+int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
 
   int nextMovement= 0;
   int input;
@@ -230,30 +242,39 @@ int optionsMovement(int *pitem, int *difficulty_O_Meter){
       switch (*pitem) {
         case 1:
           *difficulty_O_Meter = CHILL;
-          menu();
+          printw("diff: %f", *difficulty_O_Meter);
+          refresh();
+          menu(difficulty_O_Meter, menuMusic);
           break;
-        case 2: /*options();*/
+        case 2:
           *difficulty_O_Meter = EASY;
-          menu();
+          printw("diff: %f", *difficulty_O_Meter);
+          refresh();
+          menu(difficulty_O_Meter, menuMusic);
           break;
-        case 3: /*bestScores()*/
+        case 3:
           *difficulty_O_Meter = MEDIUM;
-          menu();
+          printw("diff: %f", *difficulty_O_Meter);
+          refresh();
+          menu(difficulty_O_Meter, menuMusic);
           break;
         case 4:
           *difficulty_O_Meter = HARD;
-          menu();
+          printw("diff: %f", *difficulty_O_Meter);
+          refresh();
+          menu(difficulty_O_Meter, menuMusic);
           break;
         case 5:
           *difficulty_O_Meter = PROGAMER;
-          printw("diff: %d", *difficulty_O_Meter);
+          printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          sleep(3);
-          menu();
+          menu(difficulty_O_Meter, menuMusic);
           break;
         case 6:
           *difficulty_O_Meter = UNBEARABLE;
-          menu();
+          printw("diff: %f\n", *difficulty_O_Meter);
+          refresh();
+          menu(difficulty_O_Meter, menuMusic);
           break;
       }
       break;
@@ -262,13 +283,13 @@ int optionsMovement(int *pitem, int *difficulty_O_Meter){
       break;
 
     default: printw("touche non définie\n");
-      nextMovement = menuMovement(pitem, difficulty_O_Meter);
+      nextMovement = optionsMovement(pitem, difficulty_O_Meter, menuMusic);
   }
   return nextMovement;
 }
 
 
-int menuMovement(int *pitem, int *difficulty_O_Meter){
+int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
 
   saveScore oldScores[nbOldScore];
   int nextMovement= 0;
@@ -294,25 +315,30 @@ int menuMovement(int *pitem, int *difficulty_O_Meter){
       break;
     case KEY_BACKSPACE: nextMovement = 3;
       switch (*pitem) {
-        case 1: play(difficulty_O_Meter);
+        case 1:
+          Mix_FadeOutMusic(1000);
+          free(menuMusic);
+          Mix_CloseAudio();
+          play(*difficulty_O_Meter);
           printw("Playing !\n");
           break;
         case 2: /*options();*/
           printw("Options !\n");
-          menuOptions(difficulty_O_Meter);
+          menuOptions(difficulty_O_Meter, menuMusic);
           break;
         case 3: /*bestScores()*/
           erase();
           endwin();
-          system("clear");
+          // system("clear");
           fileScoreHandler(oldScores,0);
           printBestScores(oldScores);
           printf("\n -------- type something to go back to menu --------\n");
           scanf("%d\n",&somethingNice );
-          menu();
+          menu(difficulty_O_Meter, menuMusic);
           break;
         case 4:
           printw("Leaving !\n");
+          stopSound(menuMusic,1);
           endwin();
           system("clear");
           exit(0);
@@ -324,13 +350,12 @@ int menuMovement(int *pitem, int *difficulty_O_Meter){
       break;
 
     default: printw("touche non définie\n");
-      nextMovement = menuMovement(pitem, difficulty_O_Meter);
+      nextMovement = menuMovement(pitem, difficulty_O_Meter, menuMusic);
   }
   return nextMovement;
 }
 
-int menuGameOverMovement(int *pitem, int *score, int *line){
-
+int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_Meter){
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
@@ -356,11 +381,13 @@ int menuGameOverMovement(int *pitem, int *score, int *line){
         case 1:
           erase();
           endwin();
-          Score(score,line);
+          Score(score,line,difficulty_O_Meter);
           break;
-        case 2: menu();
+        case 2:
+          callMenuWithMusic(difficulty_O_Meter);
           break;
         case 3:
+          SDL_Quit();
           printw("Leaving !\n");
           endwin();
           system("clear");
@@ -373,55 +400,63 @@ int menuGameOverMovement(int *pitem, int *score, int *line){
       break;
 
     default: printw("touche non définie\n");
-      nextMovement = menuGameOverMovement(pitem, score, line);
+      nextMovement = menuGameOverMovement(pitem, score, line, difficulty_O_Meter);
   }
   return nextMovement;
 }
 
-void menuGameOver(int *score, int *line){
+void menuGameOver(float *difficulty_O_Meter, int *score, int *line){
   int item = 1;
   int input;
   erase();
   noecho();
   displayMenuGameOver(item);
   refresh();
-  input = menuGameOverMovement(&item, score, line);
+  input = menuGameOverMovement(&item, score, line, difficulty_O_Meter);
   while (input != KEY_BACKSPACE) {
     displayMenuGameOver(item);
-    input = menuGameOverMovement(&item, score, line);
+    input = menuGameOverMovement(&item, score, line, difficulty_O_Meter);
     refresh();
   }
 }
 
-void menuOptions(int *difficulty_O_Meter){
+void menuOptions(float *difficulty_O_Meter, Mix_Music *menuMusic){
   int item = 1;
   int input;
   erase();
   noecho();
   displayMenuOptions(item);
   refresh();
-  input = optionsMovement(&item, difficulty_O_Meter);
+  input = optionsMovement(&item, difficulty_O_Meter, menuMusic);
   while (input != KEY_BACKSPACE) {
     displayMenuOptions(item);
-    input = optionsMovement(&item, difficulty_O_Meter);
+    input = optionsMovement(&item, difficulty_O_Meter, menuMusic);
     refresh();
   }
 }
 
-void menu(){
-  int difficulty_O_Meter = MEDIUM;
+void menu(float *difficulty_O_Meter, Mix_Music *menuMusic){
   int item = 1;
   int input;
+
   initscr();
   erase();
   noecho();
-  displayMenu(item);
+  displayMenu(item, difficulty_O_Meter);
   refresh();
-  input = menuMovement(&item, &difficulty_O_Meter);
+  input = menuMovement(&item, difficulty_O_Meter, menuMusic);
   while (input != KEY_BACKSPACE) {
-    displayMenu(item);
-    input = menuMovement(&item, &difficulty_O_Meter);
+    displayMenu(item,difficulty_O_Meter);
+    input = menuMovement(&item, difficulty_O_Meter, menuMusic);
     refresh();
   }
   endwin();
+}
+
+void callMenuWithMusic(float *difficulty_O_Meter){
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+  Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+  Mix_Music *menuMusic = Mix_LoadMUS(" ");
+  playSound('r',0,menuMusic);
+  menu(difficulty_O_Meter,menuMusic);
 }

@@ -36,8 +36,9 @@ void readFile(saveScore oldScores[nbOldScore]){
       fscanf(file,"%d %d %s",&(oldScores[i]).score,&(oldScores[i]).line,oldScores[i].name);
     }
   }
-  else
-    printf("There is no file named \"score.txt\" !\n");
+  else{
+    perror("There is no file named \"score.txt\" !\n");
+  }
   fclose(file);
 }
 
@@ -99,7 +100,7 @@ void sortScores(saveScore oldScores[nbOldScore], saveScore save){
   }
 }
 
-void Score(int *score, int *line){
+void Score(int *score, int *line, float *difficulty_O_Meter){
   saveScore save;
   saveScore oldScores[nbOldScore];
   system("clear");
@@ -107,7 +108,6 @@ void Score(int *score, int *line){
   getName(save.name);
   save.score = *score;
   save.line = *line;
-  printf("name: %s\n",save.name );
 
   // On lit le fichier score.txt et on met les valeur dans un tableau de scores
   fileScoreHandler(oldScores,0);
@@ -117,13 +117,9 @@ void Score(int *score, int *line){
 
   // On écrit le nouveau fichier
   fileScoreHandler(oldScores,1);
-
-  // On affiche les scores
   printBestScores(oldScores);
-  printf("\n -------- Back to menu in 3 seconds --------\n");
   sleep(3);
-  menu();
-  // endwin();
+  callMenuWithMusic(difficulty_O_Meter);
 }
 
 void deleteLine(char mat[Y][X], int line){

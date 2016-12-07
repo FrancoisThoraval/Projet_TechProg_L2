@@ -16,10 +16,10 @@ int gameOver(char mat[Y][X]){
   return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
 }
 
-int randomize(){
+int randomize(int nbValues){
   //On tire au sort un nombre qui correspondra a la forme du bloc
   srand(time(NULL));
-  int randomNumber = rand() %7;
+  int randomNumber = rand() %nbValues;
   return randomNumber;
 }
 
@@ -33,10 +33,6 @@ void initMatrix(char mat[Y][X]){
 }
 
 void show(char mat[Y][X],int score, int line) {
-  // system("clear"); //clear empeche de scroller pour trouver certaines infos parfois
-  // for (int i = 0; i < 10; i++) {
-  //   printf("\n");
-  // }
   erase();
   refresh();
   showScore(score, line);

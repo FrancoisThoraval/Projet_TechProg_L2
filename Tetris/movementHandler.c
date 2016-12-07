@@ -1,20 +1,107 @@
 #include "movementHandler.h"
 
-//// #);include "kbhit.refresh(// #include <unistd.h>
-
-void testPrintInfo(int *position, coordBlock *block){
-  // printf("coordonnées coordBlock:\n");
-  printf("lineOneY: %d\n", block->lineOneY);
-  printf("lineTwoY: %d\n", block->lineTwoY);
-  // printf("lineThreeY: %d\n", block->lineThreeY);
-  printf("leftX: %d\n", block->leftX);
-  printf("middleX: %d\n", block->middleX);
-  // printf("rightX: %d\n", block->rightX);
-  printf("position: %d\n",*position );
-
-}
+// TODO: regler le glitch de la rotation
 
 // Fonctions qui vérifient qu'on peut encore descendre (canMoveV) ou bouger horizontalement (canMoveH)
+
+int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, char mat[Y][X]){
+  int isPossibleA = 0;
+  int isPossibleB = 0;
+  int isPossibleC = 0;
+  int isPossibleD = 0;
+  int isPossibleE = 0;
+  int isPossibleF = 0;
+  int isPossibleG = 0;
+  int isPossibleH = 0;
+
+  switch (direction) {
+    case 0: //Pivot gauche
+      if ((mat[block->lineOneY][block->rightX]=='x')) {
+        if ((block->leftX -1 == 0)||(mat[block->lineOneY][block->leftX -1] == 'o')) {
+          isPossibleA = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->middleX]=='x')) {
+        if ((block->leftX -1 == 0)||(mat[block->lineTwoY][block->leftX -1] == 'o')) {
+          isPossibleB = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->leftX]=='x')) {
+        if ((block->leftX -1 == 0)||(mat[block->lineThreeY][block->leftX -1] == 'o')) {
+          isPossibleC = 1;
+        }
+      }
+      if ((mat[block->lineTwoY][block->leftX]=='x')) {
+        if ((block->middleX -1 == 0)||(mat[block->lineThreeY][block->middleX -1] == 'o')) {
+          isPossibleD = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->rightX]=='x')) {
+        if ((block->middleX -1 == 0)||(mat[block->lineOneY][block->rightX -1] == 'o')) {
+          isPossibleE = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->leftX]=='x')) {
+        if ((block->rightX -1 == 0)||(mat[block->lineThreeY][block->rightX -1] == 'o')) {
+          isPossibleF = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->middleX]=='x')) {
+        if ((block->rightX -1 == 0)||(mat[block->lineTwoY][block->rightX -1] == 'o')) {
+          isPossibleG = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->rightX]=='x')) {
+        if ((block->rightX -1 == 0)||(mat[block->lineOneY][block->rightX -1] == 'o')) {
+          isPossibleH = 1;
+        }
+      }
+      break;
+    case 1:
+      if ((mat[block->lineOneY][block->leftX]=='x')) {
+        if ((block->rightX +1 == X-1)||(mat[block->lineOneY][block->rightX +1] == 'o')) {
+          isPossibleA = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->middleX]=='x')) {
+        if ((block->rightX +1 == X-1)||(mat[block->lineTwoY][block->rightX +1] == 'o')) {
+          isPossibleB = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->rightX]=='x')) {
+        if ((block->rightX +1 == X-1)||(mat[block->lineThreeY][block->rightX +1] == 'o')) {
+          isPossibleC = 1;
+        }
+      }
+      if ((mat[block->lineTwoY][block->leftX]=='x')) {
+        if ((block->middleX +1 == X-1)||(mat[block->lineOneY][block->middleX +1] == 'o')) {
+          isPossibleD = 1;
+        }
+      }
+      if ((mat[block->lineOneY][block->rightX]=='x')) {
+        if ((block->middleX +1 == X-1)||(mat[block->lineThreeY][block->middleX +1] == 'o')) {
+          isPossibleE = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->leftX]=='x')) {
+        if ((block->leftX +1 == X-1)||(mat[block->lineOneY][block->leftX +1] == 'o')) {
+          isPossibleF = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->middleX]=='x')) {
+        if ((block->leftX +1 == X-1)||(mat[block->lineTwoY][block->leftX +1] == 'o')) {
+          isPossibleG = 1;
+        }
+      }
+      if ((mat[block->lineThreeY][block->rightX]=='x')) {
+        if ((block->leftX +1 == X-1)||(mat[block->lineThreeY][block->leftX +1] == 'o')) {
+          isPossibleH = 1;
+        }
+      }
+      break;
+  }
+  return (isPossibleA + isPossibleB + isPossibleC + isPossibleD + isPossibleE + isPossibleF + isPossibleG + isPossibleH);
+}
 
 int canMoveH(char mat[Y][X], int side, coordBlock *block){
   int isPossible=0;
@@ -65,14 +152,13 @@ int canMoveH(char mat[Y][X], int side, coordBlock *block){
           isPossibleThM = 1;
         }
       }
-      if ((mat[block->lineFourY][block->leftX]=='x')) {
-        if ((block->leftX -1 == -1)||(mat[block->lineFourY][block->leftX] == 'o')) {
-          isPossibleFL = 1;
-        }
-      }
+      // if ((mat[block->lineFourY][block->middleX]=='x')) {
+      //   if ((block->leftX -1 == -1)||(mat[block->lineFourY][block->middleX] == 'o')) {
+      //     isPossibleFL = 1;
+      //   }
+      // }
       break;
     case 1:
-      printf("X: %d\n",X);
       if ((mat[block->lineOneY][block->middleX]=='x')) {
         if ((block->middleX +1 == X-1)||(mat[block->lineOneY][block->middleX +1] == 'o')) {
           isPossibleOM = 1;
@@ -207,16 +293,12 @@ int canMoveV(char mat[Y][X], coordBlock *block){
       isPossibleFR = 1;
     }
   }
-  if ((block->lineFourY == Y-1)||(block->lineThreeY == Y-1)||(block->lineTwoY == Y-1)||(block->lineOneY == Y-1)) {
-    if (block->lineFourY == Y-1) {
-    }
-    if (block->lineThreeY == Y-1) {
-    }
-    if (block->lineTwoY == Y-1) {
-    }
-    if (block->lineOneY == Y-1) {
+  if ((mat[block->lineTwoY][block->rightX+1]=='x')) {
+    if ((block->lineFourY == Y)||(mat[block->lineFourY -1][block->rightX+1] == 'o')) {
+      isPossibleFR = 1;
     }
   }
+
   isPossible = isPossibleThR + isPossibleThM + isPossibleThL + isPossibleTR + isPossibleTM + isPossibleTL + isPossibleOR + isPossibleOL + isPossibleOM + isPossibleFR + isPossibleFL + isPossibleFM;
   return isPossible;
 }
@@ -287,16 +369,6 @@ void moveDown(coordBlock *block){
   block->lineFourY ++;
 }
 
-void moveDownEvery(int seconds, coordBlock *block, int score, int line, int randomNumber, int position){
-  int noConflict;
-  // seconds = seconds * 1000;
-  noConflict = canMoveV(mat, block);
-  if (noConflict ==0) {
-    // timeout(seconds);
-    Move(mat, 2, randomNumber, &position, &score, block);
-  }
-}
-
 void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block){
   int isPossible = canMoveV(mat,block);
 
@@ -307,7 +379,6 @@ void directDown(char mat[Y][X], int typeOfBlock, int position, coordBlock *block
     block->lineFourY ++;
     matrixMovement(mat,typeOfBlock,position, block);
     isPossible = canMoveV(mat,block);
-    testPrintInfo(&position,block);
   }
 }
 
@@ -329,24 +400,32 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
       matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 5: //Gauche
-      *position = *position +1;
-      if (*position > 2) {
-        *position = -1;
+      if (canRotate(0, block, typeOfBlock, position, mat)==0) {
+        *position = *position +1;
+        if (*position > 2) {
+          *position = -1;
+        }
+        matrixMovement(mat,typeOfBlock,*position, block);
       }
-      matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 6: //Droite
-      *position = *position -1;
-      if (*position < -2) {
-        *position = 1;
+      if (canRotate(1, block, typeOfBlock, position, mat)==0) {
+        *position = *position -1;
+        if (*position < -2) {
+          *position = 1;
+        }
+        matrixMovement(mat,typeOfBlock,*position, block);
       }
-      matrixMovement(mat,typeOfBlock,*position, block);
       break;
     case 7:
       // system("clear");
-      printf("\n\n============ GAME PAUSED ============\n\n");
-      printf("type a key and press enter to unpause \n");
-      scanf("%c", &unpause);
+      erase();
+      refresh();
+      printw("\n\n============ GAME PAUSED ============\n\n");
+      printw("type a key and press enter to unpause \n");
+      do {
+        unpause = getch();
+      } while(unpause == ERR);
       break;
   }
 }

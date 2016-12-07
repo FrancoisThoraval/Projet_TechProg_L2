@@ -7,11 +7,12 @@
 #include "scoreHandler.h"
 #include "definition.h"
 #include "menu.h"
+
 #include <ncurses.h> //Equivalent à conio.h pour kbhit et getch
 // #include <unistd.h>
 
 
-int play(int difficulty_O_Meter) {
+int play(float difficulty_O_Meter) {
   coordBlock block;
   int gameOn =0;
   int oldNumber = -1;
@@ -19,39 +20,44 @@ int play(int difficulty_O_Meter) {
   int line = 0;
   int nbLines;
   int saveLines = line;
-  float seconds = 1.5;
+  float seconds = 2;
   int level = 1;
 
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+  Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+  Mix_Music *gameMusic = Mix_LoadMUS(" ");
+  Mix_Music *sample = Mix_LoadMUS(" ");
+  playSound('m',0,gameMusic);
 
+  seconds = seconds/difficulty_O_Meter;
+  erase();
   initMatrix(mat); //on initialise la matrice
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
     initCoordStruct(&block);
     // Génération nombre aléatoire qui détermine le bloc
     do {
-      randomNumber = randomize();
+      randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 0;
+    // randomNumber = 5;
+
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0, &block);
-    // initscr(); // entering ncurses mode                 //Je ne sais pas trop pourquoi, mais s'il on ne quitte pas le mode initscr immédiatement après l'avoir démarré, on a un premier affichage cassé
-    // endwin(); //end ncurses mode
-               //le problème étant que sans ce initscr, on ne peut pas prendre les flèches du clavier. A voir si on trouve une documentation permettant de trouver une solution plus élégante.
-    // erase();
     refresh();
     show(mat, score, line); //on l'affiche
     movementHandler(mat, randomNumber, &score, &line, &block, seconds, level); //On gère les mouvements du bloc
     nbLines = line;
-    // checkLines(mat,&score, &line, level);
     switch (line - nbLines) {
-      case 1: break;
-      case 2: score +=5;
+      case 1:
+        playSound('s',1,sample);
+      break;
+      case 2: score +=25;
         break;
-      case 3: score +=10;
+      case 3: score +=100;
         break;
-      case 4: score +=50;
+      case 4: score +=400;
     }
-    if (line - saveLines == 5) {
+    if (line - saveLines == NEWLEVEL) {
       saveLines = line;
       seconds = seconds/difficulty_O_Meter;
       level++;
@@ -61,9 +67,13 @@ int play(int difficulty_O_Meter) {
     show(mat, score, line); //on réaffiche la matrice une fois que le bloc est placé
     gameOn = gameOver(mat); // Vérifie si on peut encore jouer
     if (gameOn == 1) {
-      menuGameOver(&score, &line); //Affiche un message et passa à la saisie des scores etc...
-      menu();
+      Mix_FadeOutMusic(5000);
+      menuGameOver(&difficulty_O_Meter,&score, &line); //Affiche un message et passe à la saisie des scores etc...
     }
   }
+  return 0;
+}
+
+int playMode2(){
   return 0;
 }
