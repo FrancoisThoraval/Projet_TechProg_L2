@@ -23,10 +23,11 @@ char mat[Y][X];
 int randomNumber;
 
 void errorHandler(int errorCode);
-int gameOver(char mat[Y][X]);
+int gameOver(char mat[Y][X], int mode, int difficulty_O_Meter);
+void fillMatrix(char mat[Y][X], int difficulty_O_Meter);
 int randomize();
 void initMatrix(char mat[Y][X]);
-void show(char mat[Y][X], int score, int line);
+void show(char mat[Y][X], int score, int line,int tries);
 void initCoordStruct();
 
 // Design blocs

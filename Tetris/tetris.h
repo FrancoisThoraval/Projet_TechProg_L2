@@ -12,4 +12,5 @@
 // #include <unistd.h>
 
 
-int play(float difficulty_O_Meter);
+void play(float difficulty_O_Meter);
+void playModeTwo(float difficulty_O_Meter);

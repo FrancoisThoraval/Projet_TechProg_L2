@@ -30,6 +30,7 @@ typedef struct{
 typedef struct{
   int score;
   int line;
+  int tries;
   char name[lengthName];
 }saveScore;
 

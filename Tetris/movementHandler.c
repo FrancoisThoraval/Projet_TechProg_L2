@@ -305,6 +305,7 @@ int canMoveV(char mat[Y][X], coordBlock *block){
 
 int getNextMovement(char mat[Y][X],int score, int line){
   Mix_Chunk *sample = NULL;
+  int epileptic = randomize(4)+1;
   int nextMovement= 0;
   int input;
   keypad(stdscr, TRUE);
@@ -316,24 +317,31 @@ int getNextMovement(char mat[Y][X],int score, int line){
   //refresh();
   switch (input) {
     case KEY_LEFT: nextMovement = 1;
+      attron(COLOR_PAIR(epileptic));
       // printf("A gauche \n\n");
       break;
     case KEY_DOWN: nextMovement = 2;
       // printf("En bas\n\n");
       break;
     case KEY_RIGHT: nextMovement = 3;
+      attron(COLOR_PAIR(epileptic));
       // printf("A droite\n\n");
       break;
     case KEY_UP: nextMovement = 4;
+      attron(COLOR_PAIR(epileptic));
       break;
     case 'W':;
     case 'w': nextMovement = 5;
+      attron(COLOR_PAIR(epileptic));
       break;
     case 'X':;
     case 'x': nextMovement = 6;
+      attron(COLOR_PAIR(epileptic));
+
       break;
     case 'P':;
     case 'p': nextMovement = 7;
+      attron(COLOR_PAIR(epileptic));
       break;
     case -1:; //retour de getch quand on a rien tapé
       break;
@@ -436,7 +444,7 @@ void Move(char mat[Y][X], int movement, int typeOfBlock,int *position, int *scor
   free(sample);
 }
 
-void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, coordBlock *block, float seconds, int level){
+void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, coordBlock *block, float seconds, int level, int tries){
   int noConflict =0; //Determine si le bloc ne peut plus descendre + bas
   int movement;
   int position = 0;
@@ -444,7 +452,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
   int timeElapsed;
   // time_t start;
   refresh();
-  show(mat,*score,*line);
+  show(mat,*score,*line,tries);
   if (noConflict == 0){
 
     nodelay(stdscr,TRUE);
@@ -461,7 +469,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
         if (noConflict ==0) { //On re-vérifie si on peut descendre pour éviter le bug où en appuyant sur la touche de descente au bon moment il était possible de placer des points là où on ne peut pas.
           Move(mat, movement, randomNumber, &position, score, block); //Gere le mouvement en fonction de la touche
           if ((movement > 0) && (movement < 8)) { //Pour eviter le scintillement de l'écran
-            show(mat,*score,*line);
+            show(mat,*score,*line,tries);
           }
         }
         gettimeofday(&step,NULL);
@@ -471,7 +479,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
       if (noConflict == 0) {
         Move(mat, 2, randomNumber, &position, score, block);
         refresh();
-        show(mat,*score,*line);
+        show(mat,*score,*line,tries);
       }
     }
     blockEnd(mat);

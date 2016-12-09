@@ -12,13 +12,25 @@ void errorHandler(int errorCode){
   }
 }
 
-int gameOver(char mat[Y][X]){
-  return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
+int gameOver(char mat[Y][X],int mode, int difficulty_O_Meter){
+  int good;
+  if (mode == 0) {
+    return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
+  }else{
+    for (int i = 0; i < Y; i++) {
+      for (int j = 0; j < X; j++) {
+        if (mat[i][j]!='o') {
+          good++;
+        }
+      }
+    }
+    return((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o')||(good>Y*(X-1)));
+  }
 }
 
 int randomize(int nbValues){
   //On tire au sort un nombre qui correspondra a la forme du bloc
-  srand(time(NULL));
+
   int randomNumber = rand() %nbValues;
   return randomNumber;
 }
@@ -32,10 +44,22 @@ void initMatrix(char mat[Y][X]){
   }
 }
 
-void show(char mat[Y][X],int score, int line) {
+void fillMatrix(char mat[Y][X], int difficulty_O_Meter){
+  int random;
+  for (int i = Y-difficulty_O_Meter-1; i<Y; i++) {
+    for (int j = 0; j < X-1; j++) {
+      random = randomize(2);
+      if (random == 0) {
+        mat[i][j] = 'o';
+      }
+    }
+  }
+}
+
+void show(char mat[Y][X],int score, int line, int tries) {
   erase();
   refresh();
-  showScore(score, line);
+  showScore(score, line, tries);
   for (int i = 0; i < Y; i++) {
     for (int j = -1; j < X; j++) {
       if ((j==-1 )||(j==X-1)) {

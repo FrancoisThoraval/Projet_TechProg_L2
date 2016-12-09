@@ -9,7 +9,7 @@
 
 
 void deleteLine(char mat[Y][X], int line);
-void showScore(int score, int line);
+void showScore(int score, int line, int tries);
 void checkLines(char mat[Y][X], int *score, int *line, int level);
 // void endGameScreen(int *score, int *line);
 void printBestScores(saveScore oldScores[nbOldScore]);
@@ -19,3 +19,8 @@ void readFile(saveScore oldScores[nbOldScore]);
 void writeFile(saveScore oldScores[nbOldScore]);
 void fileScoreHandler(saveScore oldScores[nbOldScore], int intention);
 void sortScores(saveScore oldScores[nbOldScore], saveScore save);
+void writeFile2(saveScore oldScores[nbOldScore]);
+void readFile2(saveScore oldScores[nbOldScore]);
+void sortScores2(saveScore oldScores[nbOldScore], saveScore save);
+void Score2(int *score, int *line, float *difficulty_O_Meter, int *tries);
+void printBestScores2(saveScore oldScores[nbOldScore]);
