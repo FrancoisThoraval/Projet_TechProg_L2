@@ -40,7 +40,7 @@ void play(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    randomNumber = 5;
+    // randomNumber = 5;
 
     //On met le bloc dans la matrice
     putBlockInMat(randomNumber,mat,2,0, &block,'x');
