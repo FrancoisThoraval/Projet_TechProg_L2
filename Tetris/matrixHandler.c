@@ -1,4 +1,5 @@
 #include "matrixHandler.h"
+#include "movementHandler.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -13,18 +14,18 @@ void errorHandler(int errorCode){
 }
 
 int gameOver(char mat[Y][X],int mode, int difficulty_O_Meter){
-  int good;
+  int good=0;
   if (mode == 0) {
-    return ((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o'));
+    return (mat[1][X/2] == 'o');
   }else{
     for (int i = 0; i < Y; i++) {
       for (int j = 0; j < X; j++) {
-        if (mat[i][j]!='o') {
+        if (mat[i][j]=='o') {
           good++;
         }
       }
     }
-    return((mat[1][X/2] == 'x')||(mat[1][X/2] == 'o')||(good>Y*(X-1)));
+    return((mat[1][X/2] == 'o')||(good==0));
   }
 }
 
@@ -63,17 +64,20 @@ void show(char mat[Y][X],int score, int line, int tries) {
   for (int i = 0; i < Y; i++) {
     for (int j = -1; j < X; j++) {
       if ((j==-1 )||(j==X-1)) {
+        attron(COLOR_PAIR(randomize(4)+1));
         printw("#");
+        attron(COLOR_PAIR(7));
       }
       if ((i==Y-1) && (j!=X-1) && (j!=-1)) {
+        attron(COLOR_PAIR(randomize(4)+1));
         printw("* ");
+        attron(COLOR_PAIR(7));
       }
       if ((i!= Y-1) && (i!= -1) && (j!=X)&& (j!=-1)) {
         printw("%c ",mat[i][j]);
       }
     }
     printw("\n");
-    // printf("test %d: \"%c\"\n",i,test );
   }
 }
 
@@ -91,18 +95,14 @@ void initCoordStruct(coordBlock *block){
 }
 
 // Designs des blocs
-void square(char mat[Y][X], int isSet, coordBlock *block) {
-  char blocChar = 'x';
-
+void square(char mat[Y][X], int isSet, coordBlock *block, char blocChar) {
   mat[block->lineOneY][block->leftX] = blocChar;
   mat[block->lineOneY][block->middleX] = blocChar;
   mat[block->lineTwoY][block->leftX] = blocChar;
   mat[block->lineTwoY][block->middleX] = blocChar;
 }
 
-void zeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
-  char blocChar = 'x';
-
+void zeee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
   if ((position == 0)||(position == 2)||(position == -2)) {
     mat[block->lineTwoY][block->leftX] = blocChar;
     mat[block->lineTwoY][block->middleX] = blocChar;
@@ -119,9 +119,7 @@ void zeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   }
 }
 
-void leee(char mat[Y][X], int isSet, int position, coordBlock *block) {
-  char blocChar = 'x';
-
+void leee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
   if (position == 0) {
     mat[block->lineOneY][block->middleX] = blocChar;
     mat[block->lineTwoY][block->middleX] = blocChar;
@@ -152,9 +150,7 @@ void leee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   }
 }
 
-void jeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
-  char blocChar = 'x';
-
+void jeee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
   if (position == 0) {
     mat[block->lineOneY][block->middleX] = blocChar;
     mat[block->lineTwoY][block->middleX] = blocChar;
@@ -185,10 +181,7 @@ void jeee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   }
 }
 
-void teee(char mat[Y][X], int isSet, int position, coordBlock *block) {
-
-  char blocChar = 'x';
-
+void teee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
   if (position == 0) {
     mat[block->lineOneY][block->middleX] = blocChar;
     mat[block->lineTwoY][block->middleX] = blocChar;
@@ -219,9 +212,7 @@ void teee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   }
 }
 
-void iail(char mat[Y][X], int isSet, int position, coordBlock *block) {
-  char blocChar = 'x';
-
+void iail(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
   if ((position == 0)||(position == 2)||(position == -2)) {
     mat[block->lineOneY][block->middleX] = blocChar;
     mat[block->lineTwoY][block->middleX] = blocChar;
@@ -237,8 +228,7 @@ void iail(char mat[Y][X], int isSet, int position, coordBlock *block) {
 
 }
 
-void seee(char mat[Y][X], int isSet, int position, coordBlock *block) {
-  char blocChar = 'x';
+void seee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar) {
     if ((position == 0)||(position == 2)||(position == -2)) {
     mat[block->lineThreeY][block->leftX] = blocChar;
     mat[block->lineThreeY][block->middleX] = blocChar;
@@ -255,31 +245,61 @@ void seee(char mat[Y][X], int isSet, int position, coordBlock *block) {
   }
 }
 
-void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position, coordBlock *block){
+void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar){
   switch (randomNumber) {
-    case 0: square(mat, isSet, block);
+    case 0: square(mat, isSet, block, blocChar);
       break;
-    case 1: zeee(mat, isSet, position, block);
+    case 1: zeee(mat, isSet, position, block, blocChar);
       break;
-    case 2: leee(mat, isSet, position, block);
+    case 2: leee(mat, isSet, position, block, blocChar);
       break;
-    case 3: jeee(mat, isSet, position, block);
+    case 3: jeee(mat, isSet, position, block, blocChar);
       break;
-    case 4: teee(mat, isSet,position, block);
+    case 4: teee(mat, isSet,position, block, blocChar);
       break;
-    case 5: iail(mat, isSet, position, block);
+    case 5: iail(mat, isSet, position, block, blocChar);
       break;
-    case 6: seee(mat, isSet, position, block);
+    case 6: seee(mat, isSet, position, block, blocChar);
       break;
     default: errorHandler(1);
       break;
   }
 }
 
+coordBlock copyBlock(coordBlock *block){
+  coordBlock copy;
+
+  copy.leftX = block->leftX;
+  copy.middleX = block->middleX;
+  copy.rightX = block->rightX;
+  copy.lineOneY = block->lineOneY;
+  copy.lineTwoY = block->lineTwoY;
+  copy.lineThreeY = block->lineThreeY;
+  copy.lineFourY = block->lineFourY;
+  return copy;
+}
+
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position, coordBlock *block){
   char newMat[Y][X];
+  char blocChar= 'x';
+  coordBlock previewBlock = copyBlock(block);
+  int isPossible = canMoveV(mat,&previewBlock);
   initMatrix(newMat);
-  putBlockInMat(typeOfBlock,newMat,0,position, block);
+  putBlockInMat(typeOfBlock,newMat,0,position, block, blocChar);
+  // directDown(mat,typeOfBlock,position, &previewBlock);     //Pour une raison obscure, si on appelle la fonction, on obtient une seg fault parfois
+  while (isPossible == 0) {                                   //si on recopie tout, plus de seg fault !?
+    previewBlock.lineOneY ++;
+    previewBlock.lineTwoY ++;
+    previewBlock.lineThreeY ++;
+    previewBlock.lineFourY ++;
+    matrixMovement(mat,typeOfBlock,position, &previewBlock);
+    isPossible = canMoveV(mat,&previewBlock);
+  }
+  if ((previewBlock.lineOneY-1 >= block->lineFourY)) {
+    blocChar= '\'';
+    putBlockInMat(typeOfBlock,newMat,0,position, &previewBlock, blocChar);
+  }
+
   for (int i = 0; i < Y; i++) {
     for (int j = 0; j < X; j++) {
       if (mat[i][j] == 'o') {

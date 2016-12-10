@@ -40,11 +40,15 @@ void playSample(int event, Mix_Chunk *sample){
       Mix_PlayChannel( -1, sample, 0 );
       break;
     case 10:
-      sample = Mix_LoadWAV("Music&Sounds/nope.wav");
+      sample = Mix_LoadWAV("Music&Sounds/doh.wav");
       Mix_PlayChannel( -1, sample, 0 );
       break;
     case 11:
       sample = Mix_LoadWAV("Music&Sounds/Wow.wav");
+      Mix_PlayChannel( -1, sample, 0 );
+      break;
+    case 12:
+      sample = Mix_LoadWAV("Music&Sounds/batmanReversed.wav");
       Mix_PlayChannel( -1, sample, 0 );
       break;
   }
@@ -52,7 +56,7 @@ void playSample(int event, Mix_Chunk *sample){
 
 void playSound(int isCrazyMode,Mix_Music *music){
   int song;
-  Mix_VolumeMusic(MIX_MAX_VOLUME-20);
+  Mix_VolumeMusic(MIX_MAX_VOLUME);
   if (isCrazyMode) {
     music = Mix_LoadMUS("crazymusic.mp3");
     Mix_FadeInMusic(music,-1,1000);

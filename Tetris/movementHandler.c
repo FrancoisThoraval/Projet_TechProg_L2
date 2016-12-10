@@ -227,6 +227,10 @@ int canMoveV(char mat[Y][X], coordBlock *block){
   int isPossibleFM = 0;
   int isPossibleFL = 0;
 
+  if ((block->lineOneY >= Y-2)&&(block->lineTwoY >= Y-2)&&(block->lineThreeY >= Y-2)&&(block->lineFourY >= Y-2)) {
+    return 1;
+  }
+
   if ((mat[block->lineOneY][block->leftX]=='x')) {
     if ((block->lineOneY == Y-2)||(mat[block->lineOneY +1][block->leftX] == 'o')) {
       isPossibleOL = 1;
@@ -458,6 +462,7 @@ void movementHandler(char mat[Y][X], int randomNumber, int *score, int *line, co
     nodelay(stdscr,TRUE);
     noConflict = canMoveV(mat, block); //Vérifie que le joueur peut encore descendre le bloc
     while(noConflict == 0){
+
       // start = time(NULL);
       gettimeofday(&start,NULL);
       gettimeofday(&step,NULL);

@@ -330,7 +330,9 @@ int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic)
   keypad(stdscr, TRUE);
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
-  input = getch();
+  do{
+    input = getch();
+  }while(input == ERR);
   nocbreak();
   switch (input) {
     case KEY_UP: nextMovement = 1;
@@ -351,42 +353,42 @@ int optionsMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic)
           *difficulty_O_Meter = CHILL;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 2:
           *difficulty_O_Meter = EASY;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 3:
           *difficulty_O_Meter = MEDIUM;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 4:
           *difficulty_O_Meter = HARD;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 5:
           *difficulty_O_Meter = PROGAMER;
           printw("diff: %f", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 6:
           *difficulty_O_Meter = UNBEARABLE;
           printw("diff: %f\n", *difficulty_O_Meter);
           refresh();
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
       }
@@ -411,7 +413,10 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
   keypad(stdscr, TRUE);
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
-  input = getch();
+  // while((input=getchar())!= '\n' && input!= EOF);
+  do{
+    input = getch();
+  }while(input == ERR);
   nocbreak();
   switch (input) {
     case 'a':
@@ -448,13 +453,13 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
           break;
         case 4: /*bestScores()*/
           erase();
-          // endwin();
-          // system("clear");
           fileScoreHandler(oldScores,0);
           playSample(3,sample);
           printBestScores(oldScores);
-          printw("\n -------- type something to go back to menu --------\n");
-          scanw("%d\n",&somethingNice );
+          printw("\n -------- type ENTER to go back to menu --------\n");
+          do {
+            somethingNice = getch();
+          } while(somethingNice != 10); //Il faut appuyer sur entrée pour quitter
           menu(difficulty_O_Meter, menuMusic);
           break;
         case 5: /*bestScores()*/
@@ -464,7 +469,10 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
           fileScoreHandler(oldScores,2);
           playSample(3,sample);
           printBestScores2(oldScores);
-          printw("\n -------- type something to go back to menu --------\n");
+          printw("\n -------- type ENTER to go back to menu --------\n");
+          do {
+            somethingNice = getch();
+          } while(somethingNice != 10); //Il faut appuyer sur entrée pour quittero back to menu --------\n");
           scanw("%d\n",&somethingNice );
           menu(difficulty_O_Meter, menuMusic);
           break;
@@ -482,10 +490,8 @@ int menuMovement(int *pitem, float *difficulty_O_Meter, Mix_Music *menuMusic){
       }
       break;
 
-    case -1:; //retour de getch quand on a rien tapé
-      break;
-
     default: playSample(10,sample);
+      printf("inputRecursif: %d\n",input );
       nextMovement = menuMovement(pitem, difficulty_O_Meter, menuMusic);
   }
   free(sample);
@@ -499,7 +505,9 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
   keypad(stdscr, TRUE);
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
-  input = getch();
+  do {
+    input = getch();
+  } while(input == ERR);
   nocbreak();
   switch (input) {
     case KEY_UP: nextMovement = 1;
@@ -526,7 +534,12 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
             Score2(score,line,difficulty_O_Meter,tries);
           break;
         case 2:
-          playSample(2,sample);
+          printw("press ENTER to confirm\n");
+          do {
+            input = getch();
+          } while(input != 10); //Il faut appuyer sur entrée pour quitter
+          playSample(12,sample);
+          refresh();
           callMenuWithMusic(difficulty_O_Meter);
           break;
         case 3:
@@ -543,9 +556,6 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
       }
       break;
 
-    case -1:; //retour de getch quand on a rien tapé
-      break;
-
     default: playSample(10,sample);
       nextMovement = menuGameOverMovement(pitem, score, line, difficulty_O_Meter, tries, mode);
   }
@@ -560,7 +570,9 @@ int menuMovementGameModeTwo(int *pitem, float *difficulty_O_Meter, Mix_Music *me
   keypad(stdscr, TRUE);
   noecho();  // pressed symbols wont be printed to screen
   cbreak();  // disable line buffering
-  input = getch();
+  do{
+    input = getch();
+  }while(input == ERR);
   nocbreak();
   switch (input) {
     case KEY_UP: nextMovement = 1;
@@ -599,13 +611,10 @@ int menuMovementGameModeTwo(int *pitem, float *difficulty_O_Meter, Mix_Music *me
           printw("Playing !\n");
           break;
         case 4:
-          playSample(2,sample);
+          playSample(12,sample);
           menu(difficulty_O_Meter, menuMusic);
           break;
       }
-      break;
-
-    case -1:; //retour de getch quand on a rien tapé
       break;
 
     default: playSample(10,sample);
@@ -665,7 +674,6 @@ void menu(float *difficulty_O_Meter, Mix_Music *menuMusic){
   int item = 1;
   int input;
 
-  attron(COLOR_PAIR(4));
   erase();
   noecho();
   displayMenu(item, difficulty_O_Meter);
@@ -680,7 +688,7 @@ void menu(float *difficulty_O_Meter, Mix_Music *menuMusic){
 }
 
 void callMenuWithMusic(float *difficulty_O_Meter){
-  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+  SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *menuMusic = NULL;
 
@@ -690,8 +698,11 @@ void callMenuWithMusic(float *difficulty_O_Meter){
   init_pair(2, COLOR_GREEN, COLOR_BLACK);
   init_pair(3, COLOR_BLUE, COLOR_BLACK);
   init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  init_pair(7, COLOR_WHITE, COLOR_BLACK);
 
-  attron(COLOR_PAIR(3));
+  attron(COLOR_PAIR(7));
   playSound(0,menuMusic);
   menu(difficulty_O_Meter,menuMusic);
 

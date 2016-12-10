@@ -24,7 +24,7 @@ void play(float difficulty_O_Meter) {
   int level = 1;
   int tries =0;
 
-  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+  SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *gameMusic = NULL;
   Mix_Chunk *sample = NULL;
@@ -40,10 +40,10 @@ void play(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 5;
+    randomNumber = 5;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2,0, &block);
+    putBlockInMat(randomNumber,mat,2,0, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
@@ -62,7 +62,7 @@ void play(float difficulty_O_Meter) {
         playSample(8, sample);
         refresh();
     }
-    if (line - saveLines == NEWLEVEL) {
+    if (line - saveLines >= NEWLEVEL) {
       Mix_VolumeMusic(MIX_MAX_VOLUME/2);
       playSample(9,sample);
       saveLines = line;
@@ -91,6 +91,7 @@ void play(float difficulty_O_Meter) {
 
 void playModeTwo(float difficulty_O_Meter) {
   coordBlock block;
+
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
@@ -100,7 +101,8 @@ void playModeTwo(float difficulty_O_Meter) {
   int level = 1;
   int tries = 1;
 
-  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+  SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *gameMusic = NULL;
   Mix_Chunk *sample = NULL;
@@ -112,15 +114,16 @@ void playModeTwo(float difficulty_O_Meter) {
   fillMatrix(mat,difficulty_O_Meter);
   while (gameOn != 1) { //On boucle tant que le jeu est lancé
     initCoordStruct(&block);
+
     // Génération nombre aléatoire qui détermine le bloc
     do {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 5;
+    // randomNumber = 0;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2,0, &block);
+    putBlockInMat(randomNumber,mat,2,0, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
