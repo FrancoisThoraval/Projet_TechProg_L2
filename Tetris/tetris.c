@@ -11,7 +11,8 @@
 #include <ncurses.h> //Equivalent à conio.h pour kbhit et getch
 // #include <unistd.h>
 
-
+// ===================================== MODE CLASSIQUE =====================================
+// 
 void play(float difficulty_O_Meter) {
   coordBlock block;
   int gameOn =0;
@@ -24,11 +25,12 @@ void play(float difficulty_O_Meter) {
   int level = 1;
   int tries =0;
 
+  // Initialisation de la musique
   SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *gameMusic = NULL;
   Mix_Chunk *sample = NULL;
-  playSound(0,gameMusic);
+  playSound(0,gameMusic); //Joue une musique tirée au hasard
 
   seconds = seconds/difficulty_O_Meter;
   erase();
@@ -48,7 +50,7 @@ void play(float difficulty_O_Meter) {
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
     movementHandler(mat, randomNumber, &score, &line, &block, seconds, level, tries); //On gère les mouvements du bloc
-    switch (line - nbLines) {
+    switch (line - nbLines) { //On regarde combien de lignes on été supprimées et on affecte le score en fonction
       case 1:
         playSample(4, sample);
         break;
@@ -62,32 +64,26 @@ void play(float difficulty_O_Meter) {
         playSample(8, sample);
         refresh();
     }
-    if (line - saveLines >= NEWLEVEL) {
-      Mix_VolumeMusic(MIX_MAX_VOLUME/2);
+    if (line - saveLines >= NEWLEVEL) { //Si on a passé le niveau supérieur, on accélère la vitesse de chute + jouer un son
       playSample(9,sample);
       saveLines = line;
       seconds = seconds/difficulty_O_Meter;
       level++;
-      Mix_VolumeMusic(MIX_MAX_VOLUME-20);
     }
-    if (line - saveLines == NEWLEVEL+5) {
-      playSound(1,gameMusic);
-      saveLines = line;
-      seconds = seconds/difficulty_O_Meter;
-      level++;
-      Mix_VolumeMusic(MIX_MAX_VOLUME-20);
-    }
-    // erase();
     refresh();
     show(mat, score, line, tries); //on réaffiche la matrice une fois que le bloc est placé
-    gameOn = gameOver(mat,0,difficulty_O_Meter); // Vérifie si on peut encore jouer
+    gameOn = gameOver(mat,0,difficulty_O_Meter); // on vérifie si on peut encore jouer
     if (gameOn == 1) {
       Mix_FadeOutMusic(5000);
-      menuGameOver(&difficulty_O_Meter,&score, &line,0,1); //Affiche un message et passe à la saisie des scores etc...
+      menuGameOver(&difficulty_O_Meter,&score, &line,0,1); //Affiche un menu pour sauvegarder le score || revenir au menu || quitter le jeu
     }
   }
   free(sample);
 }
+// ===================================== MODE ALTERNATIF =====================================
+//
+// Quasi le même code que play(float difficulty_O_Meter) sauf qu'on accélère pas la chute des blocs qui est fixée à une vitesse de 2 secondes
+// et que le game over vérifie s'il y a encore des blocs dans la matrice (ce qui rend le jeu plus lent)
 
 void playModeTwo(float difficulty_O_Meter) {
   coordBlock block;
@@ -108,7 +104,6 @@ void playModeTwo(float difficulty_O_Meter) {
   Mix_Chunk *sample = NULL;
   playSound(0,gameMusic);
 
-  // seconds = seconds/difficulty_O_Meter;
   erase();
   initMatrix(mat); //on initialise la matrice
   fillMatrix(mat,difficulty_O_Meter);

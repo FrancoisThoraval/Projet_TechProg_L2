@@ -37,8 +37,9 @@ void printBestScores2(saveScore oldScores[nbOldScore]) {
 
 void getName(char name[lengthName]) {
   // char cur_input;
-  echo();
-  // system("clear");
+  // echo();
+  endwin();
+  system("clear");
   printf("Nom du joueur (20 lettres max) : ");
   scanf("%s",name);
   // printw("Nom du joueur (20 lettres max) : ");
@@ -184,6 +185,7 @@ void Score(int *score, int *line, float *difficulty_O_Meter){
   saveScore save;
   saveScore oldScores[nbOldScore];
   // On récupère les infos de la partie
+  // echo();
   getName(save.name);
   save.score = *score;
   save.line = *line;

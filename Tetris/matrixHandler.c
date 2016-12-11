@@ -286,18 +286,20 @@ void matrixMovement(char mat[Y][X], int typeOfBlock, int position, coordBlock *b
   int isPossible = canMoveV(mat,&previewBlock);
   initMatrix(newMat);
   putBlockInMat(typeOfBlock,newMat,0,position, block, blocChar);
-  // directDown(mat,typeOfBlock,position, &previewBlock);     //Pour une raison obscure, si on appelle la fonction, on obtient une seg fault parfois
-  while (isPossible == 0) {                                   //si on recopie tout, plus de seg fault !?
-    previewBlock.lineOneY ++;
-    previewBlock.lineTwoY ++;
-    previewBlock.lineThreeY ++;
-    previewBlock.lineFourY ++;
-    matrixMovement(mat,typeOfBlock,position, &previewBlock);
-    isPossible = canMoveV(mat,&previewBlock);
-  }
-  if ((previewBlock.lineOneY-1 >= block->lineFourY)) {
-    blocChar= '\'';
-    putBlockInMat(typeOfBlock,newMat,0,position, &previewBlock, blocChar);
+  if (PREDICTION == 0) {
+    // directDown(mat,typeOfBlock,position, &previewBlock);     //Pour une raison obscure, si on appelle la fonction, on obtient une seg fault parfois
+    while (isPossible == 0) {                                   //si on recopie le contenu de la fonction, plus de seg fault !?
+      previewBlock.lineOneY ++;
+      previewBlock.lineTwoY ++;
+      previewBlock.lineThreeY ++;
+      previewBlock.lineFourY ++;
+      matrixMovement(mat,typeOfBlock,position, &previewBlock);
+      isPossible = canMoveV(mat,&previewBlock);
+    }
+    if ((previewBlock.lineOneY-1 >= block->lineFourY)) {
+      blocChar= '\'';
+      putBlockInMat(typeOfBlock,newMat,0,position, &previewBlock, blocChar);
+    }
   }
 
   for (int i = 0; i < Y; i++) {

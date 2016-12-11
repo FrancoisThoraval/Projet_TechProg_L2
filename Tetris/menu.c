@@ -539,6 +539,7 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
           } while(input != 10); //Il faut appuyer sur entrée pour quitter
           playSample(12,sample);
           refresh();
+          endwin();
           callMenuWithMusic(difficulty_O_Meter);
           break;
         case 3:
@@ -673,16 +674,6 @@ void menu(float *difficulty_O_Meter, Mix_Music *menuMusic){
   int item = 1;
   int input;
 
-  initscr();
-  start_color();
-  init_pair(1, COLOR_RED, COLOR_BLACK);
-  init_pair(2, COLOR_GREEN, COLOR_BLACK);
-  init_pair(3, COLOR_BLUE, COLOR_BLACK);
-  init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair(6, COLOR_CYAN, COLOR_BLACK);
-  init_pair(7, COLOR_WHITE, COLOR_BLACK);
-
   attron(COLOR_PAIR(7));
   erase();
   noecho();
@@ -701,6 +692,17 @@ void callMenuWithMusic(float *difficulty_O_Meter){
   SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *menuMusic = NULL;
+
+  initscr();
+  start_color();
+
+  init_pair(1, COLOR_RED, COLOR_BLACK);
+  init_pair(2, COLOR_GREEN, COLOR_BLACK);
+  init_pair(3, COLOR_BLUE, COLOR_BLACK);
+  init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  init_pair(7, COLOR_WHITE, COLOR_BLACK);
 
   playSound(0,menuMusic);
   menu(difficulty_O_Meter,menuMusic);
