@@ -37,9 +37,8 @@ void printBestScores2(saveScore oldScores[nbOldScore]) {
 
 void getName(char name[lengthName]) {
   // char cur_input;
-  // echo();
-  endwin();
-  system("clear");
+  echo();
+  // system("clear");
   printf("Nom du joueur (20 lettres max) : ");
   scanf("%s",name);
   // printw("Nom du joueur (20 lettres max) : ");
@@ -163,9 +162,9 @@ void sortScores(saveScore oldScores[nbOldScore], saveScore save){
   for (int i = nbOldScore -1; i >= 0; i--) {
     if(oldScores[i].score < save.score){
       ramScores(&(oldScores[i]),&save,1);
-      if (i < 1) {
-        ramScores(&save,&(oldScores[i-1]),1);
-      }
+      // if (i < 1) {
+      //   ramScores(&save,&(oldScores[i-1]),1);
+      // }
     }
   }
 }
@@ -199,6 +198,7 @@ void Score(int *score, int *line, float *difficulty_O_Meter){
   fileScoreHandler(oldScores,1);
   // printBestScores(oldScores);
   // sleep(3);
+  // printf("going back to menu in 3 seconds\n");
   callMenuWithMusic(difficulty_O_Meter);
 }
 
