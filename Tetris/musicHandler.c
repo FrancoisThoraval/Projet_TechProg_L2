@@ -54,7 +54,7 @@ void playSample(int event, Mix_Chunk *sample){
   }
 }
 
-void playSound(int isCrazyMode,Mix_Music *music){
+void playSound(int isCrazyMode, Mix_Music *music){
   int song;
   Mix_VolumeMusic(MIX_MAX_VOLUME);
   if (isCrazyMode) {

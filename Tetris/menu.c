@@ -115,9 +115,9 @@ void displayMenuGameOver(int i){
   switch (i) {
     case 1:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("-->   SAVE YOUR SCORE\n");
       printw("     BACK TO MENU\n");
@@ -128,9 +128,9 @@ void displayMenuGameOver(int i){
       break;
     case 2:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     SAVE YOUR SCORE\n");
       printw("-->   BACK TO MENU\n");
@@ -141,9 +141,9 @@ void displayMenuGameOver(int i){
       break;
     case 3:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    !!! GAME OVER !!!\n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     SAVE YOUR SCORE\n");
       printw("     BACK TO MENU\n");
@@ -159,9 +159,9 @@ void displayModeTwo(int i){
   switch (i) {
     case 1:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    Choose Level \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("-->   Level 1 (4 lines)\n");
       printw("     Level 2 (6 lines)\n");
@@ -173,9 +173,9 @@ void displayModeTwo(int i){
       break;
     case 2:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    Choose Level \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     Level 1 (4 lines)\n");
       printw("-->   Level 2 (6 lines)\n");
@@ -187,9 +187,9 @@ void displayModeTwo(int i){
       break;
     case 3:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    Choose Level \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     Level 1 (4 lines)\n");
       printw("     Level 2 (6 lines)\n");
@@ -201,9 +201,9 @@ void displayModeTwo(int i){
       break;
     case 4:
       erase();
-      printw("=======================================================================");
+      printw("=====================================================");
       printw(" \n\n\n                    Choose Level \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     Level 1 (4 lines)\n");
       printw("     Level 2 (6 lines)\n");
@@ -220,9 +220,9 @@ void displayMenuOptions(int i){
   switch (i) {
     case 1:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("-->   CHILL (CONSTANT SPEED)\n");
       printw("     EASY\n");
@@ -237,9 +237,9 @@ void displayMenuOptions(int i){
       break;
     case 2:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     CHILL (CONSTANT SPEED)\n");
       printw("-->   EASY\n");
@@ -254,9 +254,9 @@ void displayMenuOptions(int i){
       break;
     case 3:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     CHILL (CONSTANT SPEED)\n");
       printw("     EASY\n");
@@ -271,9 +271,9 @@ void displayMenuOptions(int i){
       break;
     case 4:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     CHILL (CONSTANT SPEED)\n");
       printw("     EASY\n");
@@ -288,9 +288,9 @@ void displayMenuOptions(int i){
       break;
     case 5:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     CHILL (CONSTANT SPEED)\n");
       printw("     EASY\n");
@@ -305,9 +305,9 @@ void displayMenuOptions(int i){
       break;
     case 6:
       erase();
-      printw("=======================================================================");
-      printw(" \n\n\n                        OPTIONS       \n\n\n");
-      printw("======================================================================= \n\n");
+      printw("=====================================================");
+      printw(" \n\n\n                       OPTIONS \n\n\n");
+      printw("===================================================== \n\n");
       printw("-----------------------------------------------------\n");
       printw("     CHILL (CONSTANT SPEED)\n");
       printw("     EASY\n");
@@ -539,7 +539,7 @@ int menuGameOverMovement(int *pitem, int *score, int *line, float *difficulty_O_
           } while(input != 10); //Il faut appuyer sur entrée pour quitter
           playSample(12,sample);
           refresh();
-          endwin();
+          // endwin();
           callMenuWithMusic(difficulty_O_Meter);
           break;
         case 3:
@@ -692,10 +692,10 @@ void callMenuWithMusic(float *difficulty_O_Meter){
   SDL_Init(SDL_INIT_AUDIO);
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
   Mix_Music *menuMusic = NULL;
-
   initscr();
-  start_color();
+  start_color(); //Demarre le mode couleur de ncurses
 
+  // Jeux de couleurs (id, couleur caractère, couleur de fond)
   init_pair(1, COLOR_RED, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_BLACK);
   init_pair(3, COLOR_BLUE, COLOR_BLACK);

@@ -22,7 +22,3 @@ movementHandler.o : movementHandler.c
 
 musicHandler.o : musicHandler.c
 	gcc -Wall -c musicHandler.c `sdl-config --libs` -lSDL_mixer -std=c99
-
-# clean ne s'execute pas tout seul ...
-clean:
-	rm *.o

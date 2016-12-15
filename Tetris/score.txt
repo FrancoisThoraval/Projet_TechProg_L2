@@ -1,7 +1,7 @@
 19999 0 DrNo
 9999 0 Goldfinger
 6000 0 Blofeld
-4000 0 GOD
+4000 0 Requin
 2000 0 Scaramanga
 1000 0 MrWhite
 666 0 LeChiffre

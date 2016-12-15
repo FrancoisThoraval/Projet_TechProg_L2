@@ -1,20 +1,12 @@
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include "matrixHandler.h"
-#include "movementHandler.h"
-#include "scoreHandler.h"
-#include "definition.h"
 #include "menu.h"
 
-#include <ncurses.h> //Equivalent à conio.h pour kbhit et getch
-// #include <unistd.h>
-
 // ===================================== MODE CLASSIQUE =====================================
-// 
+//
+
 void play(float difficulty_O_Meter) {
   coordBlock block;
+  char mat[Y][X];
+  int randomNumber;
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
@@ -42,10 +34,10 @@ void play(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 5;
+    randomNumber = 5;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2,0, &block,'x');
+    putBlockInMat(randomNumber,mat,2, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
@@ -83,11 +75,12 @@ void play(float difficulty_O_Meter) {
 // ===================================== MODE ALTERNATIF =====================================
 //
 // Quasi le même code que play(float difficulty_O_Meter) sauf qu'on accélère pas la chute des blocs qui est fixée à une vitesse de 2 secondes
-// et que le game over vérifie s'il y a encore des blocs dans la matrice (ce qui rend le jeu plus lent)
+// et que le game over vérifie s'il y a encore des blocs dans la matrice (ce qui rend le jeu un peu plus lent)
 
 void playModeTwo(float difficulty_O_Meter) {
   coordBlock block;
-
+  char mat[Y][X];
+  int randomNumber;
   int gameOn =0;
   int oldNumber = -1;
   int score = 0;
@@ -118,7 +111,7 @@ void playModeTwo(float difficulty_O_Meter) {
     // randomNumber = 0;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2,0, &block,'x');
+    putBlockInMat(randomNumber,mat,2, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;

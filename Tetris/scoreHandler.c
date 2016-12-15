@@ -1,11 +1,4 @@
 #include "scoreHandler.h"
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <ncurses.h>
-#include "definition.h"
 #include "menu.h"
 
 void showScore(int score, int line, int tries){
@@ -36,28 +29,10 @@ void printBestScores2(saveScore oldScores[nbOldScore]) {
 }
 
 void getName(char name[lengthName]) {
-  // char cur_input;
-  // echo();
-  endwin();
+  endwin(); //On met fin à la "window" ncurses pour pouvoir réutiliser printf et scanf
   system("clear");
   printf("Nom du joueur (20 lettres max) : ");
   scanf("%s",name);
-  // printw("Nom du joueur (20 lettres max) : ");
-  //
-  // for(int i=0; i <= lengthName; i++) {
-  //   cur_input = getch();
-  //   if(cur_input != '\n')
-  //     name[i] = cur_input;
-  //   else
-  //     if (((int)(cur_input) > 126)&&((int)(cur_input) < 32)) {
-  //       i--;
-  //     }else
-  //       break;
-  // }
-  // getstr(name);
-  // printw("Name: %s", name);
-  // getch();
-  // refresh();
 }
 
 void readFile(saveScore oldScores[nbOldScore]){
@@ -75,6 +50,20 @@ void readFile(saveScore oldScores[nbOldScore]){
   fclose(file);
 }
 
+void readFile2(saveScore oldScores[nbOldScore]){
+  FILE *file;
+  file = fopen("score2.txt", "r");
+
+  if (file != NULL) {
+    for (int i = nbOldScore -1; i >= 0; i--) {
+      fscanf(file,"%d %d %d %s \n",&(oldScores[i]).score,&(oldScores[i]).line,&(oldScores[i]).tries ,oldScores[i].name);
+    }
+  }
+  else
+    perror("There is no file named \"score2.txt\" !\n");
+  fclose(file);
+}
+
 void writeFile(saveScore oldScores[nbOldScore]){
   FILE *file;
   file = fopen("score.txt", "w");
@@ -88,20 +77,6 @@ void writeFile(saveScore oldScores[nbOldScore]){
     perror("There is no file named \"score.txt\" !\n");
   fclose(file);
 
-}
-
-void readFile2(saveScore oldScores[nbOldScore]){
-  FILE *file;
-  file = fopen("score2.txt", "r");
-
-  if (file != NULL) {
-    for (int i = nbOldScore -1; i >= 0; i--) {
-      fscanf(file,"%d %d %d %s \n",&(oldScores[i]).score,&(oldScores[i]).line,&(oldScores[i]).tries ,oldScores[i].name);
-    }
-  }
-  else
-    perror("There is no file named \"score2.txt\" !\n");
-  fclose(file);
 }
 
 void writeFile2(saveScore oldScores[nbOldScore]){

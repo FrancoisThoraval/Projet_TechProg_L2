@@ -1,0 +1,16 @@
+┏━━┓╋╋╋╋╋┏┓╋╋╋╋╋╋╋╋┏┓╋╋╋╋╋╋╋╋╋╋╋╋┏━┓╋╋╋╋╋┏━━┓╋╋╋╋╋┏┓╋╋╋┏┓┏┓╋╋╋┏┓
+┗┫┣┛╋╋╋╋┏┛┗┓╋╋╋╋╋╋┏┛┗┓╋╋╋╋╋╋╋╋╋╋╋┃┏┛╋╋╋╋╋┗┫┣┛╋╋╋╋┏┛┗┓╋╋┃┃┃┃╋╋┏┛┗┓
+╋┃┃┏━┓┏━┻┓┏╋━┳┓┏┳━┻┓┏╋┳━━┳━┓┏━━┓┏┛┗┳━━┳━┓╋┃┃┏━┓┏━┻┓┏╋━━┫┃┃┃┏━┻┓┏╋┳━━┳━┓
+╋┃┃┃┏┓┫━━┫┃┃┏┫┃┃┃┏━┫┃┣┫┏┓┃┏┓┫━━┫┗┓┏┫┏┓┃┏┛╋┃┃┃┏┓┫━━┫┃┃┏┓┃┃┃┃┃┏┓┃┃┣┫┏┓┃┏┓┓
+┏┫┣┫┃┃┣━━┃┗┫┃┃┗┛┃┗━┫┗┫┃┗┛┃┃┃┣━━┃╋┃┃┃┗┛┃┃╋┏┫┣┫┃┃┣━━┃┗┫┏┓┃┗┫┗┫┏┓┃┗┫┃┗┛┃┃┃┃
+┗━━┻┛┗┻━━┻━┻┛┗━━┻━━┻━┻┻━━┻┛┗┻━━┛╋┗┛┗━━┻┛╋┗━━┻┛┗┻━━┻━┻┛┗┻━┻━┻┛┗┻━┻┻━━┻┛┗┛
+
+Note: It will only install the Tetris
+
+1. Unzip Projet_TechProg_L2_FrancoisThoraval_MathieuGarcia.zip
+2. Open a terminal and navigate to the game files.
+3. Type "./install.sh", it should install the game. (make sure install.sh is executable ("chmod +x install.sh"))
+   (if the installator doesn't work either, go in the game folder and type "make")
+4. Go to the game folder of your choice
+5. Execute the game (ex: "./Tetris")
+6. Enjoy !

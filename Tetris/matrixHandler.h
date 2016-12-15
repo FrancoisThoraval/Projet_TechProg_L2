@@ -6,39 +6,48 @@
 #include "scoreHandler.h"
 #include <ncurses.h>
 
-/*
-Description: (pas à jour)
+// =======================================================
+// Fichier de gestion de la matrice
+// =======================================================
 
-- PROCEDURE errorHandler (errorCode: entier) -> gère les erreurs potentielles
-- PROCEDURE Affiche (mat[Y,X]: matrice de caractères) -> Affiche la matrice avec les bordures
-- PROCEDURE square to iail (mat[Y,X]: matrice de caractères) -> Cree un carré/ Z / L / J / T / I dans la matrice
-- PROCEDURE putBlockInMat (randomNumber: entier, mat[Y,X]: matrice de caractères) -> définit quel bloc on met dans la matrice en fonction d'un nombre aléatoire
-- PROCEDURE recopyOldMat (mat[Y,X]: matrice de caractères) -> une fois que le bloc est joué et a atteint sa position finale, remplace tous les 'x' du bloc par des 'o' représentant les blocs placés
-- PROCEDURE initMatrix (mat[Y,X]: matrice de caractères) -> Cree la matrice avec les bordures et remplie de caractères vides
-- FONCTION randomize (): entier -> Génère un nombre aléatoire entre 0 et 5 définissant le type de bloc qui sera généré
+// Fonction qui vérifie si la partie est finie
+int gameOver(char mat[Y][X],int mode, int difficulty_O_Meter);
 
-*/
-
-char mat[Y][X];
-int randomNumber;
-
-void errorHandler(int errorCode);
-int gameOver(char mat[Y][X], int mode, int difficulty_O_Meter);
-void fillMatrix(char mat[Y][X], int difficulty_O_Meter);
-int randomize();
+// Procedure qui initialise la matrice avec des ' ' (espaces)
 void initMatrix(char mat[Y][X]);
-void show(char mat[Y][X], int score, int line,int tries);
-void initCoordStruct();
+
+// Fonction qui remplit aléatoirement la matrice (mode alternatif)
+void fillMatrix(char mat[Y][X], int difficulty_O_Meter);
+
+// Fonction qui tire au sort un nombre entre 0 et nbValues
+int randomize(int nbValues);
+
+// Procedure qui affiche la matrice en y ajoutant les bordures et le score
+void show(char mat[Y][X],int score, int line, int tries);
+
+// Procedure qui initialise les coordonées du bloc
+void initCoordStruct(coordBlock *block);
 
 // Design blocs
-void square(char mat[Y][X], int isSet, coordBlock *block, char blocChar);
-void zeee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void leee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void jeee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void teee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void iail(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void seee(char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
+void square(char mat[Y][X], coordBlock *block, char blocChar);
+void zeee(char mat[Y][X], int position, coordBlock *block, char blocChar);
+void leee(char mat[Y][X], int position, coordBlock *block, char blocChar);
+void jeee(char mat[Y][X], int position, coordBlock *block, char blocChar);
+void teee(char mat[Y][X], int position, coordBlock *block, char blocChar);
+void iail(char mat[Y][X], int position, coordBlock *block, char blocChar);
+void seee(char mat[Y][X], int position, coordBlock *block, char blocChar);
 
-void putBlockInMat(int randomNumber,char mat[Y][X], int isSet, int position, coordBlock *block, char blocChar);
-void blockEnd(char mat[Y][X]);
+// Choisis la forme du bloc a placer dans la matrice
+void putBlockInMat(int randomNumber,char mat[Y][X], int position, coordBlock *block, char blocChar);
+
+// Fonction qui renvoit une structure de coordonées dans une autre (prédiction du placement)
+coordBlock copyBlock(coordBlock *block);
+
+// Procedure qui initialise une nouvelle matrice dans laquelle on va recopier
+// le contenu de l'ancienne, et placer le bloc à sa nouvelle coordonée
+// Si PREDICTION (voir definition.h) est à 0, on place le même bloc à l'endroit
+// où se trouveras le bloc si l'on descend
 void matrixMovement(char mat[Y][X], int typeOfBlock, int position, coordBlock *block);
+
+// Procedure qui transforme le bloc joué ('x') en bloc placé ('o').
+void blockEnd(char mat[Y][X]);

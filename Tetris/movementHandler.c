@@ -1,9 +1,5 @@
 #include "movementHandler.h"
 
-// TODO: regler le glitch de la rotation
-
-// Fonctions qui vérifient qu'on peut encore descendre (canMoveV) ou bouger horizontalement (canMoveH)
-
 int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, char mat[Y][X]){
   int isPossibleA = 0;
   int isPossibleB = 0;
@@ -51,11 +47,13 @@ int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, 
           isPossibleG = 1;
         }
       }
+      // Cas du I
       if ((mat[block->lineThreeY][block->rightX]=='x')) {
         if ((block->rightX == -1)||(mat[block->lineOneY][block->rightX] == 'o')) {
           isPossibleH = 1;
         }
       }
+
       break;
     case 1:
       if ((mat[block->lineOneY][block->leftX]=='x')) {
@@ -95,6 +93,12 @@ int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, 
       }
       if ((mat[block->lineThreeY][block->rightX]=='x')) {
         if ((block->leftX == X-1)||(mat[block->lineThreeY][block->leftX] == 'o')) {
+          isPossibleH = 1;
+        }
+      }
+      // Cas du I
+      if ((mat[block->lineFourY][block->middleX]=='x')) {
+        if ((block->rightX+1 == X-1)||(mat[block->lineOneY][block->rightX+1] == 'o')) {
           isPossibleH = 1;
         }
       }
@@ -210,7 +214,6 @@ int canMoveH(char mat[Y][X], int side, coordBlock *block){
   return isPossible;
 }
 
-// Verification verticale que l'on peut encore descendre
 int canMoveV(char mat[Y][X], coordBlock *block){
   int isPossible=0;
 
