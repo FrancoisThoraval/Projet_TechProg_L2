@@ -160,7 +160,6 @@ void Score(int *score, int *line, float *difficulty_O_Meter){
   saveScore save;
   saveScore oldScores[nbOldScore];
   // On récupère les infos de la partie
-  // echo();
   getName(save.name);
   save.score = *score;
   save.line = *line;
@@ -173,9 +172,7 @@ void Score(int *score, int *line, float *difficulty_O_Meter){
 
   // On écrit le nouveau fichier
   fileScoreHandler(oldScores,1);
-  // printBestScores(oldScores);
-  // sleep(3);
-  // printf("going back to menu in 3 seconds\n");
+
   callMenuWithMusic(difficulty_O_Meter);
 }
 

@@ -1,5 +1,7 @@
 #include "movementHandler.h"
 
+// canRotate, canMoveH et canMoveV fonctionnent de la même facon, on regarde s'il y a un caractère 'x' autour des coordonnées (recherche du bloc)
+// et on essaie si la position future de ce caractère sera possible ou non.
 int canRotate(int direction, coordBlock *block, int typeOfBlock, int *position, char mat[Y][X]){
   int isPossibleA = 0;
   int isPossibleB = 0;
@@ -156,11 +158,6 @@ int canMoveH(char mat[Y][X], int side, coordBlock *block){
           isPossibleThM = 1;
         }
       }
-      // if ((mat[block->lineFourY][block->middleX]=='x')) {
-      //   if ((block->leftX -1 == -1)||(mat[block->lineFourY][block->middleX] == 'o')) {
-      //     isPossibleFL = 1;
-      //   }
-      // }
       break;
     case 1:
       if ((mat[block->lineOneY][block->middleX]=='x')) {

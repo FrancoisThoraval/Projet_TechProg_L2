@@ -5,6 +5,7 @@
 
 void play(float difficulty_O_Meter) {
   coordBlock block;
+
   char mat[Y][X];
   int randomNumber;
   int gameOn =0;
@@ -34,10 +35,9 @@ void play(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    randomNumber = 5;
-
+    
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2, &block,'x');
+    putBlockInMat(randomNumber,mat,0, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
@@ -108,10 +108,9 @@ void playModeTwo(float difficulty_O_Meter) {
       randomNumber = randomize(7);
     } while(randomNumber == oldNumber);
     oldNumber = randomNumber;
-    // randomNumber = 0;
 
     //On met le bloc dans la matrice
-    putBlockInMat(randomNumber,mat,2, &block,'x');
+    putBlockInMat(randomNumber,mat,0, &block,'x');
     refresh();
     show(mat, score, line,tries); //on l'affiche
     nbLines = line;
